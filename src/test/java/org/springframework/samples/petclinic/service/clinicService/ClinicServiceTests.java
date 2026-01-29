@@ -46,8 +46,7 @@ class ClinicServiceTests {
     @Test
     void shouldFindOwnersByLastName() {
         assertThat(clinicService.findOwnerByLastName("Davis").size()).isEqualTo(2);
-
-        assertThat(clinicService.findOwnerByLastName("Daviss").isEmpty()).isTrue();
+        assertThat(clinicService.findOwnerByLastName("Daviss")).isEmpty();
     }
 
     @Test
