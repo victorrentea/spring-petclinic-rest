@@ -109,7 +109,6 @@ By default, Petclinic uses an **in-memory H2 database**, which is automatically 
 Petclinic uses Spring Data JPA as its single persistence implementation. Supported runtime databases are:
 
 - H2 (default, in-memory)
-- HSQLDB (alternative, in-memory)
 - PostgreSQL (persistent)
 
 Switch profiles by setting `spring.profiles.active` in `application.properties`, for example:
@@ -141,15 +140,6 @@ The application relies on Spring Boot auto-configuration for JPA; no additional 
    - **Username**: `sa`
    - **Password**: _(leave blank)_
 
-### **Using HSQLDB**
-- HSQLDB works similarly to H2 as an **in-memory database**.
-- No additional setup is required—schema and sample data are loaded automatically from `src/main/resources/db/hsqldb/`.
-- Swtich to **HSQLDB** by modifying `application.properties`:
-
-    ```properties
-    spring.profiles.active=hsqldb,spring-data-jpa
-    ```
-
 ### **Using PostgreSQL**
 Modify application.properties:
 
@@ -169,7 +159,6 @@ docker-compose --profile postgres up
 ```
 
 ### **Further Documentation**
-- [HSQLDB](http://hsqldb.org/doc/2.0/guide/index.html)
 - [PostgreSQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/postgres/petclinic_db_setup_postgres.txt)
 
 ## API First Approach
