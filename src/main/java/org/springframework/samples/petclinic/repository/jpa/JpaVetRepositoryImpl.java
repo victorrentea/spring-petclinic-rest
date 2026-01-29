@@ -44,27 +44,27 @@ public class JpaVetRepositoryImpl implements VetRepository {
 
 	@Override
 	public Vet findById(int id) throws DataAccessException {
-		return this.em.find(Vet.class, id);
+		return em.find(Vet.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Vet> findAll() throws DataAccessException {
-		return this.em.createQuery("SELECT vet FROM Vet vet").getResultList();
+		return em.createQuery("SELECT vet FROM Vet vet").getResultList();
 	}
 
 	@Override
 	public void save(Vet vet) throws DataAccessException {
         if (vet.getId() == null) {
-            this.em.persist(vet);
+            em.persist(vet);
         } else {
-            this.em.merge(vet);
+            em.merge(vet);
         }
 	}
 
 	@Override
 	public void delete(Vet vet) throws DataAccessException {
-		this.em.remove(this.em.contains(vet) ? vet : this.em.merge(vet));
+		em.remove(em.contains(vet) ? vet : em.merge(vet));
 	}
 
 

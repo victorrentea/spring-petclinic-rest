@@ -36,8 +36,8 @@ public class SpringDataPetRepositoryImpl implements PetRepositoryOverride {
 	@Override
 	public void delete(Pet pet) {
 		String petId = pet.getId().toString();
-		this.em.createQuery("DELETE FROM Visit visit WHERE pet.id=" + petId).executeUpdate();
-		this.em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
+		em.createQuery("DELETE FROM Visit visit WHERE pet.id=" + petId).executeUpdate();
+		em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
         if (em.contains(pet)) {
             em.remove(pet);
         }

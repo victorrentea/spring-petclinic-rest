@@ -48,7 +48,7 @@ public class UserRestController implements UsersApi {
     public ResponseEntity<UserDto> addUser(UserDto userDto) {
         HttpHeaders headers = new HttpHeaders();
         User user = userMapper.toUser(userDto);
-        this.userService.saveUser(user);
+        userService.saveUser(user);
         return new ResponseEntity<>(userMapper.toUserDto(user), headers, HttpStatus.CREATED);
     }
 }

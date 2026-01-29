@@ -47,35 +47,35 @@ public class JpaPetRepositoryImpl implements PetRepository {
     @Override
     @SuppressWarnings("unchecked")
     public List<PetType> findPetTypes() {
-        return this.em.createQuery("SELECT ptype FROM PetType ptype ORDER BY ptype.name").getResultList();
+        return em.createQuery("SELECT ptype FROM PetType ptype ORDER BY ptype.name").getResultList();
     }
 
     @Override
     public Pet findById(int id) {
-        return this.em.find(Pet.class, id);
+        return em.find(Pet.class, id);
     }
 
     @Override
     public void save(Pet pet) {
         if (pet.getId() == null) {
-            this.em.persist(pet);
+            em.persist(pet);
         } else {
-            this.em.merge(pet);
+            em.merge(pet);
         }
     }
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Pet> findAll() throws DataAccessException {
-		return this.em.createQuery("SELECT pet FROM Pet pet").getResultList();
+		return em.createQuery("SELECT pet FROM Pet pet").getResultList();
 	}
 
 	@Override
 	public void delete(Pet pet) throws DataAccessException {
 		//this.em.remove(this.em.contains(pet) ? pet : this.em.merge(pet));
 		String petId = pet.getId().toString();
-		this.em.createQuery("DELETE FROM Visit visit WHERE pet.id=" + petId).executeUpdate();
-		this.em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
+		em.createQuery("DELETE FROM Visit visit WHERE pet.id=" + petId).executeUpdate();
+		em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
 		if (em.contains(pet)) {
 			em.remove(pet);
 		}

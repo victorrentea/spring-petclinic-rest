@@ -65,7 +65,7 @@ public class BindingErrorsResponse {
 	private final List<BindingError> bindingErrors = new ArrayList<BindingError>();
 
 	public void addError(BindingError bindingError) {
-		this.bindingErrors.add(bindingError);
+		bindingErrors.add(bindingError);
 	}
 
 	public void addAllErrors(BindingResult bindingResult) {

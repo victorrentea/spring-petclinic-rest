@@ -18,10 +18,10 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public void save(User user) throws DataAccessException {
-        if (this.em.find(User.class, user.getUsername()) == null) {
-            this.em.persist(user);
+        if (em.find(User.class, user.getUsername()) == null) {
+            em.persist(user);
         } else {
-            this.em.merge(user);
+            em.merge(user);
         }
     }
 }

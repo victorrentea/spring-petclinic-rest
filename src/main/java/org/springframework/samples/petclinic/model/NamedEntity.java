@@ -36,7 +36,7 @@ public class NamedEntity extends BaseEntity {
     private String name;
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -45,7 +45,7 @@ public class NamedEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return this.getName();
+        return getName();
     }
 
 }

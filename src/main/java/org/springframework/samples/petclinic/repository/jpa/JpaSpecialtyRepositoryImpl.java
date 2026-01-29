@@ -43,7 +43,7 @@ public class JpaSpecialtyRepositoryImpl implements SpecialtyRepository {
 
 	@Override
 	public Specialty findById(int id) {
-		return this.em.find(Specialty.class, id);
+		return em.find(Specialty.class, id);
 	}
 
     @Override
@@ -57,24 +57,24 @@ public class JpaSpecialtyRepositoryImpl implements SpecialtyRepository {
     @SuppressWarnings("unchecked")
 	@Override
 	public Collection<Specialty> findAll() throws DataAccessException {
-		return this.em.createQuery("SELECT s FROM Specialty s").getResultList();
+		return em.createQuery("SELECT s FROM Specialty s").getResultList();
 	}
 
 	@Override
 	public void save(Specialty specialty) throws DataAccessException {
 		if (specialty.getId() == null) {
-            this.em.persist(specialty);
+            em.persist(specialty);
         } else {
-            this.em.merge(specialty);
+            em.merge(specialty);
         }
 	}
 
 	@Override
 	public void delete(Specialty specialty) throws DataAccessException {
-		this.em.remove(this.em.contains(specialty) ? specialty : this.em.merge(specialty));
+		em.remove(em.contains(specialty) ? specialty : em.merge(specialty));
 		Integer specId = specialty.getId();
-		this.em.createNativeQuery("DELETE FROM vet_specialties WHERE specialty_id=" + specId).executeUpdate();
-		this.em.createQuery("DELETE FROM Specialty specialty WHERE id=" + specId).executeUpdate();
+		em.createNativeQuery("DELETE FROM vet_specialties WHERE specialty_id=" + specId).executeUpdate();
+		em.createQuery("DELETE FROM Specialty specialty WHERE id=" + specId).executeUpdate();
 	}
 
 }

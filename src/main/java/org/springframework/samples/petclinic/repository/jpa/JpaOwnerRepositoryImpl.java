@@ -56,7 +56,7 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
     public Collection<Owner> findByLastName(String lastName) {
         // using 'join fetch' because a single query should load both owners and pets
         // using 'left join fetch' because it might happen that an owner does not have pets yet
-        Query query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
+        Query query = em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
         query.setParameter("lastName", lastName + "%");
         return query.getResultList();
     }
@@ -65,7 +65,7 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
     public Owner findById(int id) {
         // using 'join fetch' because a single query should load both owners and pets
         // using 'left join fetch' because it might happen that an owner does not have pets yet
-        Query query = this.em.createQuery("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id");
+        Query query = em.createQuery("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id");
         query.setParameter("id", id);
         return (Owner) query.getSingleResult();
     }
@@ -74,9 +74,9 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
     @Override
     public void save(Owner owner) {
         if (owner.getId() == null) {
-            this.em.persist(owner);
+            em.persist(owner);
         } else {
-            this.em.merge(owner);
+            em.merge(owner);
         }
 
     }
@@ -84,13 +84,13 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Owner> findAll() throws DataAccessException {
-		Query query = this.em.createQuery("SELECT owner FROM Owner owner");
+		Query query = em.createQuery("SELECT owner FROM Owner owner");
         return query.getResultList();
 	}
 
 	@Override
 	public void delete(Owner owner) throws DataAccessException {
-		this.em.remove(this.em.contains(owner) ? owner : this.em.merge(owner));
+		em.remove(em.contains(owner) ? owner : em.merge(owner));
 	}
 
 }

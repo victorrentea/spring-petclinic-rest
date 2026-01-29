@@ -70,7 +70,7 @@ public class ExceptionControllerAdvice {
     @ResponseBody
     public ResponseEntity<ProblemDetail> handleGeneralException(Exception e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        ProblemDetail detail = this.detailBuild(e, status, request.getRequestURL());
+        ProblemDetail detail = detailBuild(e, status, request.getRequestURL());
         return ResponseEntity.status(status).body(detail);
     }
 
@@ -86,7 +86,7 @@ public class ExceptionControllerAdvice {
     @ResponseBody
     public ResponseEntity<ProblemDetail> handleDataIntegrityViolationException(DataIntegrityViolationException ex, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        ProblemDetail detail = this.detailBuild(ex, status, request.getRequestURL());
+        ProblemDetail detail = detailBuild(ex, status, request.getRequestURL());
         return ResponseEntity.status(status).body(detail);
     }
 
@@ -105,7 +105,7 @@ public class ExceptionControllerAdvice {
         BindingResult bindingResult = ex.getBindingResult();
         if (bindingResult.hasErrors()) {
             errors.addAllErrors(bindingResult);
-            ProblemDetail detail = this.detailBuild(ex, status, request.getRequestURL());
+            ProblemDetail detail = detailBuild(ex, status, request.getRequestURL());
             return ResponseEntity.status(status).body(detail);
         }
         return ResponseEntity.status(status).build();

@@ -63,7 +63,7 @@ public class Visit extends BaseEntity {
      * @return Value of property date.
      */
     public LocalDate getDate() {
-        return this.date;
+        return date;
     }
 
     /**
@@ -81,7 +81,7 @@ public class Visit extends BaseEntity {
      * @return Value of property description.
      */
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Visit extends BaseEntity {
      * @return Value of property pet.
      */
     public Pet getPet() {
-        return this.pet;
+        return pet;
     }
 
     /**

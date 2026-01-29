@@ -64,11 +64,11 @@ public class User {
 
     @JsonIgnore
     public void addRole(String roleName) {
-        if(this.roles == null) {
+        if(roles == null) {
             this.roles = new HashSet<>();
         }
         Role role = new Role();
         role.setName(roleName);
-        this.roles.add(role);
+        roles.add(role);
     }
 }

@@ -40,25 +40,25 @@ public class SpringDataPetTypeRepositoryImpl implements PetTypeRepositoryOverrid
 	@Override
 	public void delete(PetType petType) {
         // Ensure we work with a managed entity
-        PetType managed = this.em.contains(petType) ? petType : this.em.merge(petType);
+        PetType managed = em.contains(petType) ? petType : em.merge(petType);
         // Delete dependent visits and pets first to avoid FK constraint violations
         Integer petTypeId = managed.getId();
-        List<Pet> pets = this.em.createQuery("SELECT p FROM Pet p WHERE p.type.id = :typeId", Pet.class)
+        List<Pet> pets = em.createQuery("SELECT p FROM Pet p WHERE p.type.id = :typeId", Pet.class)
                 .setParameter("typeId", petTypeId)
                 .getResultList();
         for (Pet pet : pets) {
             // delete visits for this pet
-            this.em.createQuery("DELETE FROM Visit v WHERE v.pet.id = :petId")
+            em.createQuery("DELETE FROM Visit v WHERE v.pet.id = :petId")
                     .setParameter("petId", pet.getId())
                     .executeUpdate();
             // delete the pet
-            this.em.createQuery("DELETE FROM Pet p WHERE p.id = :petId")
+            em.createQuery("DELETE FROM Pet p WHERE p.id = :petId")
                     .setParameter("petId", pet.getId())
                     .executeUpdate();
         }
         // finally delete the pet type
         // perform JPQL bulk delete to ensure the DB row is removed
-        this.em.createQuery("DELETE FROM PetType pt WHERE pt.id = :id")
+        em.createQuery("DELETE FROM PetType pt WHERE pt.id = :id")
         		.setParameter("id", petTypeId)
         		.executeUpdate();
 	}

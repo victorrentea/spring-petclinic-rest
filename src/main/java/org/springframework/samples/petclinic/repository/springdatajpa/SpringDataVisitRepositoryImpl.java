@@ -37,7 +37,7 @@ public class SpringDataVisitRepositoryImpl implements VisitRepositoryOverride {
 	@Override
 	public void delete(Visit visit) throws DataAccessException {
 		String visitId = visit.getId().toString();
-		this.em.createQuery("DELETE FROM Visit visit WHERE id=" + visitId).executeUpdate();
+		em.createQuery("DELETE FROM Visit visit WHERE id=" + visitId).executeUpdate();
         if (em.contains(visit)) {
             em.remove(visit);
         }

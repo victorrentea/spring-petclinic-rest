@@ -50,9 +50,9 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
     @Override
     public void save(Visit visit) {
         if (visit.getId() == null) {
-            this.em.persist(visit);
+            em.persist(visit);
         } else {
-            this.em.merge(visit);
+            em.merge(visit);
         }
     }
 
@@ -60,25 +60,25 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
     @Override
     @SuppressWarnings("unchecked")
     public List<Visit> findByPetId(Integer petId) {
-        Query query = this.em.createQuery("SELECT v FROM Visit v where v.pet.id= :id");
+        Query query = em.createQuery("SELECT v FROM Visit v where v.pet.id= :id");
         query.setParameter("id", petId);
         return query.getResultList();
     }
 
 	@Override
 	public Visit findById(int id) throws DataAccessException {
-		return this.em.find(Visit.class, id);
+		return em.find(Visit.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Visit> findAll() throws DataAccessException {
-        return this.em.createQuery("SELECT v FROM Visit v").getResultList();
+        return em.createQuery("SELECT v FROM Visit v").getResultList();
 	}
 
 	@Override
 	public void delete(Visit visit) throws DataAccessException {
-        this.em.remove(this.em.contains(visit) ? visit : this.em.merge(visit));
+        em.remove(em.contains(visit) ? visit : em.merge(visit));
 	}
 
 }

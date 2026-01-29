@@ -67,8 +67,8 @@ public class CallMonitoringAspect {
 
     @ManagedAttribute
     public long getCallTime() {
-        if (this.callCount > 0)
-            return this.accumulatedCallTime / this.callCount;
+        if (callCount > 0)
+            return accumulatedCallTime / callCount;
         else
             return 0;
     }
@@ -76,7 +76,7 @@ public class CallMonitoringAspect {
 
     @Around("within(@org.springframework.stereotype.Repository *)")
     public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
-        if (this.enabled) {
+        if (enabled) {
             StopWatch sw = new StopWatch(joinPoint.toShortString());
 
             sw.start("invoke");
