@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -36,6 +37,7 @@ import java.util.function.Supplier;
  * @author Vitaliy Fedoriv
  */
 @Service
+@RequiredArgsConstructor
 public class ClinicServiceImpl implements ClinicService {
 
     private final PetRepository petRepository;
@@ -44,21 +46,6 @@ public class ClinicServiceImpl implements ClinicService {
     private final VisitRepository visitRepository;
     private final SpecialtyRepository specialtyRepository;
     private final PetTypeRepository petTypeRepository;
-
-    public ClinicServiceImpl(
-        PetRepository petRepository,
-        VetRepository vetRepository,
-        OwnerRepository ownerRepository,
-        VisitRepository visitRepository,
-        SpecialtyRepository specialtyRepository,
-        PetTypeRepository petTypeRepository) {
-        this.petRepository = petRepository;
-        this.vetRepository = vetRepository;
-        this.ownerRepository = ownerRepository;
-        this.visitRepository = visitRepository;
-        this.specialtyRepository = specialtyRepository;
-        this.petTypeRepository = petTypeRepository;
-    }
 
     @Override
     @Transactional(readOnly = true)

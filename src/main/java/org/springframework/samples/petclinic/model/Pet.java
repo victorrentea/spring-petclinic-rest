@@ -46,7 +46,7 @@ public class Pet extends NamedEntity {
     private Owner owner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
-    private Set<Visit> visits;
+    private Set<Visit> visits = new HashSet<>();
 
     public LocalDate getBirthDate() {
         return birthDate;

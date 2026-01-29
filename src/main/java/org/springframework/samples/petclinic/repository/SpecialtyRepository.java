@@ -23,11 +23,6 @@ import java.util.Set;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Specialty;
 
-/**
- * @author Vitaliy Fedoriv
- *
- */
-
 public interface SpecialtyRepository {
 
 	Specialty findById(int id) throws DataAccessException;
