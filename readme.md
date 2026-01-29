@@ -144,7 +144,7 @@ The application relies on Spring Boot auto-configuration for JPA; no additional 
 Modify application.properties:
 
 ```properties
-spring.profiles.active=postgres,spring-data-jpa
+spring.profiles.active=postgres
 ```
 Start a PostgreSQL database using Docker:
 ```bash

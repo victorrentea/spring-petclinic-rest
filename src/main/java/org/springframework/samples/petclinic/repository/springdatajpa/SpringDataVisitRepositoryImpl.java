@@ -19,16 +19,16 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Vitaliy Fedoriv
  *
  */
 
-@Profile("spring-data-jpa")
+@Repository
 public class SpringDataVisitRepositoryImpl implements VisitRepositoryOverride {
 
 	@PersistenceContext
