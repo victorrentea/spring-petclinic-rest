@@ -16,19 +16,17 @@
 
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.samples.petclinic.model.Specialty;
-import org.springframework.samples.petclinic.repository.SpecialtyRepository;
 
 /**
- * Override marker for SpecialtyRepository to be implemented with Spring Data
+ * @author Vitaliy Fedoriv
+ *
  */
 
+@Profile("spring-data-jpa")
 public interface SpecialtyRepositoryOverride {
+	
+	void delete(Specialty specialty);
 
-     @Query("SELECT s FROM Specialty s ORDER BY s.name")
-     List<Specialty> findSpecialtiesByNameIn(java.util.Set<String> names);
 }

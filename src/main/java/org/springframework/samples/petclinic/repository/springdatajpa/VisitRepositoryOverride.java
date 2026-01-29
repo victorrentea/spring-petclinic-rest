@@ -16,17 +16,17 @@
 
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
-import java.util.List;
-
-import org.springframework.data.repository.Repository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 
 /**
- * Override marker for VisitRepository to be implemented with Spring Data
+ * @author Vitaliy Fedoriv
+ *
  */
 
+@Profile("spring-data-jpa")
 public interface VisitRepositoryOverride {
+	
+	void delete(Visit visit);
 
-     java.util.List<Visit> findByPetId(int petId);
 }
