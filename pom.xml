@@ -20,7 +20,6 @@
     <properties>
 
         <!-- Third-party libraries -->
-        <spring-data-jdbc.version>1.2.1.RELEASE</spring-data-jdbc.version>
         <springdoc-openapi-ui.version>2.8.13</springdoc-openapi-ui.version>
         <jackson-databind-nullable.version>0.2.8</jackson-databind-nullable.version>
         <mapstruct.version>1.6.3</mapstruct.version>
@@ -71,10 +70,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
@@ -102,17 +97,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jdbc-core</artifactId>
-            <version>${spring-data-jdbc.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Test libs -->
@@ -194,19 +178,6 @@
                 <version>${maven.project-info-reports-plugin.version}</version>
             </plugin>
             <plugin>
-                <groupId>org.apache.rat</groupId>
-                <artifactId>apache-rat-plugin</artifactId>
-                <version>${maven.rat-plugin.version}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>${maven.license-plugin.version}</version>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <reportSets>
@@ -218,15 +189,6 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.hjug.refactorfirst.plugin</groupId>
-                <artifactId>refactor-first-maven-plugin</artifactId>
-                <version>${maven.refactor-first-plugin.version}</version>
-                <!-- optional -->
-                <configuration>
-                    <showDetails>true</showDetails>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

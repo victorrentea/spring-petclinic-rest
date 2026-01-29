@@ -15,20 +15,15 @@
  */
 package org.springframework.samples.petclinic.service.clinicService;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.samples.petclinic.service.ClinicService;
 
-/**
- * <p> Integration test using the JDBC and HSQLDB profiles.
- *
- * @author Thomas Risberg
- * @author Michael Isvy
- * @see AbstractClinicServiceTests AbstractClinicServiceTests for more details. </p>
- */
 @SpringBootTest
-@ActiveProfiles({"hsqldb", "jdbc"})
-@TestPropertySource(properties = {"spring.sql.init.platform=hsqldb"})
-class ClinicServiceHsqlJdbcTests extends AbstractClinicServiceTests {
+@ActiveProfiles({"hsqldb", "spring-data-jpa"})
+public class ClinicServiceHsqlJdbcTests {
 
 }

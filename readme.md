@@ -104,25 +104,26 @@ Our issue tracker is available here: https://github.com/spring-petclinic/spring-
 
 By default, Petclinic uses an **in-memory H2 database**, which is automatically populated with sample data at startup.
 
-### **Supported Databases**
+### Supported databases
 
-Petclinic supports the following databases:
+Petclinic uses Spring Data JPA as its single persistence implementation. Supported runtime databases are:
 
-- **H2 (Default, In-Memory)**
-- **HSQLDB (Alternative In-Memory Option)**
-- **PostgreSQL (Persistent)**
+- H2 (default, in-memory)
+- HSQLDB (alternative, in-memory)
+- PostgreSQL (persistent)
 
-### **Switching Databases**
+Switch profiles by setting `spring.profiles.active` in `application.properties`, for example:
 
-You can change the database by updating the `spring.profiles.active` property in `application.properties`:
+```properties
+spring.profiles.active=h2
+```
+or for postgres:
 
-| Database  | Profile Configuration |
-|-----------|----------------------|
-| **H2** (Default)  | `spring.profiles.active=h2,spring-data-jpa` |
-| **HSQLDB** (Alternative In-Memory) | `spring.profiles.active=hsqldb,spring-data-jpa` |
-| **PostgreSQL** (Persistent) | `spring.profiles.active=postgres,spring-data-jpa` |
+```properties
+spring.profiles.active=postgres
+```
+The application relies on Spring Boot auto-configuration for JPA; no additional repository wiring is required.
 
-For more details, see the [Spring Boot documentation](https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.set-active-spring-profiles).
 
 ### **Using H2 (Default)**
 - No additional setup is required.
@@ -264,9 +265,7 @@ File -> Import -> Maven -> Existing Maven project
 |--|--|
 | REST API controllers | [REST folder](src/main/java/org/springframework/samples/petclinic/rest) |
 | Service | [ClinicServiceImpl.java](src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java) |
-| JDBC | [jdbc folder](src/main/java/org/springframework/samples/petclinic/repository/jdbc) |
-| JPA | [jpa folder](src/main/java/org/springframework/samples/petclinic/repository/jpa) |
-| Spring Data JPA | [springdatajpa folder](src/main/java/org/springframework/samples/petclinic/repository/springdatajpa) |
+| Spring Data JPA (single implementation) | [springdatajpa folder](src/main/java/org/springframework/samples/petclinic/repository/springdatajpa) |
 | Tests | [AbstractClinicServiceTests.java](src/test/java/org/springframework/samples/petclinic/service/clinicService/AbstractClinicServiceTests.java) |
 
 ## Publishing a Docker image
