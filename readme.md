@@ -110,7 +110,6 @@ Petclinic supports the following databases:
 
 - **H2 (Default, In-Memory)**
 - **HSQLDB (Alternative In-Memory Option)**
-- **MySQL (Persistent)**
 - **PostgreSQL (Persistent)**
 
 ### **Switching Databases**
@@ -121,7 +120,6 @@ You can change the database by updating the `spring.profiles.active` property in
 |-----------|----------------------|
 | **H2** (Default)  | `spring.profiles.active=h2,spring-data-jpa` |
 | **HSQLDB** (Alternative In-Memory) | `spring.profiles.active=hsqldb,spring-data-jpa` |
-| **MySQL** (Persistent) | `spring.profiles.active=mysql,spring-data-jpa` |
 | **PostgreSQL** (Persistent) | `spring.profiles.active=postgres,spring-data-jpa` |
 
 For more details, see the [Spring Boot documentation](https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.set-active-spring-profiles).
@@ -151,17 +149,6 @@ For more details, see the [Spring Boot documentation](https://docs.spring.io/spr
     spring.profiles.active=hsqldb,spring-data-jpa
     ```
 
-### **Using MySQL**
-Modify `application.properties`:
-
-```properties
-spring.profiles.active=mysql,spring-data-jpa
-```
-Start a MySQL database using Docker:
-```bash
-docker run -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 3306:3306 mysql:8.4
-```
-
 ### **Using PostgreSQL**
 Modify application.properties:
 
@@ -176,13 +163,12 @@ docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES
 Instead of manually running containers, you can also use `docker-compose.yml`:
 
 ```sh
-docker-compose --profile mysql up
+# start postgres service
 docker-compose --profile postgres up
 ```
 
 ### **Further Documentation**
 - [HSQLDB](http://hsqldb.org/doc/2.0/guide/index.html)
-- [MySQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/mysql/petclinic_db_setup_mysql.txt)
 - [PostgreSQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/postgres/petclinic_db_setup_postgres.txt)
 
 ## API First Approach
