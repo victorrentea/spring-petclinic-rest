@@ -16,21 +16,22 @@
 
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
-import org.springframework.context.annotation.Profile;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * @author Vitaliy Fedoriv
  *
  */
 
-@Profile("spring-data-jpa")
+@Repository
 public class SpringDataPetTypeRepositoryImpl implements PetTypeRepositoryOverride {
 
 	@PersistenceContext

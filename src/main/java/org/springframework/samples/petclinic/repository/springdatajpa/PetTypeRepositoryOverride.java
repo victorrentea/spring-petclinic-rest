@@ -16,17 +16,19 @@
 
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
-import org.springframework.context.annotation.Profile;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.repository.PetRepository;
 
 /**
- * @author Vitaliy Fedoriv
- *
+ * Override marker for PetRepository to be implemented with Spring Data
  */
 
-@Profile("spring-data-jpa")
 public interface PetTypeRepositoryOverride {
-	
-	void delete(PetType petType);
 
+     @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
+     List<PetType> findPetTypes();
 }

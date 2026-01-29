@@ -15,7 +15,8 @@
  */
 package org.springframework.samples.petclinic.repository.springdatajpa;
 
-import org.springframework.context.annotation.Profile;
+import java.util.Collection;
+
 import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.repository.VetRepository;
@@ -27,6 +28,8 @@ import org.springframework.samples.petclinic.repository.VetRepository;
  * @since 15.1.2013
  */
 
-@Profile("spring-data-jpa")
 public interface SpringDataVetRepository extends VetRepository, Repository<Vet, Integer> {
+
+    @Override
+    Collection<Vet> findAll();
 }
