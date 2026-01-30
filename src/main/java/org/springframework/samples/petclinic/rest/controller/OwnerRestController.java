@@ -57,7 +57,7 @@ public class OwnerRestController {
     }
 
     @Operation(operationId = "getOwner", summary = "Get an owner by ID")
-    @GetMapping(value = "/{ownerId}")
+    @GetMapping("/{ownerId}")
     public ResponseEntity<OwnerDto> getOwner(@PathVariable Integer ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner == null) {
@@ -79,7 +79,7 @@ public class OwnerRestController {
     }
 
     @Operation(operationId = "updateOwner", summary = "Update an owner")
-    @PutMapping(value = "/{ownerId}")
+    @PutMapping("/{ownerId}")
     public ResponseEntity<OwnerDto> updateOwner(@PathVariable Integer ownerId, @RequestBody @Validated OwnerFieldsDto ownerFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         if (currentOwner == null) {
@@ -95,7 +95,7 @@ public class OwnerRestController {
     }
 
     @Operation(operationId = "deleteOwner", summary = "Delete an owner by ID")
-    @DeleteMapping(value = "/{ownerId}")
+    @DeleteMapping("/{ownerId}")
     public ResponseEntity<OwnerDto> deleteOwner(@PathVariable Integer ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner == null) {
@@ -106,7 +106,7 @@ public class OwnerRestController {
     }
 
     @Operation(operationId = "addPetToOwner", summary = "Add a pet to an owner")
-    @PostMapping(value = "{ownerId}/pets")
+    @PostMapping("{ownerId}/pets")
     public ResponseEntity<PetDto> addPetToOwner(@PathVariable Integer ownerId, @RequestBody @Validated PetFieldsDto petFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Pet pet = petMapper.toPet(petFieldsDto);
@@ -122,7 +122,7 @@ public class OwnerRestController {
     }
 
     @Operation(operationId = "updateOwnersPet", summary = "Update an owner's pet")
-    @PutMapping(value = "{ownerId}/pets/{petId}")
+    @PutMapping("{ownerId}/pets/{petId}")
     public ResponseEntity<Void> updateOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody PetFieldsDto petFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         if (currentOwner != null) {
@@ -139,7 +139,7 @@ public class OwnerRestController {
     }
 
     @Operation(operationId = "addVisitToOwner", summary = "Add a visit for an owner's pet")
-    @PostMapping(value = "{ownerId}/pets/{petId}/visits")
+    @PostMapping("{ownerId}/pets/{petId}/visits")
     public ResponseEntity<VisitDto> addVisitToOwner(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody VisitFieldsDto visitFieldsDto) {
         Visit visit = visitMapper.toVisit(visitFieldsDto);
         Pet pet = new Pet();
@@ -154,7 +154,7 @@ public class OwnerRestController {
     }
 
     @Operation(operationId = "getOwnersPet", summary = "Get a pet belonging to an owner")
-    @GetMapping(value = "{ownerId}/pets/{petId}")
+    @GetMapping("{ownerId}/pets/{petId}")
     public ResponseEntity<PetDto> getOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner != null) {

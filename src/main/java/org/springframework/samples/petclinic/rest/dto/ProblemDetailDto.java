@@ -64,7 +64,8 @@ public class ProblemDetailDto {
    * maximum: 600
    * @return status
    */
-  @Min(value = 400) @Max(value = 600)
+  @Min(400)
+  @Max(600)
   @Schema(name = "status", accessMode = Schema.AccessMode.READ_ONLY, example = "500", description = "HTTP status code", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("status")
   public Integer getStatus() {

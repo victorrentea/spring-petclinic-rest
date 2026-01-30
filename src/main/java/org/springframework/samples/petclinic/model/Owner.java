@@ -16,7 +16,14 @@ import java.util.*;
 @Table(name = "owners")
 @Getter
 @Setter
-public class Owner extends Person {
+public class Owner {
+    @NotEmpty
+    protected String firstName;
+    @NotEmpty
+    protected String lastName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
     @NotEmpty
     private String address;
 
@@ -58,18 +65,12 @@ public class Owner extends Person {
     }
 
     public Pet getPet(String name) {
-        return getPet(name, false);
-    }
-
-    public Pet getPet(String name, boolean ignoreNew) {
         name = name.toLowerCase();
         for (Pet pet : getPetsInternal()) {
-            if (!ignoreNew || !pet.isNew()) {
-                String compName = pet.getName();
-                compName = compName.toLowerCase();
-                if (compName.equals(name)) {
-                    return pet;
-                }
+            String compName = pet.getName();
+            compName = compName.toLowerCase();
+            if (compName.equals(name)) {
+                return pet;
             }
         }
         return null;
@@ -84,12 +85,38 @@ public class Owner extends Person {
         return new ToStringCreator(this)
 
             .append("id", getId())
-            .append("new", isNew())
             .append("lastName", getLastName())
             .append("firstName", getFirstName())
             .append("address", address)
             .append("city", city)
             .append("telephone", telephone)
             .toString();
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public Owner setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public Owner setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public Owner setId(Integer id) {
+        this.id = id;
+        return this;
     }
 }

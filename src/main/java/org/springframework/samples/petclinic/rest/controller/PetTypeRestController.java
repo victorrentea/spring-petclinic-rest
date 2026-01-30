@@ -39,8 +39,8 @@ public class PetTypeRestController {
         return new ResponseEntity<>(petTypeMapper.toPetTypeDtos(petTypes), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{petTypeId}")
-    public ResponseEntity<PetTypeDto> getPetType(@PathVariable("petTypeId") Integer petTypeId) {
+    @GetMapping("/{petTypeId}")
+    public ResponseEntity<PetTypeDto> getPetType(@PathVariable Integer petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
         if (petType == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,8 +59,9 @@ public class PetTypeRestController {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @PutMapping(value = "/{petTypeId}")
-    public ResponseEntity<PetTypeDto> updatePetType(@PathVariable("petTypeId") Integer petTypeId, @RequestBody PetTypeDto petTypeDto) {
+    @PutMapping("/{petTypeId}")
+    public ResponseEntity<PetTypeDto> updatePetType(@PathVariable Integer petTypeId,
+                                                    @RequestBody @Validated PetTypeDto petTypeDto) {
         PetType currentPetType = clinicService.findPetTypeById(petTypeId);
         if (currentPetType == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,8 +73,8 @@ public class PetTypeRestController {
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Transactional
-    @DeleteMapping(value = "/{petTypeId}")
-    public ResponseEntity<PetTypeDto> deletePetType(@PathVariable("petTypeId") Integer petTypeId) {
+    @DeleteMapping("/{petTypeId}")
+    public ResponseEntity<PetTypeDto> deletePetType(@PathVariable Integer petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
         if (petType == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

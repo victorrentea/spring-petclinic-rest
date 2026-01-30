@@ -53,7 +53,8 @@ public class PetTypeDto {
    * minimum: 0
    * @return id
    */
-  @NotNull @Min(value = 0)
+  @NotNull
+  @Min(0)
   @Schema(name = "id", example = "1", description = "The ID of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public Integer getId() {

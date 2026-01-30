@@ -26,7 +26,7 @@ public class SpecialtyRestController {
 
     private final SpecialtyMapper specialtyMapper;
 
-    @GetMapping(value = "/specialties")
+    @GetMapping("/specialties")
     public ResponseEntity<List<SpecialtyDto>> listSpecialties() {
         List<SpecialtyDto> specialties = new ArrayList<>();
         specialties.addAll(specialtyMapper.toSpecialtyDtos(clinicService.findAllSpecialties()));
@@ -36,7 +36,7 @@ public class SpecialtyRestController {
         return new ResponseEntity<>(specialties, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/specialties/{specialtyId}")
+    @GetMapping("/specialties/{specialtyId}")
     public ResponseEntity<SpecialtyDto> getSpecialty(@PathVariable Integer specialtyId) {
         Specialty specialty = clinicService.findSpecialtyById(specialtyId);
         if (specialty == null) {
@@ -45,7 +45,7 @@ public class SpecialtyRestController {
         return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(specialty), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/specialties")
+    @PostMapping("/specialties")
     public ResponseEntity<Void> addSpecialty(@RequestBody @Validated SpecialtyDto specialtyDto) {
         Specialty specialty = specialtyMapper.toSpecialty(specialtyDto);
         clinicService.saveSpecialty(specialty);
@@ -54,7 +54,7 @@ public class SpecialtyRestController {
                 .build();
     }
 
-    @PutMapping(value = "/specialties/{specialtyId}")
+    @PutMapping("/specialties/{specialtyId}")
     public ResponseEntity<SpecialtyDto> updateSpecialty(@PathVariable Integer specialtyId, @RequestBody SpecialtyDto specialtyDto) {
         Specialty currentSpecialty = clinicService.findSpecialtyById(specialtyId);
         if (currentSpecialty == null) {
@@ -66,7 +66,7 @@ public class SpecialtyRestController {
     }
 
     @Transactional
-    @DeleteMapping(value = "/specialties/{specialtyId}")
+    @DeleteMapping("/specialties/{specialtyId}")
     public ResponseEntity<SpecialtyDto> deleteSpecialty(@PathVariable Integer specialtyId) {
         Specialty specialty = clinicService.findSpecialtyById(specialtyId);
         if (specialty == null) {

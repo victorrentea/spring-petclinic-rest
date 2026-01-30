@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles({"h2"})
+@ActiveProfiles("h2")
 @Transactional
 class ClinicServiceTests {
 

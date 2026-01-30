@@ -78,7 +78,7 @@ public class VisitDto {
    * minimum: 0
    * @return id
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the visit.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public Integer getId() {
@@ -94,7 +94,8 @@ public class VisitDto {
    * minimum: 0
    * @return petId
    */
-  @NotNull @Min(value = 0)
+  @NotNull
+  @Min(0)
   @Schema(name = "petId", example = "1", description = "The ID of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("petId")
   public Integer getPetId() {

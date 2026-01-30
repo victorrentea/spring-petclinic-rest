@@ -24,7 +24,7 @@ public class SpecialtyDto {
    * minimum: 0
    * @return id
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the specialty.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("id")
   public Integer getId() {

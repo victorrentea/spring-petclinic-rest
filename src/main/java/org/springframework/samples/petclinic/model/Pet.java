@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.support.MutableSortDefinition;
@@ -13,7 +14,13 @@ import java.util.*;
 @Table(name = "pets")
 @Getter
 @Setter
-public class Pet extends NamedEntity {
+public class Pet {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
+    @NotEmpty
+    private String name;
 
     @Column(name = "birth_date", columnDefinition = "DATE")
     private LocalDate birthDate;

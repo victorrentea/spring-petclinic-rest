@@ -15,7 +15,7 @@ import java.util.List;
 
 @Data
 public class OwnerDto {
-    @Min(value = 0)
+    @Min(0)
     @Nullable
     @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the pet owner.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Integer id;

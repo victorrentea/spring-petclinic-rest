@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.rest.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -9,17 +10,21 @@ import org.springframework.samples.petclinic.rest.controller.BindingErrorsRespon
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.net.URI;
 import java.time.Instant;
 import java.util.NoSuchElementException;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 /**
  * Global Exception handler for REST controllers.
  * <p>
  * This class handles exceptions thrown by REST controllers and returns appropriate HTTP responses to the client.
  */
+@Slf4j
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
 
@@ -91,10 +96,10 @@ public class ExceptionControllerAdvice {
 
     // map NoSuchElementException to a 404 Not Found response
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ProblemDetail> handleNoSuchElementException(NoSuchElementException ex, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        ProblemDetail detail = detailBuild(ex, status, request.getRequestURL());
-        return ResponseEntity.status(status).body(detail);
+    @ResponseStatus(NOT_FOUND)
+    public String handleNoSuchElementException(NoSuchElementException ex, HttpServletRequest request) {
+        log.error("Not found!");
+        return "Not found!";
     }
 
 }

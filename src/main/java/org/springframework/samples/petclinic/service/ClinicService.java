@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -107,7 +109,8 @@ public class ClinicService {
     }
 
     public Pet findPetById(int id) {
-        return petRepository.findById(id);
+        Optional<Pet> po = petRepository.findById(id);
+        return po.orElseThrow();
     }
 
     public void savePet(Pet pet) {

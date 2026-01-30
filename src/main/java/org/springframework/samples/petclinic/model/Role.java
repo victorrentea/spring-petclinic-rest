@@ -9,8 +9,11 @@ import lombok.Setter;
 @Table(name = "roles" ,uniqueConstraints = @UniqueConstraint(columnNames = {"username", "role"}))
 @Getter
 @Setter
-public class Role extends BaseEntity {
+public class Role {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
     @ManyToOne
     @JoinColumn(name = "username")
     @JsonIgnore

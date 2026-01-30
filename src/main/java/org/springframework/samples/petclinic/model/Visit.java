@@ -11,7 +11,10 @@ import java.time.LocalDate;
 @Table(name = "visits")
 @Getter
 @Setter
-public class Visit extends BaseEntity {
+public class Visit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
     @Column(name = "visit_date", columnDefinition = "DATE")
     private LocalDate date = LocalDate.now();
 

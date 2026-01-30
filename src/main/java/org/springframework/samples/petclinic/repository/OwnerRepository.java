@@ -12,7 +12,7 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 
     Owner findById(int id);
 
-    void save(Owner owner);
+    Owner save(Owner owner);
 
     List<Owner> findAll();
 

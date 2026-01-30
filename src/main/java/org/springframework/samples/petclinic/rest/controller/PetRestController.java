@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.rest.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +10,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.rest.dto.PetDto;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,13 +27,9 @@ public class PetRestController {
 
     private final PetMapper petMapper;
 
-    @GetMapping(value = "/{petId}")
-    public ResponseEntity<PetDto> getPet(@PathVariable Integer petId) {
-        PetDto pet = petMapper.toPetDto(clinicService.findPetById(petId));
-        if (pet == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(pet, HttpStatus.OK);
+    @GetMapping("/{petId}")
+    public PetDto getPet(@PathVariable int petId) {
+        return petMapper.toPetDto(clinicService.findPetById(petId));
     }
 
     @GetMapping(produces = "application/json")
@@ -44,25 +41,19 @@ public class PetRestController {
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{petId}")
-    public ResponseEntity<PetDto> updatePet(@PathVariable Integer petId, @Valid @RequestBody PetDto petDto) {
+    @PutMapping("/{petId}")
+    @Transactional
+    public void updatePet(@PathVariable int petId, @Validated @RequestBody PetDto petDto) {
         Pet currentPet = clinicService.findPetById(petId);
-        if (currentPet == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        currentPet.setBirthDate(petDto.getBirthDate());
-        currentPet.setName(petDto.getName());
-        currentPet.setType(petMapper.toPetType(petDto.getType()));
-        clinicService.savePet(currentPet);
-        return new ResponseEntity<>(petMapper.toPetDto(currentPet), HttpStatus.OK);
+        currentPet
+            .setBirthDate(petDto.getBirthDate())
+            .setName(petDto.getName())
+            .setType(petMapper.toPetType(petDto.getType()));
     }
 
-    @DeleteMapping(value = "/{petId}")
-    public ResponseEntity<PetDto> deletePet(@PathVariable Integer petId) {
+    @DeleteMapping("/{petId}")
+    public ResponseEntity<PetDto> deletePet(@PathVariable int petId) {
         Pet pet = clinicService.findPetById(petId);
-        if (pet == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         clinicService.deletePet(pet);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
