@@ -190,14 +190,9 @@ class ClinicServiceTests {
 
     @Test
     void shouldDeletePet() {
-        Pet pet = clinicService.findPetById(1);
+        Pet pet = clinicService.findPetById(7);
         clinicService.deletePet(pet);
-        try {
-            pet = clinicService.findPetById(1);
-        } catch (Exception e) {
-            pet = null;
-        }
-        assertThat(pet).isNull();
+        assertThat(clinicService.findPetById(7)).isNull();
     }
 
     @Test
@@ -369,15 +364,9 @@ class ClinicServiceTests {
 
     @Test
     void shouldDeletePetType() {
-        PetType petType = clinicService.findPetTypeById(1);
+        PetType petType = clinicService.findPetTypeById(7);
         clinicService.deletePetType(petType);
-        clearCache();
-        try {
-            petType = clinicService.findPetTypeById(1);
-        } catch (Exception e) {
-            petType = null;
-        }
-        assertThat(petType).isNull();
+        assertThat(clinicService.findPetTypeById(7)).isNull();
     }
 
     @Test

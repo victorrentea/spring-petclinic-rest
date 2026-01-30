@@ -15,12 +15,13 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Visit;
 
 import java.util.Collection;
 import java.util.List;
 
-public interface VisitRepository {
+public interface VisitRepository extends Repository<Visit, Integer> {
     void save(Visit visit);
 
     List<Visit> findByPetId(Integer petId);

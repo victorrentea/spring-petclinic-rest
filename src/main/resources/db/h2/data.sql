@@ -28,7 +28,9 @@ INSERT INTO types (name) VALUES
 ('lizard'),
 ('snake'),
 ('bird'),
-('hamster');
+('hamster'),
+('horse')
+;
 
 -- Insert Owners
 INSERT INTO owners (first_name, last_name, address, city, telephone) VALUES 
