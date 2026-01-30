@@ -7,6 +7,7 @@ import org.springframework.samples.petclinic.rest.dto.VisitDto;
 import org.springframework.samples.petclinic.rest.dto.VisitFieldsDto;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Map Visit & VisitDto using mapstruct
@@ -23,6 +24,6 @@ public interface VisitMapper {
     @Mapping(source = "pet.id", target = "petId")
     VisitDto toVisitDto(Visit visit);
 
-    Collection<VisitDto> toVisitsDto(Collection<Visit> visits);
+    List<VisitDto> toVisitsDto(List<Visit> visits);
 
 }

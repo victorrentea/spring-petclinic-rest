@@ -7,6 +7,7 @@ import org.springframework.samples.petclinic.rest.dto.VetDto;
 import org.springframework.samples.petclinic.rest.dto.VetFieldsDto;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Map Vet & VetoDto using mapstruct
@@ -20,5 +21,5 @@ public interface VetMapper {
 
     VetDto toVetDto(Vet vet);
 
-    Collection<VetDto> toVetDtos(Collection<Vet> vets);
+    List<VetDto> toVetDtos(List<Vet> vets);
 }

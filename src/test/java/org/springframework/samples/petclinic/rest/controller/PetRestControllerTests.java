@@ -125,7 +125,7 @@ class PetRestControllerTests {
     @Test
     @WithMockUser(roles = "OWNER_ADMIN")
     void testGetAllPetsSuccess() throws Exception {
-        final Collection<Pet> pets = petMapper.toPets(this.pets);
+        final List<Pet> pets = petMapper.toPets(this.pets);
         System.err.println(pets);
         when(clinicService.findAllPets()).thenReturn(pets);
         //given(this.clinicService.findAllPets()).willReturn(petMapper.toPets(pets));

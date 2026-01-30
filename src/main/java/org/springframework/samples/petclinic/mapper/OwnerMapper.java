@@ -23,7 +23,7 @@ public interface OwnerMapper {
     @Mapping(target = "pets", ignore = true)
     Owner toOwner(OwnerFieldsDto ownerDto);
 
-    List<OwnerDto> toOwnerDtoCollection(Collection<Owner> ownerCollection);
+    List<OwnerDto> toOwnerDtoCollection(List<Owner> ownerCollection);
 
-    Collection<Owner> toOwners(Collection<OwnerDto> ownerDtos);
+    List<Owner> toOwners(List<OwnerDto> ownerDtos);
 }

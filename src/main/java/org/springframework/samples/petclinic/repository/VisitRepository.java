@@ -28,7 +28,7 @@ public interface VisitRepository extends Repository<Visit, Integer> {
 
     Visit findById(int id);
 
-    Collection<Visit> findAll();
+    List<Visit> findAll();
 
     void delete(Visit visit);
 

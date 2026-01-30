@@ -19,10 +19,10 @@ import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Vet;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface VetRepository extends Repository<Vet, Integer> {
-
-	Collection<Vet> findAll();
+    List<Vet> findAll();
 
 	Vet findById(int id);
 

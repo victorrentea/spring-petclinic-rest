@@ -20,6 +20,7 @@ import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.PetType;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface PetTypeRepository extends Repository<PetType, Integer> {
 
@@ -27,7 +28,8 @@ public interface PetTypeRepository extends Repository<PetType, Integer> {
 
     PetType findByName(String name);
 
-	Collection<PetType> findAll();
+
+    List<PetType> findAll();
 
 	void save(PetType petType);
 

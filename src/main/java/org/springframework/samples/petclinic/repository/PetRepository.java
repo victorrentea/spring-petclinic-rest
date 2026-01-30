@@ -53,10 +53,10 @@ public interface PetRepository extends Repository<Pet, Integer> {
     /**
      * Retrieve <code>Pet</code>s from the data store, returning all owners
      *
-     * @return a <code>Collection</code> of <code>Pet</code>s (or an empty <code>Collection</code> if none
+     * @return a <code>List</code> of <code>Pet</code>s (or an empty <code>List</code> if none
      * found)
      */
-    Collection<Pet> findAll();
+    List<Pet> findAll();
 
     /**
      * Delete an <code>Pet</code> to the data store by <code>Pet</code>.

@@ -29,7 +29,7 @@ public interface SpecialtyRepository extends Repository<Specialty, Integer> {
 
     List<Specialty> findSpecialtiesByNameIn(Set<String> names);
 
-    Collection<Specialty> findAll();
+    List<Specialty> findAll();
 
     void save(Specialty specialty);
 

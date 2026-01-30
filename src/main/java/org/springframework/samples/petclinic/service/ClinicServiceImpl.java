@@ -45,7 +45,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Pet> findAllPets() {
+    public List<Pet> findAllPets() {
         return petRepository.findAll();
     }
 
@@ -63,7 +63,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Visit> findAllVisits() {
+    public List<Visit> findAllVisits() {
         return visitRepository.findAll();
     }
 
@@ -81,7 +81,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Vet> findAllVets() {
+    public List<Vet> findAllVets() {
         return vetRepository.findAll();
     }
 
@@ -99,7 +99,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Owner> findAllOwners() {
+    public List<Owner> findAllOwners() {
         return ownerRepository.findAll();
     }
 
@@ -117,7 +117,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<PetType> findAllPetTypes() {
+    public List<PetType> findAllPetTypes() {
         return petTypeRepository.findAll();
     }
 
@@ -141,7 +141,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Specialty> findAllSpecialties() {
+    public List<Specialty> findAllSpecialties() {
         return specialtyRepository.findAll();
     }
 
@@ -159,7 +159,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<PetType> findPetTypes() {
+    public List<PetType> findPetTypes() {
         return petRepository.findPetTypes();
     }
 
@@ -190,7 +190,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Vet> findVets() {
+    public List<Vet> findVets() {
         return vetRepository.findAll();
     }
 
@@ -203,13 +203,13 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Owner> findOwnerByLastName(String lastName) {
+    public List<Owner> findOwnerByLastName(String lastName) {
         return ownerRepository.findByLastName(lastName);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Collection<Visit> findVisitsByPetId(int petId) {
+    public List<Visit> findVisitsByPetId(int petId) {
         return visitRepository.findByPetId(petId);
     }
 

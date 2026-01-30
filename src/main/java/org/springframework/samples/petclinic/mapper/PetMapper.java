@@ -9,6 +9,7 @@ import org.springframework.samples.petclinic.rest.dto.PetFieldsDto;
 import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Map Pet & PetDto using mapstruct
@@ -19,9 +20,9 @@ public interface PetMapper {
     @Mapping(source = "owner.id", target = "ownerId")
     PetDto toPetDto(Pet pet);
 
-    Collection<PetDto> toPetsDto(Collection<Pet> pets);
+    List<PetDto> toPetsDto(List<Pet> pets);
 
-    Collection<Pet> toPets(Collection<PetDto> pets);
+    List<Pet> toPets(List<PetDto> pets);
 
     @Mapping(source = "ownerId", target = "owner.id")
     Pet toPet(PetDto petDto);
@@ -35,5 +36,5 @@ public interface PetMapper {
 
     PetType toPetType(PetTypeDto petTypeDto);
 
-    Collection<PetTypeDto> toPetTypeDtos(Collection<PetType> petTypes);
+    List<PetTypeDto> toPetTypeDtos(List<PetType> petTypes);
 }

@@ -21,16 +21,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Owner;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface OwnerRepository extends Repository<Owner, Integer> {
     void save(Owner owner);
 
-    Collection<Owner> findAll();
+    List<Owner> findAll();
 
     void delete(Owner owner);
 
     @Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName%")
-    Collection<Owner> findByLastName(@Param("lastName") String lastName);
+    List<Owner> findByLastName(@Param("lastName") String lastName);
 
     @Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
     Owner findById(@Param("id") int id);

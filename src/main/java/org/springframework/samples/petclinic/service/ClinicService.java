@@ -27,33 +27,33 @@ import java.util.Set;
 public interface ClinicService {
 
 	Pet findPetById(int id) ;
-	Collection<Pet> findAllPets() ;
+	List<Pet> findAllPets() ;
 	void savePet(Pet pet) ;
 	void deletePet(Pet pet) ;
 
-	Collection<Visit> findVisitsByPetId(int petId);
+	List<Visit> findVisitsByPetId(int petId);
 	Visit findVisitById(int visitId) ;
-	Collection<Visit> findAllVisits() ;
+	List<Visit> findAllVisits() ;
 	void saveVisit(Visit visit) ;
 	void deleteVisit(Visit visit) ;
 	Vet findVetById(int id) ;
-	Collection<Vet> findVets() ;
-	Collection<Vet> findAllVets() ;
+	List<Vet> findVets() ;
+	List<Vet> findAllVets() ;
 	void saveVet(Vet vet) ;
 	void deleteVet(Vet vet) ;
 	Owner findOwnerById(int id) ;
-	Collection<Owner> findAllOwners() ;
+	List<Owner> findAllOwners() ;
 	void saveOwner(Owner owner) ;
 	void deleteOwner(Owner owner) ;
-	Collection<Owner> findOwnerByLastName(String lastName) ;
+	List<Owner> findOwnerByLastName(String lastName) ;
 
 	PetType findPetTypeById(int petTypeId);
-	Collection<PetType> findAllPetTypes() ;
-	Collection<PetType> findPetTypes() ;
+	List<PetType> findAllPetTypes() ;
+	List<PetType> findPetTypes() ;
 	void savePetType(PetType petType) ;
 	void deletePetType(PetType petType) ;
 	Specialty findSpecialtyById(int specialtyId);
-	Collection<Specialty> findAllSpecialties() ;
+	List<Specialty> findAllSpecialties() ;
 	void saveSpecialty(Specialty specialty) ;
 	void deleteSpecialty(Specialty specialty) ;
 

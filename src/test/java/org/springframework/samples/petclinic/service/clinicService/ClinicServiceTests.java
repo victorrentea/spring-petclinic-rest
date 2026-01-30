@@ -60,7 +60,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertOwner() {
-        Collection<Owner> owners = clinicService.findOwnerByLastName("Schultz");
+        List<Owner> owners = clinicService.findOwnerByLastName("Schultz");
         int found = owners.size();
 
         Owner owner = new Owner();
@@ -100,7 +100,7 @@ class ClinicServiceTests {
 
 //    @Test
 //    void shouldFindAllPetTypes() {
-//        Collection<PetType> petTypes = this.clinicService.findPetTypes();
+//        List<PetType> petTypes = this.clinicService.findPetTypes();
 //
 //        PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
 //        assertThat(petType1.getName()).isEqualTo("cat");
@@ -115,7 +115,7 @@ class ClinicServiceTests {
 
         Pet pet = new Pet();
         pet.setName("bowser");
-        Collection<PetType> types = clinicService.findPetTypes();
+        List<PetType> types = clinicService.findPetTypes();
         pet.setType(EntityUtils.getById(types, PetType.class, 2));
         pet.setBirthDate(LocalDate.now());
         owner6.addPet(pet);
@@ -145,7 +145,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindVets() {
-        Collection<Vet> vets = clinicService.findVets();
+        List<Vet> vets = clinicService.findVets();
 
         Vet vet = EntityUtils.getById(vets, Vet.class, 3);
         assertThat(vet.getLastName()).isEqualTo("Douglas");
@@ -171,7 +171,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindVisitsByPetId() throws Exception {
-        Collection<Visit> visits = clinicService.findVisitsByPetId(7);
+        List<Visit> visits = clinicService.findVisitsByPetId(7);
         assertThat(visits.size()).isEqualTo(2);
         Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
         assertThat(visitArr[0].getPet()).isNotNull();
@@ -181,7 +181,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindAllPets() {
-        Collection<Pet> pets = clinicService.findAllPets();
+        List<Pet> pets = clinicService.findAllPets();
         Pet pet1 = EntityUtils.getById(pets, Pet.class, 1);
         assertThat(pet1.getName()).isEqualTo("Leo");
         Pet pet3 = EntityUtils.getById(pets, Pet.class, 3);
@@ -204,7 +204,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindAllVisits() {
-        Collection<Visit> visits = clinicService.findAllVisits();
+        List<Visit> visits = clinicService.findAllVisits();
         Visit visit1 = EntityUtils.getById(visits, Visit.class, 1);
         assertThat(visit1.getPet().getName()).isEqualTo("Samantha");
         Visit visit3 = EntityUtils.getById(visits, Visit.class, 3);
@@ -213,7 +213,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertVisit() {
-        Collection<Visit> visits = clinicService.findAllVisits();
+        List<Visit> visits = clinicService.findAllVisits();
         int found = visits.size();
 
         Pet pet = clinicService.findPetById(1);
@@ -263,7 +263,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertVet() {
-        Collection<Vet> vets = clinicService.findAllVets();
+        List<Vet> vets = clinicService.findAllVets();
         int found = vets.size();
 
         Vet vet = new Vet();
@@ -302,7 +302,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindAllOwners() {
-        Collection<Owner> owners = clinicService.findAllOwners();
+        List<Owner> owners = clinicService.findAllOwners();
         Owner owner1 = EntityUtils.getById(owners, Owner.class, 1);
         assertThat(owner1.getFirstName()).isEqualTo("George");
         Owner owner3 = EntityUtils.getById(owners, Owner.class, 3);
@@ -329,7 +329,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindAllPetTypes() {
-        Collection<PetType> petTypes = clinicService.findAllPetTypes();
+        List<PetType> petTypes = clinicService.findAllPetTypes();
         PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
         assertThat(petType1.getName()).isEqualTo("cat");
         PetType petType3 = EntityUtils.getById(petTypes, PetType.class, 3);
@@ -338,7 +338,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertPetType() {
-        Collection<PetType> petTypes = clinicService.findAllPetTypes();
+        List<PetType> petTypes = clinicService.findAllPetTypes();
         int found = petTypes.size();
 
         PetType petType = new PetType();
@@ -377,7 +377,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindAllSpecialtys() {
-        Collection<Specialty> specialties = clinicService.findAllSpecialties();
+        List<Specialty> specialties = clinicService.findAllSpecialties();
         Specialty specialty1 = EntityUtils.getById(specialties, Specialty.class, 1);
         assertThat(specialty1.getName()).isEqualTo("radiology");
         Specialty specialty3 = EntityUtils.getById(specialties, Specialty.class, 3);
@@ -386,7 +386,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertSpecialty() {
-        Collection<Specialty> specialties = clinicService.findAllSpecialties();
+        List<Specialty> specialties = clinicService.findAllSpecialties();
         int found = specialties.size();
 
         Specialty specialty = new Specialty();
@@ -443,7 +443,7 @@ class ClinicServiceTests {
         Set<String> specialtyNames = expectedSpecialties.stream()
             .map(Specialty::getName)
             .collect(Collectors.toSet());
-        Collection<Specialty> actualSpecialties = clinicService.findSpecialtiesByNameIn(specialtyNames);
+        List<Specialty> actualSpecialties = clinicService.findSpecialtiesByNameIn(specialtyNames);
         assertThat(actualSpecialties).isNotNull();
         assertThat(actualSpecialties.size()).isEqualTo(expectedSpecialties.size());
         for (Specialty expected : expectedSpecialties) {
