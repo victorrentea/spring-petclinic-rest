@@ -1,46 +1,151 @@
 package org.springframework.samples.petclinic.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.*;
+import org.springframework.samples.petclinic.repository.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
-/**
- * Mostly used as a facade so all controllers have a single point of entry
- */
-public interface ClinicService {
+@Service
+@RequiredArgsConstructor
+public class ClinicService {
+    private final PetRepository petRepository;
+    private final VetRepository vetRepository;
+    private final OwnerRepository ownerRepository;
+    private final VisitRepository visitRepository;
+    private final SpecialtyRepository specialtyRepository;
+    private final PetTypeRepository petTypeRepository;
 
-	Pet findPetById(int id) ;
-	List<Pet> findAllPets() ;
-	void savePet(Pet pet) ;
-	void deletePet(Pet pet) ;
+    public List<Pet> findAllPets() {
+        return petRepository.findAll();
+    }
 
-	List<Visit> findVisitsByPetId(int petId);
-	Visit findVisitById(int visitId) ;
-	List<Visit> findAllVisits() ;
-	void saveVisit(Visit visit) ;
-	void deleteVisit(Visit visit) ;
-	Vet findVetById(int id) ;
-	List<Vet> findVets() ;
-	List<Vet> findAllVets() ;
-	void saveVet(Vet vet) ;
-	void deleteVet(Vet vet) ;
-	Owner findOwnerById(int id) ;
-	List<Owner> findAllOwners() ;
-	void saveOwner(Owner owner) ;
-	void deleteOwner(Owner owner) ;
-	List<Owner> findOwnerByLastName(String lastName) ;
+    public void deletePet(Pet pet) {
+        petRepository.delete(pet);
+    }
 
-	PetType findPetTypeById(int petTypeId);
-	List<PetType> findAllPetTypes() ;
-	List<PetType> findPetTypes() ;
-	void savePetType(PetType petType) ;
-	void deletePetType(PetType petType) ;
-	Specialty findSpecialtyById(int specialtyId);
-	List<Specialty> findAllSpecialties() ;
-	void saveSpecialty(Specialty specialty) ;
-	void deleteSpecialty(Specialty specialty) ;
+    public Visit findVisitById(int visitId) {
+        return findEntityById(() -> visitRepository.findById(visitId));
+    }
 
-    List<Specialty> findSpecialtiesByNameIn(Set<String> names) ;
+    public List<Visit> findAllVisits() {
+        return visitRepository.findAll();
+    }
+
+    public void deleteVisit(Visit visit) {
+        visitRepository.delete(visit);
+    }
+
+    public Vet findVetById(int id) {
+        return findEntityById(() -> vetRepository.findById(id));
+    }
+
+    public List<Vet> findAllVets() {
+        return vetRepository.findAll();
+    }
+
+    public void saveVet(Vet vet) {
+        vetRepository.save(vet);
+    }
+
+    public void deleteVet(Vet vet) {
+        vetRepository.delete(vet);
+    }
+
+    public List<Owner> findAllOwners() {
+        return ownerRepository.findAll();
+    }
+
+    public void deleteOwner(Owner owner) {
+        ownerRepository.delete(owner);
+    }
+
+    public PetType findPetTypeById(int petTypeId) {
+        return findEntityById(() -> petTypeRepository.findById(petTypeId));
+    }
+
+    public List<PetType> findAllPetTypes() {
+        return petTypeRepository.findAll();
+    }
+
+    public void savePetType(PetType petType) {
+        petTypeRepository.save(petType);
+    }
+
+    public void deletePetType(PetType petType) {
+        petTypeRepository.delete(petType);
+    }
+
+    public Specialty findSpecialtyById(int specialtyId) {
+        return findEntityById(() -> specialtyRepository.findById(specialtyId));
+    }
+
+    public List<Specialty> findAllSpecialties() {
+        return specialtyRepository.findAll();
+    }
+
+    public void saveSpecialty(Specialty specialty) {
+        specialtyRepository.save(specialty);
+    }
+
+    public void deleteSpecialty(Specialty specialty) {
+        specialtyRepository.delete(specialty);
+    }
+
+    public List<PetType> findPetTypes() {
+        return petRepository.findPetTypes();
+    }
+
+    public Owner findOwnerById(int id) {
+        return findEntityById(() -> ownerRepository.findById(id));
+    }
+
+    public Pet findPetById(int id) {
+        return findEntityById(() -> petRepository.findById(id));
+    }
+
+    public void savePet(Pet pet) {
+        pet.setType(findPetTypeById(pet.getType().getId()));
+        petRepository.save(pet);
+    }
+
+    public void saveVisit(Visit visit) {
+        visitRepository.save(visit);
+    }
+
+    public List<Vet> findVets() {
+        return vetRepository.findAll();
+    }
+
+    public void saveOwner(Owner owner) {
+        ownerRepository.save(owner);
+    }
+
+    public List<Owner> findOwnerByLastName(String lastName) {
+        return ownerRepository.findByLastNameIgnoreCaseStartingWith(lastName);
+    }
+
+    public List<Visit> findVisitsByPetId(int petId) {
+        return visitRepository.findByPetId(petId);
+    }
+
+    public List<Specialty> findSpecialtiesByNameIn(Set<String> names) {
+        return findEntityById(() -> specialtyRepository.findSpecialtiesByNameIn(names));
+    }
+
+    private <T> T findEntityById(Supplier<T> supplier) {
+        try {
+            return supplier.get();
+        } catch (ObjectRetrievalFailureException | EmptyResultDataAccessException e) {
+            // Just ignore not found exceptions for Jdbc/Jpa realization
+            return null;
+        }
+    }
+
 }
