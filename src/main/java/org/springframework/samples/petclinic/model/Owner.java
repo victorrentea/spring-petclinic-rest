@@ -12,9 +12,6 @@ import org.springframework.core.style.ToStringCreator;
 
 import java.util.*;
 
-/**
- * Simple JavaBean domain object representing an owner.
- */
 @Entity
 @Table(name = "owners")
 @Getter
@@ -63,22 +60,10 @@ public class Owner extends Person {
         pet.setOwner(this);
     }
 
-    /**
-     * Return the Pet with the given name, or null if none found for this Owner.
-     *
-     * @param name to test
-     * @return true if pet name is already in use
-     */
     public Pet getPet(String name) {
         return getPet(name, false);
     }
 
-    /**
-     * Return the Pet with the given name, or null if none found for this Owner.
-     *
-     * @param name to test
-     * @return true if pet name is already in use
-     */
     public Pet getPet(String name, boolean ignoreNew) {
         name = name.toLowerCase();
         for (Pet pet : getPetsInternal()) {

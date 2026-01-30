@@ -5,9 +5,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Models a {@link Vet Vet's} specialty (for example, dentistry).
- */
 @Entity
 @Table(name = "specialties")
 @Getter

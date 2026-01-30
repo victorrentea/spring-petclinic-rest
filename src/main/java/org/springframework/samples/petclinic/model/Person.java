@@ -6,9 +6,6 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Simple JavaBean domain object representing an person.
- */
 @MappedSuperclass
 @Getter
 @Setter

@@ -9,10 +9,6 @@ import org.springframework.beans.support.PropertyComparator;
 import java.time.LocalDate;
 import java.util.*;
 
-
-/**
- * Simple business object representing a pet.
- */
 @Entity
 @Table(name = "pets")
 @Getter

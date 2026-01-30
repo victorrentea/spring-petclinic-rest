@@ -8,9 +8,6 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Simple JavaBean domain object. Serves as the base class for objects needing an id property.
- */
 @MappedSuperclass
 public class BaseEntity {
     @Getter
