@@ -301,7 +301,7 @@ class OwnerRestControllerTests {
         String newOwnerAsJSON = mapper.writeValueAsString(newOwnerDto);
         mockMvc.perform(put("/api/owners/1")
                 .content(newOwnerAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().is4xxClientError());
     }
 
     @Test

@@ -1,12 +1,16 @@
 package org.springframework.samples.petclinic.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "vets")
+@Getter
+@Setter
 public class Vet extends Person {
 
     @ManyToMany
@@ -15,14 +19,6 @@ public class Vet extends Person {
 
     public Vet() {
         specialties = new ArrayList<>();
-    }
-
-    public List<Specialty> getSpecialties() {
-        return specialties;
-    }
-
-    public void setSpecialties(List<Specialty> specialties) {
-        this.specialties = specialties;
     }
 
     public void clearSpecialties() {

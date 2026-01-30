@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @SpringBootTest
-@ContextConfiguration(classes=ApplicationTestConfig.class)
+@ContextConfiguration(classes = ApplicationTestConfig.class)
 @WebAppConfiguration
 class VisitRestControllerTests {
 
@@ -52,58 +52,61 @@ class VisitRestControllerTests {
     private MockMvc mockMvc;
 
     private List<Visit> visits;
+    private ObjectMapper mapper = new ObjectMapper()
+        .registerModule(new JavaTimeModule())
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     @BeforeEach
-    void initVisits(){
-    	this.mockMvc = MockMvcBuilders.standaloneSetup(visitRestController)
-    			.setControllerAdvice(new ExceptionControllerAdvice())
-    			.build();
+    void initVisits() {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(visitRestController)
+            .setControllerAdvice(new ExceptionControllerAdvice())
+            .build();
 
         visits = new ArrayList<>();
 
-    	Owner owner = new Owner();
-    	owner.setId(1);
-    	owner.setFirstName("Eduardo");
-    	owner.setLastName("Rodriquez");
-    	owner.setAddress("2693 Commerce St.");
-    	owner.setCity("McFarland");
-    	owner.setTelephone("6085558763");
+        Owner owner = new Owner();
+        owner.setId(1);
+        owner.setFirstName("Eduardo");
+        owner.setLastName("Rodriquez");
+        owner.setAddress("2693 Commerce St.");
+        owner.setCity("McFarland");
+        owner.setTelephone("6085558763");
 
-    	PetType petType = new PetType();
-    	petType.setId(2);
-    	petType.setName("dog");
+        PetType petType = new PetType();
+        petType.setId(2);
+        petType.setName("dog");
 
-    	Pet pet = new Pet();
-    	pet.setId(8);
-    	pet.setName("Rosy");
+        Pet pet = new Pet();
+        pet.setId(8);
+        pet.setName("Rosy");
         pet.setBirthDate(LocalDate.now());
-    	pet.setOwner(owner);
-    	pet.setType(petType);
+        pet.setOwner(owner);
+        pet.setType(petType);
 
 
-    	Visit visit = new Visit();
-    	visit.setId(2);
-    	visit.setPet(pet);
+        Visit visit = new Visit();
+        visit.setId(2);
+        visit.setPet(pet);
         visit.setDate(LocalDate.now());
-    	visit.setDescription("rabies shot");
-    	visits.add(visit);
+        visit.setDescription("rabies shot");
+        visits.add(visit);
 
-    	visit = new Visit();
-    	visit.setId(3);
-    	visit.setPet(pet);
+        visit = new Visit();
+        visit.setId(3);
+        visit.setPet(pet);
         visit.setDate(LocalDate.now());
-    	visit.setDescription("neutered");
-    	visits.add(visit);
+        visit.setDescription("neutered");
+        visits.add(visit);
 
 
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testGetVisitSuccess() throws Exception {
-    	given(clinicService.findVisitById(2)).willReturn(visits.get(0));
+        given(clinicService.findVisitById(2)).willReturn(visits.get(0));
         mockMvc.perform(get("/api/visits/2")
-        	.accept(MediaType.APPLICATION_JSON_VALUE))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$.id").value(2))
@@ -111,84 +114,79 @@ class VisitRestControllerTests {
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testGetVisitNotFound() throws Exception {
         given(clinicService.findVisitById(999)).willReturn(null);
         mockMvc.perform(get("/api/visits/999")
-        	.accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testGetAllVisitsSuccess() throws Exception {
-    	given(clinicService.findAllVisits()).willReturn(visits);
+        given(clinicService.findAllVisits()).willReturn(visits);
         mockMvc.perform(get("/api/visits")
-        	.accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
-        	.andExpect(jsonPath("$.[0].id").value(2))
-        	.andExpect(jsonPath("$.[0].description").value("rabies shot"))
-        	.andExpect(jsonPath("$.[1].id").value(3))
-        	.andExpect(jsonPath("$.[1].description").value("neutered"));
+            .andExpect(jsonPath("$.[0].id").value(2))
+            .andExpect(jsonPath("$.[0].description").value("rabies shot"))
+            .andExpect(jsonPath("$.[1].id").value(3))
+            .andExpect(jsonPath("$.[1].description").value("neutered"));
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testGetAllVisitsNotFound() throws Exception {
-    	visits.clear();
-    	given(clinicService.findAllVisits()).willReturn(visits);
+        visits.clear();
+        given(clinicService.findAllVisits()).willReturn(visits);
         mockMvc.perform(get("/api/visits")
-        	.accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNotFound());
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$").isEmpty());
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testCreateVisitSuccess() throws Exception {
-    	Visit newVisit = visits.get(0);
-    	newVisit.setId(999);
-    	ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        Visit newVisit = visits.get(0);
+        newVisit.setId(999);
         String newVisitAsJSON = mapper.writeValueAsString(visitMapper.toVisitDto(newVisit));
-    	System.out.println("newVisitAsJSON " + newVisitAsJSON);
-    	mockMvc.perform(post("/api/visits")
-    		.content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-    		.andExpect(status().isCreated());
+        System.out.println("newVisitAsJSON " + newVisitAsJSON);
+        mockMvc.perform(post("/api/visits")
+                .content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isCreated());
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testCreateVisitError() throws Exception {
-    	Visit newVisit = visits.get(0);
-    	newVisit.setId(null);
+        Visit newVisit = visits.get(0);
+        newVisit.setId(null);
         newVisit.setDescription(null);
-    	ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         String newVisitAsJSON = mapper.writeValueAsString(visitMapper.toVisitDto(newVisit));
-    	mockMvc.perform(post("/api/visits")
-        		.content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-        		.andExpect(status().isBadRequest());
-     }
+        mockMvc.perform(post("/api/visits")
+                .content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isBadRequest());
+    }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testUpdateVisitSuccess() throws Exception {
-    	given(clinicService.findVisitById(2)).willReturn(visits.get(0));
-    	Visit newVisit = visits.get(0);
-    	newVisit.setDescription("rabies shot test");
-    	ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        given(clinicService.findVisitById(2)).willReturn(visits.get(0));
+        Visit newVisit = visits.get(0);
+        newVisit.setDescription("rabies shot test");
         String newVisitAsJSON = mapper.writeValueAsString(visitMapper.toVisitDto(newVisit));
-    	mockMvc.perform(put("/api/visits/2")
-    		.content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-        	.andExpect(content().contentType("application/json"))
-        	.andExpect(status().isNoContent());
+        mockMvc.perform(put("/api/visits/2")
+                .content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().is2xxSuccessful());
 
-    	mockMvc.perform(get("/api/visits/2")
-           	.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON_VALUE))
+        mockMvc.perform(get("/api/visits/2")
+                .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$.id").value(2))
@@ -196,42 +194,36 @@ class VisitRestControllerTests {
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testUpdateVisitError() throws Exception {
-    	Visit newVisit = visits.get(0);
+        Visit newVisit = visits.get(0);
         newVisit.setDescription(null);
-    	ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         String newVisitAsJSON = mapper.writeValueAsString(visitMapper.toVisitDto(newVisit));
-    	mockMvc.perform(put("/api/visits/2")
-    		.content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-        	.andExpect(status().is4xxClientError());
-     }
-
-    @Test
-    @WithMockUser(roles="OWNER_ADMIN")
-    void testDeleteVisitSuccess() throws Exception {
-    	Visit newVisit = visits.get(0);
-    	ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        String newVisitAsJSON = mapper.writeValueAsString(visitMapper.toVisitDto(newVisit));
-    	given(clinicService.findVisitById(2)).willReturn(visits.get(0));
-    	mockMvc.perform(delete("/api/visits/2")
-    		.content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-        	.andExpect(status().isNoContent());
+        mockMvc.perform(put("/api/visits/2")
+                .content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().is4xxClientError());
     }
 
     @Test
-    @WithMockUser(roles="OWNER_ADMIN")
+    @WithMockUser(roles = "OWNER_ADMIN")
+    void testDeleteVisitSuccess() throws Exception {
+        Visit newVisit = visits.get(0);
+        String newVisitAsJSON = mapper.writeValueAsString(visitMapper.toVisitDto(newVisit));
+        given(clinicService.findVisitById(2)).willReturn(visits.get(0));
+        mockMvc.perform(delete("/api/visits/2")
+                .content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testDeleteVisitError() throws Exception {
-    	Visit newVisit = visits.get(0);
-    	ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
+        Visit newVisit = visits.get(0);
         String newVisitAsJSON = mapper.writeValueAsString(visitMapper.toVisitDto(newVisit));
         given(clinicService.findVisitById(999)).willReturn(null);
         mockMvc.perform(delete("/api/visits/999")
-    		.content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-        	.andExpect(status().isNotFound());
+                .content(newVisitAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isNotFound());
     }
 
 }

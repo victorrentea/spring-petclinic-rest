@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Visit extends BaseEntity {
-    @Column( columnDefinition = "DATE")
+    @Column(name = "visit_date", columnDefinition = "DATE")
     private LocalDate date = LocalDate.now();
 
     @NotEmpty

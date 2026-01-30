@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.rest.dto.VisitDto;
 import org.springframework.samples.petclinic.rest.dto.VisitFieldsDto;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -67,7 +68,7 @@ public class OwnerRestController {
 
     @Operation(operationId = "addOwner", summary = "Create an owner")
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerFieldsDto ownerFieldsDto) {
+    public ResponseEntity<OwnerDto> addOwner(@RequestBody @Validated OwnerFieldsDto ownerFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Owner owner = ownerMapper.toOwner(ownerFieldsDto);
         clinicService.saveOwner(owner);
@@ -79,7 +80,7 @@ public class OwnerRestController {
 
     @Operation(operationId = "updateOwner", summary = "Update an owner")
     @PutMapping(value = "/{ownerId}")
-    public ResponseEntity<OwnerDto> updateOwner(@PathVariable Integer ownerId, @RequestBody OwnerFieldsDto ownerFieldsDto) {
+    public ResponseEntity<OwnerDto> updateOwner(@PathVariable Integer ownerId, @RequestBody @Validated OwnerFieldsDto ownerFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         if (currentOwner == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -106,7 +107,7 @@ public class OwnerRestController {
 
     @Operation(operationId = "addPetToOwner", summary = "Add a pet to an owner")
     @PostMapping(value = "{ownerId}/pets")
-    public ResponseEntity<PetDto> addPetToOwner(@PathVariable Integer ownerId, @RequestBody PetFieldsDto petFieldsDto) {
+    public ResponseEntity<PetDto> addPetToOwner(@PathVariable Integer ownerId, @RequestBody @Validated PetFieldsDto petFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Pet pet = petMapper.toPet(petFieldsDto);
         Owner owner = new Owner();

@@ -3,11 +3,15 @@ package org.springframework.samples.petclinic.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Simple JavaBean domain object representing an person.
  */
 @MappedSuperclass
+@Getter
+@Setter
 public class Person extends BaseEntity {
 
     @Column(name = "first_name")
@@ -17,22 +21,5 @@ public class Person extends BaseEntity {
     @Column(name = "last_name")
     @NotEmpty
     protected String lastName;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
 
 }

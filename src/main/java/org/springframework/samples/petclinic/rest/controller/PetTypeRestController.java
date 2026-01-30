@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.rest.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.samples.petclinic.mapper.PetTypeMapper;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
 import org.springframework.samples.petclinic.rest.dto.PetTypeFieldsDto;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -49,7 +51,7 @@ public class PetTypeRestController {
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<PetTypeDto> addPetType(@RequestBody PetTypeFieldsDto petTypeFieldsDto) {
+    public ResponseEntity<PetTypeDto> addPetType(@RequestBody @Validated PetTypeFieldsDto petTypeFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         PetType type = petTypeMapper.toPetType(petTypeFieldsDto);
         clinicService.savePetType(type);
