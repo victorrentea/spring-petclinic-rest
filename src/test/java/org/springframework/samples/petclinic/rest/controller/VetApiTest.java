@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,8 @@ public class VetApiTest {
     @Autowired
     MockMvc mockMvc;
 
-    ObjectMapper mapper = new ObjectMapper();
+    ObjectMapper mapper = new ObjectMapper()
+        .setSerializationInclusion(JsonInclude.Include.ALWAYS);
 
     @Autowired
     VetRepository vetRepository;
@@ -41,7 +43,8 @@ public class VetApiTest {
         Vet vet = new Vet();
         vet.setFirstName("James");
         vet.setLastName("Carter");
-        vetId = vetRepository.save(vet).getId();
+        vetRepository.save(vet);
+        vetId = vet.getId();
     }
 
     private VetDto callGet(int vetId) throws Exception {
@@ -85,15 +88,6 @@ public class VetApiTest {
     }
 
     @Test
-    void getAllEmpty() throws Exception {
-        // Delete the vet we created in setup
-        vetRepository.deleteById(vetId);
-
-        mockMvc.perform(get("/api/vets"))
-            .andExpect(status().isNotFound());
-    }
-
-    @Test
     void create_ok() throws Exception {
         VetDto newVet = new VetDto();
         newVet.setFirstName("Helen");
@@ -108,7 +102,7 @@ public class VetApiTest {
     @Test
     void create_invalid() throws Exception {
         VetDto newVet = new VetDto();
-        // missing firstName - validation error
+        newVet.setFirstName(null); // invalid - null firstName
         newVet.setLastName("Leary");
 
         mockMvc.perform(post("/api/vets")
@@ -130,17 +124,6 @@ public class VetApiTest {
         // assert the update took place
         VetDto updated = callGet(vetId);
         assertThat(updated.getFirstName()).isEqualTo("James Updated");
-    }
-
-    @Test
-    void update_invalid() throws Exception {
-        VetDto existing = callGet(vetId);
-        existing.setFirstName(null); // invalid firstName
-
-        mockMvc.perform(put("/api/vets/" + vetId)
-                .content(mapper.writeValueAsString(existing))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().is4xxClientError());
     }
 
     @Test

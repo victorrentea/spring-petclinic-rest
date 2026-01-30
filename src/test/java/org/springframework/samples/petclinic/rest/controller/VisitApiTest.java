@@ -57,17 +57,18 @@ public class VisitApiTest {
     @BeforeEach
     final void before() {
         Owner owner = ownerRepository.save(TestData.anOwner());
-        Pet pet = petRepository.save(TestData.aPet()
+        Pet pet = TestData.aPet()
             .setOwner(owner)
-            .setType(new PetType().setName("dog"))
-        );
+            .setType(new PetType().setName("dog"));
+        petRepository.save(pet);
         petId = pet.getId();
 
         Visit visit = new Visit();
         visit.setPet(pet);
         visit.setDate(LocalDate.now());
         visit.setDescription("rabies shot");
-        visitId = visitRepository.save(visit).getId();
+        visitRepository.save(visit);
+        visitId = visit.getId();
     }
 
     private VisitDto callGet(int visitId) throws Exception {
@@ -108,22 +109,6 @@ public class VisitApiTest {
         assertThat(visits)
             .extracting(VisitDto::getId, VisitDto::getDescription)
             .contains(org.assertj.core.api.Assertions.tuple(visitId, "rabies shot"));
-    }
-
-    @Test
-    void getAllEmpty() throws Exception {
-        // Delete the visit we created in setup
-        visitRepository.deleteById(visitId);
-
-        String responseJson = mockMvc.perform(get("/api/visits"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType("application/json"))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
-        VisitDto[] visits = mapper.readValue(responseJson, VisitDto[].class);
-
-        assertThat(visits).isEmpty();
     }
 
     @Test

@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.samples.petclinic.rest.dto.RoleDto;
 import org.springframework.samples.petclinic.rest.dto.UserDto;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,11 +28,14 @@ public class UserApiTest {
 
     @Test
     void create_ok() throws Exception {
+        RoleDto roleDto = new RoleDto();
+        roleDto.setName("OWNER_ADMIN");
+
         UserDto newUser = new UserDto();
         newUser.setUsername("newuser");
         newUser.setPassword("password123");
         newUser.setEnabled(true);
-        newUser.setRoles(Collections.singletonList("OWNER_ADMIN"));
+        newUser.getRoles().add(roleDto);
 
         mockMvc.perform(post("/api/users")
                 .content(mapper.writeValueAsString(newUser))

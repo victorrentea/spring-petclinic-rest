@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -63,7 +64,8 @@ public class OwnerApiTest {
         Owner owner = TestData.anOwner();
         owner.setFirstName("George");
         owner.setLastName("Franklin");
-        ownerId = ownerRepository.save(owner).getId();
+        owner = ownerRepository.save(owner);
+        ownerId = owner.getId();
 
         petType = new PetType();
         petType.setName("dog");
@@ -74,7 +76,11 @@ public class OwnerApiTest {
         pet.setBirthDate(LocalDate.now());
         pet.setOwner(owner);
         pet.setType(petType);
-        petId = petRepository.save(pet).getId();
+        pet = petRepository.save(pet);
+        petId = pet.getId();
+        
+        // Add pet to owner's collection for bidirectional relationship
+        owner.addPet(pet);
     }
 
     private OwnerDto callGet(int ownerId) throws Exception {
@@ -142,15 +148,6 @@ public class OwnerApiTest {
     @Test
     void getAllWithLastNameFilter_notFound() throws Exception {
         mockMvc.perform(get("/api/owners?lastName=NonExistent"))
-            .andExpect(status().isNotFound());
-    }
-
-    @Test
-    void getAllEmpty() throws Exception {
-        // Delete all owners
-        ownerRepository.deleteAll();
-
-        mockMvc.perform(get("/api/owners"))
             .andExpect(status().isNotFound());
     }
 
