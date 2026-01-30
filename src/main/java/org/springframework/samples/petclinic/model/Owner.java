@@ -17,15 +17,12 @@ import java.util.*;
 @Getter
 @Setter
 public class Owner extends Person {
-    @Column(name = "address")
     @NotEmpty
     private String address;
 
-    @Column(name = "city")
     @NotEmpty
     private String city;
 
-    @Column(name = "telephone")
     @NotEmpty
     @Digits(fraction = 0, integer = 10)
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
