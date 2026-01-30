@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+
 import java.time.LocalDate;
 
 /**

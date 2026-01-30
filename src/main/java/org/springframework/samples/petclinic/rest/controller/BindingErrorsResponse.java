@@ -16,16 +16,15 @@
 
 package org.springframework.samples.petclinic.rest.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Vitaliy Fedoriv

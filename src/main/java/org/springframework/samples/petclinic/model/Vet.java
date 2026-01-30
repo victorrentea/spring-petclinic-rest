@@ -16,11 +16,11 @@
 package org.springframework.samples.petclinic.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlElement;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
-import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.XmlElement;
 import java.util.*;
 
 /**

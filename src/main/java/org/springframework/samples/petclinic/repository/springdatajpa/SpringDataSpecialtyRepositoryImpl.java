@@ -18,9 +18,7 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
 import org.springframework.samples.petclinic.model.Specialty;
-import org.springframework.samples.petclinic.repository.SpecialtyRepository;
 import org.springframework.stereotype.Repository;
 
 /**

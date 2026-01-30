@@ -16,14 +16,13 @@
 
 package org.springframework.samples.petclinic.rest.controller;
 
-import java.io.IOException;
-
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 /**
  * @author Vitaliy Fedoriv

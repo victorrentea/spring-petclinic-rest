@@ -18,8 +18,6 @@ package org.springframework.samples.petclinic.repository.springdatajpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +33,7 @@ public class SpringDataVisitRepositoryImpl implements VisitRepositoryOverride {
     private EntityManager em;
 
 	@Override
-	public void delete(Visit visit) throws DataAccessException {
+	public void delete(Visit visit)  {
 		String visitId = visit.getId().toString();
 		em.createQuery("DELETE FROM Visit visit WHERE id=" + visitId).executeUpdate();
         if (em.contains(visit)) {

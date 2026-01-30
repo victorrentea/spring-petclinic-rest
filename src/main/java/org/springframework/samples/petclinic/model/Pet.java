@@ -15,10 +15,10 @@
  */
 package org.springframework.samples.petclinic.model;
 
+import jakarta.persistence.*;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 

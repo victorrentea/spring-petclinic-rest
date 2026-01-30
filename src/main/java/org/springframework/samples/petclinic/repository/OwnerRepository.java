@@ -15,21 +15,19 @@
  */
 package org.springframework.samples.petclinic.repository;
 
-import java.util.Collection;
-
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Owner;
 
+import java.util.Collection;
+
 public interface OwnerRepository extends Repository<Owner, Integer> {
-    void save(Owner owner) throws DataAccessException;
+    void save(Owner owner);
 
-	Collection<Owner> findAll() throws DataAccessException;
+    Collection<Owner> findAll();
 
-	void delete(Owner owner) throws DataAccessException;
+    void delete(Owner owner);
 
     @Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName%")
     Collection<Owner> findByLastName(@Param("lastName") String lastName);
