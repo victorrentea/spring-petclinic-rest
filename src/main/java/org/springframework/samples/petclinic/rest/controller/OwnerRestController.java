@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.rest.controller;
 
-import jakarta.transaction.Transactional;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,21 +12,24 @@ import org.springframework.samples.petclinic.mapper.VisitMapper;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.rest.api.api.OwnersApi;
-import org.springframework.samples.petclinic.rest.dto.*;
+import org.springframework.samples.petclinic.rest.dto.OwnerDto;
+import org.springframework.samples.petclinic.rest.dto.OwnerFieldsDto;
+import org.springframework.samples.petclinic.rest.dto.PetDto;
+import org.springframework.samples.petclinic.rest.dto.PetFieldsDto;
+import org.springframework.samples.petclinic.rest.dto.VisitDto;
+import org.springframework.samples.petclinic.rest.dto.VisitFieldsDto;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
 @RestController
-
-@RequestMapping("/api")
+@RequestMapping("/api/owners")
 @RequiredArgsConstructor
-public class OwnerRestController implements OwnersApi {
+@Tag(name = "owner", description = "Endpoints related to owners.")
+public class OwnerRestController {
 
     private final ClinicService clinicService;
 
@@ -36,8 +40,9 @@ public class OwnerRestController implements OwnersApi {
     private final VisitMapper visitMapper;
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<List<OwnerDto>> listOwners(String lastName) {
+    @Operation(operationId = "listOwners", summary = "List owners")
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<OwnerDto>> listOwners(@RequestParam(name = "lastName", required = false) String lastName) {
         List<Owner> owners;
         if (lastName != null) {
             owners = clinicService.findOwnerByLastName(lastName);
@@ -51,8 +56,9 @@ public class OwnerRestController implements OwnersApi {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<OwnerDto> getOwner(Integer ownerId) {
+    @Operation(operationId = "getOwner", summary = "Get an owner by ID")
+    @GetMapping(value = "/{ownerId}", produces = "application/json")
+    public ResponseEntity<OwnerDto> getOwner(@PathVariable Integer ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,8 +67,9 @@ public class OwnerRestController implements OwnersApi {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<OwnerDto> addOwner(OwnerFieldsDto ownerFieldsDto) {
+    @Operation(operationId = "addOwner", summary = "Create an owner")
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerFieldsDto ownerFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Owner owner = ownerMapper.toOwner(ownerFieldsDto);
         clinicService.saveOwner(owner);
@@ -73,8 +80,9 @@ public class OwnerRestController implements OwnersApi {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<OwnerDto> updateOwner(Integer ownerId, OwnerFieldsDto ownerFieldsDto) {
+    @Operation(operationId = "updateOwner", summary = "Update an owner")
+    @PutMapping(value = "/{ownerId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<OwnerDto> updateOwner(@PathVariable Integer ownerId, @RequestBody OwnerFieldsDto ownerFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         if (currentOwner == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -89,9 +97,9 @@ public class OwnerRestController implements OwnersApi {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Transactional
-    @Override
-    public ResponseEntity<OwnerDto> deleteOwner(Integer ownerId) {
+    @Operation(operationId = "deleteOwner", summary = "Delete an owner by ID")
+    @DeleteMapping(value = "/{ownerId}", produces = "application/json")
+    public ResponseEntity<OwnerDto> deleteOwner(@PathVariable Integer ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -101,8 +109,9 @@ public class OwnerRestController implements OwnersApi {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<PetDto> addPetToOwner(Integer ownerId, PetFieldsDto petFieldsDto) {
+    @Operation(operationId = "addPetToOwner", summary = "Add a pet to an owner")
+    @PostMapping(value = "{ownerId}/pets", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<PetDto> addPetToOwner(@PathVariable Integer ownerId, @RequestBody PetFieldsDto petFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Pet pet = petMapper.toPet(petFieldsDto);
         Owner owner = new Owner();
@@ -117,8 +126,9 @@ public class OwnerRestController implements OwnersApi {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<Void> updateOwnersPet(Integer ownerId, Integer petId, PetFieldsDto petFieldsDto) {
+    @Operation(operationId = "updateOwnersPet", summary = "Update an owner's pet")
+    @PutMapping(value = "{ownerId}/pets/{petId}", consumes = "application/json")
+    public ResponseEntity<Void> updateOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody PetFieldsDto petFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         if (currentOwner != null) {
             Pet currentPet = clinicService.findPetById(petId);
@@ -134,8 +144,9 @@ public class OwnerRestController implements OwnersApi {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<VisitDto> addVisitToOwner(Integer ownerId, Integer petId, VisitFieldsDto visitFieldsDto) {
+    @Operation(operationId = "addVisitToOwner", summary = "Add a visit for an owner's pet")
+    @PostMapping(value = "{ownerId}/pets/{petId}/visits", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<VisitDto> addVisitToOwner(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody VisitFieldsDto visitFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Visit visit = visitMapper.toVisit(visitFieldsDto);
         Pet pet = new Pet();
@@ -148,10 +159,10 @@ public class OwnerRestController implements OwnersApi {
         return new ResponseEntity<>(visitDto, headers, HttpStatus.CREATED);
     }
 
-
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @Override
-    public ResponseEntity<PetDto> getOwnersPet(Integer ownerId, Integer petId) {
+    @Operation(operationId = "getOwnersPet", summary = "Get a pet belonging to an owner")
+    @GetMapping(value = "{ownerId}/pets/{petId}", produces = "application/json")
+    public ResponseEntity<PetDto> getOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner != null) {
             Pet pet = owner.getPet(petId);

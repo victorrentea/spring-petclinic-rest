@@ -40,13 +40,11 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Visit findVisitById(int visitId) {
         return findEntityById(() -> visitRepository.findById(visitId));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Visit> findAllVisits() {
         return visitRepository.findAll();
     }
@@ -58,147 +56,122 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Vet findVetById(int id) {
         return findEntityById(() -> vetRepository.findById(id));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Vet> findAllVets() {
         return vetRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void saveVet(Vet vet) {
         vetRepository.save(vet);
     }
 
     @Override
-    @Transactional
     public void deleteVet(Vet vet) {
         vetRepository.delete(vet);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Owner> findAllOwners() {
         return ownerRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void deleteOwner(Owner owner) {
         ownerRepository.delete(owner);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public PetType findPetTypeById(int petTypeId) {
         return findEntityById(() -> petTypeRepository.findById(petTypeId));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<PetType> findAllPetTypes() {
         return petTypeRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void savePetType(PetType petType) {
         petTypeRepository.save(petType);
     }
 
     @Override
-    @Transactional
     public void deletePetType(PetType petType) {
         petTypeRepository.delete(petType);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Specialty findSpecialtyById(int specialtyId) {
         return findEntityById(() -> specialtyRepository.findById(specialtyId));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Specialty> findAllSpecialties() {
         return specialtyRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void saveSpecialty(Specialty specialty) {
         specialtyRepository.save(specialty);
     }
 
     @Override
-    @Transactional
     public void deleteSpecialty(Specialty specialty) {
         specialtyRepository.delete(specialty);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<PetType> findPetTypes() {
         return petRepository.findPetTypes();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Owner findOwnerById(int id) {
         return findEntityById(() -> ownerRepository.findById(id));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Pet findPetById(int id) {
         return findEntityById(() -> petRepository.findById(id));
     }
 
     @Override
-    @Transactional
     public void savePet(Pet pet) {
         pet.setType(findPetTypeById(pet.getType().getId()));
         petRepository.save(pet);
     }
 
     @Override
-    @Transactional
     public void saveVisit(Visit visit) {
         visitRepository.save(visit);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Vet> findVets() {
         return vetRepository.findAll();
     }
 
     @Override
-    @Transactional
     public void saveOwner(Owner owner) {
         ownerRepository.save(owner);
-
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Owner> findOwnerByLastName(String lastName) {
-        return ownerRepository.findByLastName(lastName);
+        return ownerRepository.findByLastNameIgnoreCaseStartingWith(lastName);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Visit> findVisitsByPetId(int petId) {
         return visitRepository.findByPetId(petId);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Specialty> findSpecialtiesByNameIn(Set<String> names) {
         return findEntityById(() -> specialtyRepository.findSpecialtiesByNameIn(names));
     }

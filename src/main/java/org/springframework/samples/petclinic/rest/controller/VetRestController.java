@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.rest.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -9,12 +11,10 @@ import org.springframework.samples.petclinic.mapper.SpecialtyMapper;
 import org.springframework.samples.petclinic.mapper.VetMapper;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.rest.api.api.VetsApi;
 import org.springframework.samples.petclinic.rest.dto.VetDto;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
@@ -22,17 +22,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-
-@RequestMapping("api")
+@RequestMapping("/api")
 @RequiredArgsConstructor
-public class VetRestController implements VetsApi {
+public class VetRestController {
 
     private final ClinicService clinicService;
     private final VetMapper vetMapper;
     private final SpecialtyMapper specialtyMapper;
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Override
+    @Operation(operationId = "listVets", summary = "List vets")
+    @GetMapping(value = "/vets", produces = "application/json")
     public ResponseEntity<List<VetDto>> listVets() {
         List<VetDto> vets = new ArrayList<>(vetMapper.toVetDtos(clinicService.findAllVets()));
         if (vets.isEmpty()) {
@@ -42,8 +42,9 @@ public class VetRestController implements VetsApi {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Override
-    public ResponseEntity<VetDto> getVet(Integer vetId)  {
+    @Operation(operationId = "getVet", summary = "Get a vet by ID")
+    @GetMapping(value = "/vets/{vetId}", produces = "application/json")
+    public ResponseEntity<VetDto> getVet(@PathVariable Integer vetId)  {
         Vet vet = clinicService.findVetById(vetId);
         if (vet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -52,8 +53,9 @@ public class VetRestController implements VetsApi {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Override
-    public ResponseEntity<VetDto> addVet(VetDto vetDto) {
+    @Operation(operationId = "addVet", summary = "Create a vet")
+    @PostMapping(value = "/vets", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<VetDto> addVet(@RequestBody VetDto vetDto) {
         HttpHeaders headers = new HttpHeaders();
         Vet vet = vetMapper.toVet(vetDto);
         if(vet.getNrOfSpecialties() > 0){
@@ -66,8 +68,9 @@ public class VetRestController implements VetsApi {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Override
-    public ResponseEntity<VetDto> updateVet(Integer vetId,VetDto vetDto)  {
+    @Operation(operationId = "updateVet", summary = "Update a vet by ID")
+    @PutMapping(value = "/vets/{vetId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<VetDto> updateVet(@PathVariable Integer vetId, @RequestBody VetDto vetDto)  {
         Vet currentVet = clinicService.findVetById(vetId);
         if (currentVet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -87,9 +90,10 @@ public class VetRestController implements VetsApi {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
+    @Operation(operationId = "deleteVet", summary = "Delete a vet by ID")
     @Transactional
-    @Override
-    public ResponseEntity<VetDto> deleteVet(Integer vetId) {
+    @DeleteMapping(value = "/vets/{vetId}", produces = "application/json")
+    public ResponseEntity<VetDto> deleteVet(@PathVariable Integer vetId) {
         Vet vet = clinicService.findVetById(vetId);
         if (vet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

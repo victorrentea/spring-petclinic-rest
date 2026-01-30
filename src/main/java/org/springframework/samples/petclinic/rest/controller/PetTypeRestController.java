@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.rest.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -7,30 +8,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.mapper.PetTypeMapper;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.rest.api.api.PettypesApi;
 import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
 import org.springframework.samples.petclinic.rest.dto.PetTypeFieldsDto;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-
-@RequestMapping("api")
+@RequestMapping("/api/pettypes")
 @RequiredArgsConstructor
-public class PetTypeRestController implements PettypesApi {
+@Tag(name = "pettypes", description = "Endpoints related to pet types.")
+public class PetTypeRestController {
 
     private final ClinicService clinicService;
     private final PetTypeMapper petTypeMapper;
 
 
     @PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
-    @Override
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<PetTypeDto>> listPetTypes() {
         List<PetType> petTypes = new ArrayList<>(clinicService.findAllPetTypes());
         if (petTypes.isEmpty()) {
@@ -40,8 +39,8 @@ public class PetTypeRestController implements PettypesApi {
     }
 
     @PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
-    @Override
-    public ResponseEntity<PetTypeDto> getPetType(Integer petTypeId) {
+    @GetMapping(value = "/{petTypeId}", produces = "application/json")
+    public ResponseEntity<PetTypeDto> getPetType(@PathVariable("petTypeId") Integer petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
         if (petType == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -50,8 +49,8 @@ public class PetTypeRestController implements PettypesApi {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Override
-    public ResponseEntity<PetTypeDto> addPetType(PetTypeFieldsDto petTypeFieldsDto) {
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<PetTypeDto> addPetType(@RequestBody PetTypeFieldsDto petTypeFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         PetType type = petTypeMapper.toPetType(petTypeFieldsDto);
         clinicService.savePetType(type);
@@ -60,8 +59,8 @@ public class PetTypeRestController implements PettypesApi {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Override
-    public ResponseEntity<PetTypeDto> updatePetType(Integer petTypeId, PetTypeDto petTypeDto) {
+    @PutMapping(value = "/{petTypeId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<PetTypeDto> updatePetType(@PathVariable("petTypeId") Integer petTypeId, @RequestBody PetTypeDto petTypeDto) {
         PetType currentPetType = clinicService.findPetTypeById(petTypeId);
         if (currentPetType == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -73,8 +72,8 @@ public class PetTypeRestController implements PettypesApi {
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Transactional
-    @Override
-    public ResponseEntity<PetTypeDto> deletePetType(Integer petTypeId) {
+    @DeleteMapping(value = "/{petTypeId}", produces = "application/json")
+    public ResponseEntity<PetTypeDto> deletePetType(@PathVariable("petTypeId") Integer petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
         if (petType == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

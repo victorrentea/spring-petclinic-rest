@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.repository;
 
+import org.springframework.data.domain.Limit;
 import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Owner;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface OwnerRepository extends Repository<Owner, Integer> {
 
-    List<Owner> findByLastName(String lastName);
+    List<Owner> findByLastNameIgnoreCaseStartingWith(String lastName);
 
     Owner findById(int id);
 
