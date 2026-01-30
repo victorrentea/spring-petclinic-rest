@@ -3,10 +3,9 @@ package org.springframework.samples.petclinic.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.rest.dto.OwnerDto;
-import org.springframework.samples.petclinic.rest.dto.OwnerFieldsDto;
+import org.springframework.samples.petclinic.rest.api.dto.OwnerDto;
+import org.springframework.samples.petclinic.rest.api.dto.OwnerFieldsDto;
 
-import java.util.Collection;
 import java.util.List;
 
 @Mapper(uses = PetMapper.class)

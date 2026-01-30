@@ -4,10 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.samples.petclinic.model.Role;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.rest.dto.RoleDto;
-import org.springframework.samples.petclinic.rest.dto.UserDto;
+import org.springframework.samples.petclinic.rest.api.dto.RoleDto;
+import org.springframework.samples.petclinic.rest.api.dto.UserDto;
 
-import java.util.Collection;
 import java.util.List;
 
 @Mapper

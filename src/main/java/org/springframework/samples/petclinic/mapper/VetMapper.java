@@ -3,10 +3,9 @@ package org.springframework.samples.petclinic.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.rest.dto.VetDto;
-import org.springframework.samples.petclinic.rest.dto.VetFieldsDto;
+import org.springframework.samples.petclinic.rest.api.dto.VetDto;
+import org.springframework.samples.petclinic.rest.api.dto.VetFieldsDto;
 
-import java.util.Collection;
 import java.util.List;
 
 @Mapper(uses = SpecialtyMapper.class)
