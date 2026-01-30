@@ -12,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @ActiveProfiles("h2")
@@ -176,7 +178,8 @@ class ClinicServiceTests {
     void shouldDeletePet() {
         Pet pet = clinicService.findPetById(7);
         clinicService.deletePet(pet);
-        assertThat(clinicService.findPetById(7)).isNull();
+        assertThatThrownBy(() -> clinicService.findPetById(7))
+            .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test

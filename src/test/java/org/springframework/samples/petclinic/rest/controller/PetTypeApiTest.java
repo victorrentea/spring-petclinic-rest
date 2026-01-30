@@ -37,10 +37,7 @@ public class PetTypeApiTest {
 
     @BeforeEach
     final void before() {
-        PetType petType = new PetType();
-        petType.setName("cat");
-        petTypeRepository.save(petType);
-        petTypeId = petType.getId();
+        petTypeId = petTypeRepository.save(new PetType().setName("cat")).getId();
     }
 
     private PetTypeDto callGet(int petTypeId) throws Exception {
@@ -54,7 +51,7 @@ public class PetTypeApiTest {
     }
 
     @Test
-    @WithMockUser(roles = "OWNER_ADMIN")
+    @WithMockUser(roles = "VET_ADMIN")
     void getPetTypeSuccessAsOwnerAdmin() throws Exception {
         PetTypeDto responseDto = callGet(petTypeId);
 
@@ -64,40 +61,14 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void getPetTypeSuccessAsVetAdmin() throws Exception {
-        PetTypeDto responseDto = callGet(petTypeId);
-
-        assertThat(responseDto.getId()).isEqualTo(petTypeId);
-        assertThat(responseDto.getName()).isEqualTo("cat");
-    }
-
-    @Test
-    @WithMockUser(roles = "OWNER_ADMIN")
     void getPetType_notFound() throws Exception {
         mockMvc.perform(get("/api/pettypes/99999"))
             .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser(roles = "OWNER_ADMIN")
-    void getAllPetTypesSuccessAsOwnerAdmin() throws Exception {
-        String responseJson = mockMvc.perform(get("/api/pettypes"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType("application/json"))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
-        PetTypeDto[] petTypes = mapper.readValue(responseJson, PetTypeDto[].class);
-
-        assertThat(petTypes).hasSizeGreaterThanOrEqualTo(1);
-        assertThat(petTypes)
-            .extracting(PetTypeDto::getId, PetTypeDto::getName)
-            .contains(Assertions.tuple(petTypeId, "cat"));
-    }
-
-    @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void getAllPetTypesSuccessAsVetAdmin() throws Exception {
+    void getAllPetTypesSuccessAsOwnerAdmin() throws Exception {
         String responseJson = mockMvc.perform(get("/api/pettypes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))

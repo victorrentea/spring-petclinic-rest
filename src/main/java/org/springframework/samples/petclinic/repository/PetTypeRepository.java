@@ -11,7 +11,7 @@ public interface PetTypeRepository extends Repository<PetType, Integer> {
 
     PetType findById(int id);
 
-    void save(PetType petType);
+    PetType save(PetType petType);
 
     void delete(PetType petType);
 
