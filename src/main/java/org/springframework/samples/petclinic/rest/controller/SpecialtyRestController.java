@@ -35,8 +35,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestMethod;
+
 /**
- * @author Vitaliy Fedoriv
  */
 
 @RestController

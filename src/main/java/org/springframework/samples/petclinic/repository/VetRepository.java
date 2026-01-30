@@ -15,11 +15,12 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Vet;
 
 import java.util.Collection;
 
-public interface VetRepository {
+public interface VetRepository extends Repository<Vet, Integer> {
 
 	Collection<Vet> findAll();
 

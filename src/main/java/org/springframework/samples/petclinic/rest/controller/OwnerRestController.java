@@ -39,10 +39,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @author Vitaliy Fedoriv
- */
-
 @RestController
 @CrossOrigin(exposedHeaders = "errors, content-type")
 @RequestMapping("/api")

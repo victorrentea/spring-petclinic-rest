@@ -22,8 +22,6 @@ import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Vitaliy Fedoriv
- *
  */
 
 @Repository

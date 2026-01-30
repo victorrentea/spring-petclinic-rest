@@ -22,8 +22,6 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Vitaliy Fedoriv
- *
  */
 
 @Repository
@@ -35,11 +33,11 @@ public class SpringDataPetRepositoryImpl  implements PetRepositoryOverride {
 	@Override
 	public void delete(Pet pet) {
 		String petId = pet.getId().toString();
-		em.createQuery("DELETE FROM Visit visit WHERE pet.id=" + petId).executeUpdate();
+//		em.createQuery("DELETE FROM Visit visit WHERE pet.id=" + petId).executeUpdate();
 		em.createQuery("DELETE FROM Pet pet WHERE id=" + petId).executeUpdate();
-        if (em.contains(pet)) {
-            em.remove(pet);
-        }
+//        if (em.contains(pet)) {
+//            em.remove(pet);
+//        }
 	}
 
 }

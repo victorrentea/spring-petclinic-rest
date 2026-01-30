@@ -25,14 +25,8 @@ import java.util.List;
 
 /**
  * Spring Data JPA specialization of the {@link PetRepository} interface
- *
- * @author Michael Isvy
- * @author Vitaliy Fedoriv
  */
-
 public interface SpringDataPetRepository extends PetRepository, Repository<Pet, Integer> {
 
-    @Override
-    @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
-    List<PetType> findPetTypes();
+
 }

@@ -24,15 +24,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.util.StopWatch;
 
 /**
- * Simple aspect that monitors call count and call invocation time. It uses JMX annotations and therefore can be
- * monitored using any JMX console such as the jConsole
- * <p/>
- * This is only useful if you use JPA or JDBC.  Spring-data-jpa doesn't have any correctly annotated classes to join on
- *
- * @author Rob Harrop
- * @author Juergen Hoeller
- * @author Michael Isvy
- * @since 2.5
+ * Simple Aspect for monitoring slow calls in the sample application.
  */
 @ManagedResource("petclinic:type=CallMonitor")
 @Aspect

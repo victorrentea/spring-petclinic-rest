@@ -2,10 +2,6 @@
 ===        Spring PetClinic sample application - PostgreSQL Configuration    ===
 ================================================================================
 
-@author Vitaliy Fedoriv
-@autor Antoine Rey
-
---------------------------------------------------------------------------------
 
 1) Run the "docker-compose.yml" from the root of the project:
 

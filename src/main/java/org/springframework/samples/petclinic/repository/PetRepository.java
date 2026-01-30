@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -25,20 +26,10 @@ import java.util.List;
 /**
  * Repository class for <code>Pet</code> domain objects All method names are compliant with Spring Data naming
  * conventions so this interface can easily be extended for Spring Data See here: http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
- *
- * @author Ken Krebs
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Michael Isvy
- * @author Vitaliy Fedoriv
  */
 public interface PetRepository {
 
-    /**
-     * Retrieve all <code>PetType</code>s from the data store.
-     *
-     * @return a <code>Collection</code> of <code>PetType</code>s
-     */
+    @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
     List<PetType> findPetTypes();
 
     /**

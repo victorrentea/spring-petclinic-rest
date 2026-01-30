@@ -23,9 +23,6 @@ import java.util.Set;
 
 /**
  * Mostly used as a facade so all controllers have a single point of entry
- *
- * @author Michael Isvy
- * @author Vitaliy Fedoriv
  */
 public interface ClinicService {
 

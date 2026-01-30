@@ -29,8 +29,6 @@ import java.util.Collections;
 
 /**
  * Java config for springdoc-openapi API documentation library
- *
- * @author Vitaliy Fedoriv
  */
 @Configuration
 public class SwaggerConfig {

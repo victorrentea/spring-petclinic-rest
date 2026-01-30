@@ -23,17 +23,11 @@ import org.springframework.samples.petclinic.model.PetType;
 
 import java.util.List;
 
-/**
- * @author Vitaliy Fedoriv
- *
- */
-
 public class SpringDataPetTypeRepositoryImpl implements PetTypeRepositoryOverride {
 
 	@PersistenceContext
     private EntityManager em;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void delete(PetType petType) {
         // Ensure we work with a managed entity

@@ -31,9 +31,6 @@ import java.util.function.Supplier;
 /**
  * Mostly used as a facade for all Petclinic controllers
  * Also a placeholder for @Transactional and @Cacheable annotations
- *
- * @author Michael Isvy
- * @author Vitaliy Fedoriv
  */
 @Service
 @RequiredArgsConstructor

@@ -22,8 +22,6 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Vitaliy Fedoriv
- *
  */
 
 @Repository
@@ -40,6 +38,4 @@ public class SpringDataVisitRepositoryImpl implements VisitRepositoryOverride {
             em.remove(visit);
         }
 	}
-
-
 }

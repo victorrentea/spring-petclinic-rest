@@ -35,9 +35,6 @@ import java.time.Instant;
  * Global Exception handler for REST controllers.
  * <p>
  * This class handles exceptions thrown by REST controllers and returns appropriate HTTP responses to the client.
- *
- * @author Vitaliy Fedoriv
- * @author Alexander Dudkin
  */
 @ControllerAdvice
 public class ExceptionControllerAdvice {
