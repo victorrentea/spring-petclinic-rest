@@ -31,7 +31,7 @@ public class ClinicService {
     }
 
     public Visit findVisitById(int visitId) {
-        return findEntityById(() -> visitRepository.findById(visitId));
+        return visitRepository.findById(visitId);
     }
 
     public List<Visit> findAllVisits() {
@@ -43,7 +43,7 @@ public class ClinicService {
     }
 
     public Vet findVetById(int id) {
-        return findEntityById(() -> vetRepository.findById(id));
+        return vetRepository.findById(id);
     }
 
     public List<Vet> findAllVets() {
@@ -67,7 +67,7 @@ public class ClinicService {
     }
 
     public PetType findPetTypeById(int petTypeId) {
-        return findEntityById(() -> petTypeRepository.findById(petTypeId));
+        return petTypeRepository.findById(petTypeId);
     }
 
     public List<PetType> findAllPetTypes() {
@@ -83,7 +83,7 @@ public class ClinicService {
     }
 
     public Specialty findSpecialtyById(int specialtyId) {
-        return findEntityById(() -> specialtyRepository.findById(specialtyId));
+        return specialtyRepository.findById(specialtyId);
     }
 
     public List<Specialty> findAllSpecialties() {
@@ -103,11 +103,11 @@ public class ClinicService {
     }
 
     public Owner findOwnerById(int id) {
-        return findEntityById(() -> ownerRepository.findById(id));
+        return ownerRepository.findById(id);
     }
 
     public Pet findPetById(int id) {
-        return findEntityById(() -> petRepository.findById(id));
+        return petRepository.findById(id);
     }
 
     public void savePet(Pet pet) {
@@ -136,7 +136,7 @@ public class ClinicService {
     }
 
     public List<Specialty> findSpecialtiesByNameIn(Set<String> names) {
-        return findEntityById(() -> specialtyRepository.findSpecialtiesByNameIn(names));
+        return specialtyRepository.findSpecialtiesByNameIn(names);
     }
 
     private <T> T findEntityById(Supplier<T> supplier) {
