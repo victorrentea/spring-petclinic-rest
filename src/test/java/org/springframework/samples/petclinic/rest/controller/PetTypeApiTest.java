@@ -18,6 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.assertj.core.api.Assertions;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
@@ -53,7 +55,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "OWNER_ADMIN")
-    void testGetPetTypeSuccessAsOwnerAdmin() throws Exception {
+    void getPetTypeSuccessAsOwnerAdmin() throws Exception {
         PetTypeDto responseDto = callGet(petTypeId);
 
         assertThat(responseDto.getId()).isEqualTo(petTypeId);
@@ -62,7 +64,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testGetPetTypeSuccessAsVetAdmin() throws Exception {
+    void getPetTypeSuccessAsVetAdmin() throws Exception {
         PetTypeDto responseDto = callGet(petTypeId);
 
         assertThat(responseDto.getId()).isEqualTo(petTypeId);
@@ -71,14 +73,14 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "OWNER_ADMIN")
-    void testGetPetTypeNotFound() throws Exception {
+    void getPetType_notFound() throws Exception {
         mockMvc.perform(get("/api/pettypes/99999"))
             .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser(roles = "OWNER_ADMIN")
-    void testGetAllPetTypesSuccessAsOwnerAdmin() throws Exception {
+    void getAllPetTypesSuccessAsOwnerAdmin() throws Exception {
         String responseJson = mockMvc.perform(get("/api/pettypes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
@@ -90,12 +92,12 @@ public class PetTypeApiTest {
         assertThat(petTypes).hasSizeGreaterThanOrEqualTo(1);
         assertThat(petTypes)
             .extracting(PetTypeDto::getId, PetTypeDto::getName)
-            .contains(org.assertj.core.api.Assertions.tuple(petTypeId, "cat"));
+            .contains(Assertions.tuple(petTypeId, "cat"));
     }
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testGetAllPetTypesSuccessAsVetAdmin() throws Exception {
+    void getAllPetTypesSuccessAsVetAdmin() throws Exception {
         String responseJson = mockMvc.perform(get("/api/pettypes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
@@ -107,12 +109,12 @@ public class PetTypeApiTest {
         assertThat(petTypes).hasSizeGreaterThanOrEqualTo(1);
         assertThat(petTypes)
             .extracting(PetTypeDto::getId, PetTypeDto::getName)
-            .contains(org.assertj.core.api.Assertions.tuple(petTypeId, "cat"));
+            .contains(Assertions.tuple(petTypeId, "cat"));
     }
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testCreatePetTypeSuccess() throws Exception {
+    void createPetType_ok() throws Exception {
         PetTypeDto newPetType = new PetTypeDto();
         newPetType.setName("rabbit");
 
@@ -135,7 +137,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testCreatePetTypeError() throws Exception {
+    void createPetType_invalid() throws Exception {
         PetTypeDto newPetType = new PetTypeDto();
         newPetType.setName(""); // invalid - empty name
 
@@ -147,7 +149,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testUpdatePetTypeSuccess() throws Exception {
+    void updatePetType_ok() throws Exception {
         PetTypeDto existing = callGet(petTypeId);
         existing.setName("cat II");
 
@@ -163,7 +165,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testUpdatePetTypeError() throws Exception {
+    void updatePetType_invalid() throws Exception {
         PetTypeDto existing = callGet(petTypeId);
         existing.setName(""); // invalid - empty name
 
@@ -175,7 +177,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testDeletePetTypeSuccess() throws Exception {
+    void deletePetType_ok() throws Exception {
         mockMvc.perform(delete("/api/pettypes/" + petTypeId))
             .andExpect(status().isNoContent());
 
@@ -186,7 +188,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
-    void testDeletePetTypeError() throws Exception {
+    void deletePetType_notFound() throws Exception {
         mockMvc.perform(delete("/api/pettypes/99999"))
             .andExpect(status().isNotFound());
     }
