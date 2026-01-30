@@ -11,8 +11,6 @@ import java.util.List;
 @Mapper
 public interface PetTypeMapper {
 
-    PetType toPetType(PetTypeDto petTypeDto);
-
     @Mapping(target = "id", ignore = true)
     PetType toPetType(PetTypeFieldsDto petTypeFieldsDto);
 

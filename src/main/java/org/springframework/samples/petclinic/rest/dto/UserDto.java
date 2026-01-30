@@ -19,7 +19,6 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "User", description = "An user.")
 @JsonTypeName("User")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
 public class UserDto {
 
   private String username;
@@ -30,17 +29,6 @@ public class UserDto {
 
   @Valid
   private List<@Valid RoleDto> roles = new ArrayList<>();
-
-  public UserDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public UserDto(String username) {
-    this.username = username;
-  }
 
   public UserDto username(String username) {
     this.username = username;
@@ -173,4 +161,3 @@ public class UserDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

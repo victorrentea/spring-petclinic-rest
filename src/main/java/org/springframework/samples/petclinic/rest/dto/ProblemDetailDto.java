@@ -22,7 +22,7 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "ProblemDetail", description = "The schema for all error responses.")
 @JsonTypeName("ProblemDetail")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class ProblemDetailDto {
 
   private URI type;
@@ -38,22 +38,6 @@ public class ProblemDetailDto {
 
   @Valid
   private List<ValidationMessageDto> schemaValidationErrors = new ArrayList<>();
-
-  public ProblemDetailDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public ProblemDetailDto(URI type, String title, Integer status, String detail, OffsetDateTime timestamp, List<ValidationMessageDto> schemaValidationErrors) {
-    this.type = type;
-    this.title = title;
-    this.status = status;
-    this.detail = detail;
-    this.timestamp = timestamp;
-    this.schemaValidationErrors = schemaValidationErrors;
-  }
 
   public ProblemDetailDto type(URI type) {
     this.type = type;
@@ -232,4 +216,3 @@ public class ProblemDetailDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

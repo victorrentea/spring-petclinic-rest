@@ -19,7 +19,7 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "VetFields", description = "Editable fields of a veterinarian.")
 @JsonTypeName("VetFields")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class VetFieldsDto {
 
   private String firstName;
@@ -28,19 +28,6 @@ public class VetFieldsDto {
 
   @Valid
   private List<@Valid SpecialtyDto> specialties = new ArrayList<>();
-
-  public VetFieldsDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public VetFieldsDto(String firstName, String lastName, List<@Valid SpecialtyDto> specialties) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.specialties = specialties;
-  }
 
   public VetFieldsDto firstName(String firstName) {
     this.firstName = firstName;
@@ -151,4 +138,3 @@ public class VetFieldsDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

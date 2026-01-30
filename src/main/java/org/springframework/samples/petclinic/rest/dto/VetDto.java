@@ -19,7 +19,7 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "Vet", description = "A veterinarian.")
 @JsonTypeName("Vet")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class VetDto {
 
   private String firstName;
@@ -30,20 +30,6 @@ public class VetDto {
   private List<@Valid SpecialtyDto> specialties = new ArrayList<>();
 
   private Integer id;
-
-  public VetDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public VetDto(String firstName, String lastName, List<@Valid SpecialtyDto> specialties, Integer id) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.specialties = specialties;
-    this.id = id;
-  }
 
   public VetDto firstName(String firstName) {
     this.firstName = firstName;
@@ -177,4 +163,3 @@ public class VetDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

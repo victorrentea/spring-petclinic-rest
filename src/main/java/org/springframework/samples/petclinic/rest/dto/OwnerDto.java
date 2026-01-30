@@ -17,9 +17,8 @@ import jakarta.annotation.Generated;
  * A pet owner.
  */
 
-@Schema(name = "Owner", description = "A pet owner.")
 @JsonTypeName("Owner")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class OwnerDto {
 
   private String firstName;
@@ -36,22 +35,6 @@ public class OwnerDto {
 
   @Valid
   private List<PetDto> pets = new ArrayList<>();
-
-  public OwnerDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public OwnerDto(String firstName, String lastName, String address, String city, String telephone, List<PetDto> pets) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.address = address;
-    this.city = city;
-    this.telephone = telephone;
-    this.pets = pets;
-  }
 
   public OwnerDto firstName(String firstName) {
     this.firstName = firstName;
@@ -251,4 +234,3 @@ public class OwnerDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

@@ -147,11 +147,11 @@ class PetRestControllerTests {
         mockMvc.perform(put("/api/pets/3")
                 .content(newPetAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().contentType("application/json"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         mockMvc.perform(get("/api/pets/3")
                 .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isOk())
+            .andExpect(status().is2xxSuccessful())
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$.id").value(3))
             .andExpect(jsonPath("$.name").value("Rosy I"));

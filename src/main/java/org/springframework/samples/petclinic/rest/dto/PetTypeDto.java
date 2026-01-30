@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
+
 import jakarta.annotation.Generated;
 
 /**
@@ -15,24 +16,12 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "PetType", description = "A pet type.")
 @JsonTypeName("PetType")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class PetTypeDto {
 
   private String name;
 
   private Integer id;
-
-  public PetTypeDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public PetTypeDto(String name, Integer id) {
-    this.name = name;
-    this.id = id;
-  }
 
   public PetTypeDto name(String name) {
     this.name = name;
@@ -114,4 +103,3 @@ public class PetTypeDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

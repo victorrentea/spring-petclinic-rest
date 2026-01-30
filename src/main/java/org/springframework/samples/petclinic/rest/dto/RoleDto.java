@@ -15,21 +15,10 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "Role", description = "A role.")
 @JsonTypeName("Role")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class RoleDto {
 
   private String name;
-
-  public RoleDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public RoleDto(String name) {
-    this.name = name;
-  }
 
   public RoleDto name(String name) {
     this.name = name;
@@ -88,4 +77,3 @@ public class RoleDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

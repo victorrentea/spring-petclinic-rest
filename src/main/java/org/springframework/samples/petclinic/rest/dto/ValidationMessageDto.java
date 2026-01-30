@@ -18,21 +18,10 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 
 @Schema(name = "ValidationMessage", description = "Messages describing a validation error.")
 @JsonTypeName("ValidationMessage")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class ValidationMessageDto {
 
   private String message;
-
-  public ValidationMessageDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public ValidationMessageDto(String message) {
-    this.message = message;
-  }
 
   public ValidationMessageDto message(String message) {
     this.message = message;
@@ -131,4 +120,3 @@ public class ValidationMessageDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

@@ -19,24 +19,13 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "VisitFields", description = "Editable fields of a vet visit.")
 @JsonTypeName("VisitFields")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class VisitFieldsDto {
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private @Nullable LocalDate date;
 
   private String description;
-
-  public VisitFieldsDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public VisitFieldsDto(String description) {
-    this.description = description;
-  }
 
   public VisitFieldsDto date(@Nullable LocalDate date) {
     this.date = date;
@@ -117,4 +106,3 @@ public class VisitFieldsDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

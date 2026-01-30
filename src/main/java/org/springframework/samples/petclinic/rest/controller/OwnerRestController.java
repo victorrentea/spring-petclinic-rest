@@ -147,13 +147,13 @@ public class OwnerRestController {
     @Operation(operationId = "addVisitToOwner", summary = "Add a visit for an owner's pet")
     @PostMapping(value = "{ownerId}/pets/{petId}/visits", consumes = "application/json", produces = "application/json")
     public ResponseEntity<VisitDto> addVisitToOwner(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody VisitFieldsDto visitFieldsDto) {
-        HttpHeaders headers = new HttpHeaders();
         Visit visit = visitMapper.toVisit(visitFieldsDto);
         Pet pet = new Pet();
         pet.setId(petId);
         visit.setPet(pet);
         clinicService.saveVisit(visit);
         VisitDto visitDto = visitMapper.toVisitDto(visit);
+        HttpHeaders headers = new HttpHeaders();
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/visits/{id}")
             .buildAndExpand(visit.getId()).toUri());
         return new ResponseEntity<>(visitDto, headers, HttpStatus.CREATED);

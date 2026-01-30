@@ -18,7 +18,7 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "PetFields", description = "Editable fields of a pet.")
 @JsonTypeName("PetFields")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class PetFieldsDto {
 
   private String name;
@@ -27,19 +27,6 @@ public class PetFieldsDto {
   private LocalDate birthDate;
 
   private PetTypeDto type;
-
-  public PetFieldsDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public PetFieldsDto(String name, LocalDate birthDate, PetTypeDto type) {
-    this.name = name;
-    this.birthDate = birthDate;
-    this.type = type;
-  }
 
   public PetFieldsDto name(String name) {
     this.name = name;
@@ -142,4 +129,3 @@ public class PetFieldsDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

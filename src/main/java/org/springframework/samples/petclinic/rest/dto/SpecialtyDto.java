@@ -15,24 +15,12 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "Specialty", description = "Fields of specialty of vets.")
 @JsonTypeName("Specialty")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class SpecialtyDto {
 
   private Integer id;
 
   private String name;
-
-  public SpecialtyDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public SpecialtyDto(Integer id, String name) {
-    this.id = id;
-    this.name = name;
-  }
 
   public SpecialtyDto id(Integer id) {
     this.id = id;
@@ -114,4 +102,3 @@ public class SpecialtyDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

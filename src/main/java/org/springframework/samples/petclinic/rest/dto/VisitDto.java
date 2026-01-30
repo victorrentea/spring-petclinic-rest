@@ -19,7 +19,7 @@ import jakarta.annotation.Generated;
 
 @Schema(name = "Visit", description = "A booking for a vet visit.")
 @JsonTypeName("Visit")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
+
 public class VisitDto {
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -30,19 +30,6 @@ public class VisitDto {
   private Integer id;
 
   private Integer petId;
-
-  public VisitDto() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public VisitDto(String description, Integer id, Integer petId) {
-    this.description = description;
-    this.id = id;
-    this.petId = petId;
-  }
 
   public VisitDto date(@Nullable LocalDate date) {
     this.date = date;
@@ -169,4 +156,3 @@ public class VisitDto {
     return o.toString().replace("\n", "\n    ");
   }
 }
-
