@@ -28,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/owners")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
 @Tag(name = "owner", description = "Endpoints related to owners.")
 public class OwnerRestController {
 
@@ -39,7 +40,6 @@ public class OwnerRestController {
 
     private final VisitMapper visitMapper;
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "listOwners", summary = "List owners")
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<OwnerDto>> listOwners(@RequestParam(name = "lastName", required = false) String lastName) {
@@ -55,7 +55,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(ownerMapper.toOwnerDtoCollection(owners), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "getOwner", summary = "Get an owner by ID")
     @GetMapping(value = "/{ownerId}")
     public ResponseEntity<OwnerDto> getOwner(@PathVariable Integer ownerId) {
@@ -66,7 +65,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(ownerMapper.toOwnerDto(owner), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "addOwner", summary = "Create an owner")
     @PostMapping(consumes = "application/json")
     public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerFieldsDto ownerFieldsDto) {
@@ -79,7 +77,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(ownerDto, headers, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "updateOwner", summary = "Update an owner")
     @PutMapping(value = "/{ownerId}")
     public ResponseEntity<OwnerDto> updateOwner(@PathVariable Integer ownerId, @RequestBody OwnerFieldsDto ownerFieldsDto) {
@@ -96,7 +93,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(ownerMapper.toOwnerDto(currentOwner), HttpStatus.NO_CONTENT);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "deleteOwner", summary = "Delete an owner by ID")
     @DeleteMapping(value = "/{ownerId}")
     public ResponseEntity<OwnerDto> deleteOwner(@PathVariable Integer ownerId) {
@@ -108,7 +104,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "addPetToOwner", summary = "Add a pet to an owner")
     @PostMapping(value = "{ownerId}/pets")
     public ResponseEntity<PetDto> addPetToOwner(@PathVariable Integer ownerId, @RequestBody PetFieldsDto petFieldsDto) {
@@ -125,7 +120,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(petDto, headers, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "updateOwnersPet", summary = "Update an owner's pet")
     @PutMapping(value = "{ownerId}/pets/{petId}")
     public ResponseEntity<Void> updateOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody PetFieldsDto petFieldsDto) {
@@ -143,7 +137,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "addVisitToOwner", summary = "Add a visit for an owner's pet")
     @PostMapping(value = "{ownerId}/pets/{petId}/visits")
     public ResponseEntity<VisitDto> addVisitToOwner(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody VisitFieldsDto visitFieldsDto) {
@@ -159,7 +152,6 @@ public class OwnerRestController {
         return new ResponseEntity<>(visitDto, headers, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "getOwnersPet", summary = "Get a pet belonging to an owner")
     @GetMapping(value = "{ownerId}/pets/{petId}")
     public ResponseEntity<PetDto> getOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId) {

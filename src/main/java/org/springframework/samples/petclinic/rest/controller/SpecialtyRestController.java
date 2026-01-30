@@ -1,9 +1,7 @@
 package org.springframework.samples.petclinic.rest.controller;
 
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.mapper.SpecialtyMapper;
@@ -21,13 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole(@roles.VET_ADMIN)")
 public class SpecialtyRestController {
 
     private final ClinicService clinicService;
 
     private final SpecialtyMapper specialtyMapper;
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @GetMapping(value = "/specialties")
     public ResponseEntity<List<SpecialtyDto>> listSpecialties() {
         List<SpecialtyDto> specialties = new ArrayList<>();
@@ -38,7 +36,6 @@ public class SpecialtyRestController {
         return new ResponseEntity<>(specialties, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @GetMapping(value = "/specialties/{specialtyId}")
     public ResponseEntity<SpecialtyDto> getSpecialty(@PathVariable Integer specialtyId) {
         Specialty specialty = clinicService.findSpecialtyById(specialtyId);
@@ -48,7 +45,6 @@ public class SpecialtyRestController {
         return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(specialty), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @PostMapping(value = "/specialties")
     public ResponseEntity<Void> addSpecialty(@RequestBody @Validated SpecialtyDto specialtyDto) {
         Specialty specialty = specialtyMapper.toSpecialty(specialtyDto);
@@ -58,7 +54,6 @@ public class SpecialtyRestController {
                 .build();
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @PutMapping(value = "/specialties/{specialtyId}")
     public ResponseEntity<SpecialtyDto> updateSpecialty(@PathVariable Integer specialtyId, @RequestBody SpecialtyDto specialtyDto) {
         Specialty currentSpecialty = clinicService.findSpecialtyById(specialtyId);
@@ -70,7 +65,6 @@ public class SpecialtyRestController {
         return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(currentSpecialty), HttpStatus.NO_CONTENT);
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Transactional
     @DeleteMapping(value = "/specialties/{specialtyId}")
     public ResponseEntity<SpecialtyDto> deleteSpecialty(@PathVariable Integer specialtyId) {

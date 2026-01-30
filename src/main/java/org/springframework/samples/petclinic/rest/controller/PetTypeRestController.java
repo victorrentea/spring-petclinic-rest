@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/pettypes")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
 @Tag(name = "pettypes", description = "Endpoints related to pet types.")
 public class PetTypeRestController {
 
@@ -28,7 +29,6 @@ public class PetTypeRestController {
     private final PetTypeMapper petTypeMapper;
 
 
-    @PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<PetTypeDto>> listPetTypes() {
         List<PetType> petTypes = new ArrayList<>(clinicService.findAllPetTypes());
@@ -38,7 +38,6 @@ public class PetTypeRestController {
         return new ResponseEntity<>(petTypeMapper.toPetTypeDtos(petTypes), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
     @GetMapping(value = "/{petTypeId}")
     public ResponseEntity<PetTypeDto> getPetType(@PathVariable("petTypeId") Integer petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);

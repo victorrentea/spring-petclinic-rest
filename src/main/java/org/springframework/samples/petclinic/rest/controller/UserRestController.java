@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-@Tag(name = "user", description = "Endpoints related to users.")
 @PreAuthorize("hasRole(@roles.ADMIN)")
 public class UserRestController {
     private final UserService userService;

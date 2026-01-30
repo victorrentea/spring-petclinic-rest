@@ -19,13 +19,13 @@ import java.util.List;
 @RequestMapping("/api/pets")
 @RequiredArgsConstructor
 @Tag(name = "pet", description = "Endpoints related to pets.")
+@PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
 public class PetRestController {
 
     private final ClinicService clinicService;
 
     private final PetMapper petMapper;
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @GetMapping(value = "/{petId}")
     public ResponseEntity<PetDto> getPet(@PathVariable Integer petId) {
         PetDto pet = petMapper.toPetDto(clinicService.findPetById(petId));
@@ -35,7 +35,6 @@ public class PetRestController {
         return new ResponseEntity<>(pet, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<PetDto>> listPets() {
         List<PetDto> pets = new ArrayList<>(petMapper.toPetsDto(clinicService.findAllPets()));
@@ -45,7 +44,6 @@ public class PetRestController {
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @PutMapping(value = "/{petId}")
     public ResponseEntity<PetDto> updatePet(@PathVariable Integer petId, @Valid @RequestBody PetDto petDto) {
         Pet currentPet = clinicService.findPetById(petId);
@@ -59,7 +57,6 @@ public class PetRestController {
         return new ResponseEntity<>(petMapper.toPetDto(currentPet), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @DeleteMapping(value = "/{petId}")
     public ResponseEntity<PetDto> deletePet(@PathVariable Integer petId) {
         Pet pet = clinicService.findPetById(petId);
