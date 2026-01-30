@@ -12,7 +12,6 @@ import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
 import org.springframework.samples.petclinic.rest.dto.PetTypeFieldsDto;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class PetTypeRestController implements PettypesApi {
@@ -54,7 +53,7 @@ public class PetTypeRestController implements PettypesApi {
     @Override
     public ResponseEntity<PetTypeDto> addPetType(PetTypeFieldsDto petTypeFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
-        final PetType type = petTypeMapper.toPetType(petTypeFieldsDto);
+        PetType type = petTypeMapper.toPetType(petTypeFieldsDto);
         clinicService.savePetType(type);
         headers.setLocation(UriComponentsBuilder.newInstance().path("/api/pettypes/{id}").buildAndExpand(type.getId()).toUri());
         return new ResponseEntity<>(petTypeMapper.toPetTypeDto(type), headers, HttpStatus.CREATED);

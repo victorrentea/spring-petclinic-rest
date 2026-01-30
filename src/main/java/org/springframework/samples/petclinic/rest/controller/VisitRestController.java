@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class VisitRestController implements VisitsApi {

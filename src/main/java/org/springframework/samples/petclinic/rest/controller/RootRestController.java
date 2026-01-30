@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+
 @RequestMapping("/")
 public class RootRestController {
 

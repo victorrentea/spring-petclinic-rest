@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class OwnerRestController implements OwnersApi {

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class UserRestController implements UsersApi {

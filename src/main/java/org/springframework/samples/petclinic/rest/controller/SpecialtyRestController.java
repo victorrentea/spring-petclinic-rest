@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @RestController
-@CrossOrigin(exposedHeaders = "errors, content-type")
+
 @RequestMapping("api")
 @RequiredArgsConstructor
 public class SpecialtyRestController implements SpecialtiesApi {
