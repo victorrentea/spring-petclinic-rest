@@ -24,46 +24,17 @@ import org.springframework.samples.petclinic.model.PetType;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Repository class for <code>Pet</code> domain objects All method names are compliant with Spring Data naming
- * conventions so this interface can easily be extended for Spring Data See here: http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
- */
 public interface PetRepository extends Repository<Pet, Integer> {
 
     @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
     List<PetType> findPetTypes();
 
-    /**
-     * Retrieve a <code>Pet</code> from the data store by id.
-     *
-     * @param id the id to search for
-     * @return the <code>Pet</code> if found
-     * @throws org.springframework.dao.DataRetrievalFailureException if not found
-     */
     Pet findById(int id);
 
-    /**
-     * Save a <code>Pet</code> to the data store, either inserting or updating it.
-     *
-     * @param pet the <code>Pet</code> to save
-     * @see BaseEntity#isNew
-     */
     void save(Pet pet);
 
-    /**
-     * Retrieve <code>Pet</code>s from the data store, returning all owners
-     *
-     * @return a <code>List</code> of <code>Pet</code>s (or an empty <code>List</code> if none
-     * found)
-     */
     List<Pet> findAll();
 
-    /**
-     * Delete an <code>Pet</code> to the data store by <code>Pet</code>.
-     *
-     * @param pet the <code>Pet</code> to delete
-     *
-     */
     void delete(Pet pet);
 
 }

@@ -26,9 +26,6 @@ public interface PetTypeRepository extends Repository<PetType, Integer> {
 
 	PetType findById(int id);
 
-    PetType findByName(String name);
-
-
     List<PetType> findAll();
 
 	void save(PetType petType);
