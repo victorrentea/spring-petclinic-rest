@@ -57,7 +57,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "getOwner", summary = "Get an owner by ID")
-    @GetMapping(value = "/{ownerId}", produces = "application/json")
+    @GetMapping(value = "/{ownerId}")
     public ResponseEntity<OwnerDto> getOwner(@PathVariable Integer ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner == null) {
@@ -68,7 +68,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "addOwner", summary = "Create an owner")
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerFieldsDto ownerFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Owner owner = ownerMapper.toOwner(ownerFieldsDto);
@@ -81,7 +81,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "updateOwner", summary = "Update an owner")
-    @PutMapping(value = "/{ownerId}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/{ownerId}")
     public ResponseEntity<OwnerDto> updateOwner(@PathVariable Integer ownerId, @RequestBody OwnerFieldsDto ownerFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         if (currentOwner == null) {
@@ -98,7 +98,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "deleteOwner", summary = "Delete an owner by ID")
-    @DeleteMapping(value = "/{ownerId}", produces = "application/json")
+    @DeleteMapping(value = "/{ownerId}")
     public ResponseEntity<OwnerDto> deleteOwner(@PathVariable Integer ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner == null) {
@@ -110,7 +110,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "addPetToOwner", summary = "Add a pet to an owner")
-    @PostMapping(value = "{ownerId}/pets", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "{ownerId}/pets")
     public ResponseEntity<PetDto> addPetToOwner(@PathVariable Integer ownerId, @RequestBody PetFieldsDto petFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         Pet pet = petMapper.toPet(petFieldsDto);
@@ -127,7 +127,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "updateOwnersPet", summary = "Update an owner's pet")
-    @PutMapping(value = "{ownerId}/pets/{petId}", consumes = "application/json")
+    @PutMapping(value = "{ownerId}/pets/{petId}")
     public ResponseEntity<Void> updateOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody PetFieldsDto petFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         if (currentOwner != null) {
@@ -145,7 +145,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "addVisitToOwner", summary = "Add a visit for an owner's pet")
-    @PostMapping(value = "{ownerId}/pets/{petId}/visits", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "{ownerId}/pets/{petId}/visits")
     public ResponseEntity<VisitDto> addVisitToOwner(@PathVariable Integer ownerId, @PathVariable Integer petId, @RequestBody VisitFieldsDto visitFieldsDto) {
         Visit visit = visitMapper.toVisit(visitFieldsDto);
         Pet pet = new Pet();
@@ -161,7 +161,7 @@ public class OwnerRestController {
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
     @Operation(operationId = "getOwnersPet", summary = "Get a pet belonging to an owner")
-    @GetMapping(value = "{ownerId}/pets/{petId}", produces = "application/json")
+    @GetMapping(value = "{ownerId}/pets/{petId}")
     public ResponseEntity<PetDto> getOwnersPet(@PathVariable Integer ownerId, @PathVariable Integer petId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         if (owner != null) {

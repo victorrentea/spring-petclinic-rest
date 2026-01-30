@@ -26,7 +26,7 @@ public class PetRestController {
     private final PetMapper petMapper;
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @GetMapping(value = "/{petId}", produces = "application/json")
+    @GetMapping(value = "/{petId}")
     public ResponseEntity<PetDto> getPet(@PathVariable Integer petId) {
         PetDto pet = petMapper.toPetDto(clinicService.findPetById(petId));
         if (pet == null) {
@@ -46,7 +46,7 @@ public class PetRestController {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @PutMapping(value = "/{petId}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/{petId}")
     public ResponseEntity<PetDto> updatePet(@PathVariable Integer petId, @Valid @RequestBody PetDto petDto) {
         Pet currentPet = clinicService.findPetById(petId);
         if (currentPet == null) {
@@ -60,7 +60,7 @@ public class PetRestController {
     }
 
     @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-    @DeleteMapping(value = "/{petId}", produces = "application/json")
+    @DeleteMapping(value = "/{petId}")
     public ResponseEntity<PetDto> deletePet(@PathVariable Integer petId) {
         Pet pet = clinicService.findPetById(petId);
         if (pet == null) {

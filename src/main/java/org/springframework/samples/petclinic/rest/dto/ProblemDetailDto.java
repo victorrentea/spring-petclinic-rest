@@ -13,9 +13,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * The schema for all error responses.
  */
@@ -39,12 +36,7 @@ public class ProblemDetailDto {
   @Valid
   private List<ValidationMessageDto> schemaValidationErrors = new ArrayList<>();
 
-  public ProblemDetailDto type(URI type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
+    /**
    * Full URL that originated the error response.
    * @return type
    */
@@ -55,16 +47,7 @@ public class ProblemDetailDto {
     return type;
   }
 
-  public void setType(URI type) {
-    this.type = type;
-  }
-
-  public ProblemDetailDto title(String title) {
-    this.title = title;
-    return this;
-  }
-
-  /**
+    /**
    * The short error title.
    * @return title
    */
@@ -75,16 +58,7 @@ public class ProblemDetailDto {
     return title;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public ProblemDetailDto status(Integer status) {
-    this.status = status;
-    return this;
-  }
-
-  /**
+    /**
    * HTTP status code
    * minimum: 400
    * maximum: 600
@@ -97,16 +71,7 @@ public class ProblemDetailDto {
     return status;
   }
 
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
-
-  public ProblemDetailDto detail(String detail) {
-    this.detail = detail;
-    return this;
-  }
-
-  /**
+    /**
    * The long error message.
    * @return detail
    */
@@ -117,16 +82,7 @@ public class ProblemDetailDto {
     return detail;
   }
 
-  public void setDetail(String detail) {
-    this.detail = detail;
-  }
-
-  public ProblemDetailDto timestamp(OffsetDateTime timestamp) {
-    this.timestamp = timestamp;
-    return this;
-  }
-
-  /**
+    /**
    * The time the error occurred.
    * @return timestamp
    */
@@ -137,24 +93,7 @@ public class ProblemDetailDto {
     return timestamp;
   }
 
-  public void setTimestamp(OffsetDateTime timestamp) {
-    this.timestamp = timestamp;
-  }
-
-  public ProblemDetailDto schemaValidationErrors(List<ValidationMessageDto> schemaValidationErrors) {
-    this.schemaValidationErrors = schemaValidationErrors;
-    return this;
-  }
-
-  public ProblemDetailDto addSchemaValidationErrorsItem(ValidationMessageDto schemaValidationErrorsItem) {
-    if (this.schemaValidationErrors == null) {
-      this.schemaValidationErrors = new ArrayList<>();
-    }
-    this.schemaValidationErrors.add(schemaValidationErrorsItem);
-    return this;
-  }
-
-  /**
+    /**
    * Validation errors against the OpenAPI schema.
    * @return schemaValidationErrors
    */
@@ -165,11 +104,7 @@ public class ProblemDetailDto {
     return schemaValidationErrors;
   }
 
-  public void setSchemaValidationErrors(List<ValidationMessageDto> schemaValidationErrors) {
-    this.schemaValidationErrors = schemaValidationErrors;
-  }
-
-  @Override
+    @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

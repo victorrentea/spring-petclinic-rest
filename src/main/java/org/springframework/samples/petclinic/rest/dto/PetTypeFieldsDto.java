@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * Editable fields of a pet type.
  */
@@ -20,12 +17,7 @@ public class PetTypeFieldsDto {
 
   private String name;
 
-  public PetTypeFieldsDto name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
+    /**
    * The name of the pet type.
    * @return name
    */

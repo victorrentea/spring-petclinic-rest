@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
-import jakarta.annotation.Generated;
-
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -23,12 +21,7 @@ public class ValidationMessageDto {
 
   private String message;
 
-  public ValidationMessageDto message(String message) {
-    this.message = message;
-    return this;
-  }
-
-  /**
+    /**
    * The validation message.
    * @return message
    */
@@ -39,9 +32,6 @@ public class ValidationMessageDto {
     return message;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
     /**
     * A container for additional, undeclared properties.
     * This is a holder for any undeclared properties as specified with
@@ -70,17 +60,7 @@ public class ValidationMessageDto {
         return additionalProperties;
     }
 
-    /**
-    * Return the additional (undeclared) property with the specified name.
-    */
-    public Object getAdditionalProperty(String key) {
-        if (this.additionalProperties == null) {
-            return null;
-        }
-        return this.additionalProperties.get(key);
-    }
-
-  @Override
+    @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

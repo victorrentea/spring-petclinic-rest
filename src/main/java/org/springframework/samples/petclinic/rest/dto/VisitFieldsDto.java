@@ -10,9 +10,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * Editable fields of a vet visit.
  */
@@ -27,12 +24,7 @@ public class VisitFieldsDto {
 
   private String description;
 
-  public VisitFieldsDto date(@Nullable LocalDate date) {
-    this.date = date;
-    return this;
-  }
-
-  /**
+    /**
    * The date of the visit.
    * @return date
    */
@@ -43,16 +35,7 @@ public class VisitFieldsDto {
     return date;
   }
 
-  public void setDate(@Nullable LocalDate date) {
-    this.date = date;
-  }
-
-  public VisitFieldsDto description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
+    /**
    * The description for the visit.
    * @return description
    */
@@ -63,11 +46,7 @@ public class VisitFieldsDto {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  @Override
+    @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

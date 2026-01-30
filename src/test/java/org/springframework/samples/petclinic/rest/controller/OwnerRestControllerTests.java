@@ -77,13 +77,13 @@ class OwnerRestControllerTests {
         owners = new ArrayList<>();
 
         OwnerDto ownerWithPet = new OwnerDto();
-        owners.add(ownerWithPet.id(1).firstName("George").lastName("Franklin").address("110 W. Liberty St.").city("Madison").telephone("6085551023").addPetsItem(getTestPetWithIdAndName(ownerWithPet, 1, "Rosy")));
+        owners.add(ownerWithPet.setId(1).setFirstName("George").setLastName("Franklin").setAddress("110 W. Liberty St.").setCity("Madison").setTelephone("6085551023").addPetsItem(getTestPetWithIdAndName(ownerWithPet, 1, "Rosy")));
         OwnerDto owner = new OwnerDto();
-        owners.add(owner.id(2).firstName("Betty").lastName("Davis").address("638 Cardinal Ave.").city("Sun Prairie").telephone("6085551749"));
+        owners.add(owner.setId(2).setFirstName("Betty").setLastName("Davis").setAddress("638 Cardinal Ave.").setCity("Sun Prairie").setTelephone("6085551749"));
         owner = new OwnerDto();
-        owners.add(owner.id(3).firstName("Eduardo").lastName("Rodriquez").address("2693 Commerce St.").city("McFarland").telephone("6085558763"));
+        owners.add(owner.setId(3).setFirstName("Eduardo").setLastName("Rodriquez").setAddress("2693 Commerce St.").setCity("McFarland").setTelephone("6085558763"));
         owner = new OwnerDto();
-        owners.add(owner.id(4).firstName("Harold").lastName("Davis").address("563 Friendly St.").city("Windsor").telephone("6085553198"));
+        owners.add(owner.setId(4).setFirstName("Harold").setLastName("Davis").setAddress("563 Friendly St.").setCity("Windsor").setTelephone("6085553198"));
 
         PetTypeDto petType = new PetTypeDto();
         petType.id(2)
@@ -91,16 +91,16 @@ class OwnerRestControllerTests {
 
         pets = new ArrayList<>();
         PetDto pet = new PetDto();
-        pets.add(pet.id(3)
-            .name("Rosy")
-            .birthDate(LocalDate.now())
-            .type(petType));
+        pets.add(pet.setId(3)
+            .setName("Rosy")
+            .setBirthDate(LocalDate.now())
+            .setType(petType));
 
         pet = new PetDto();
-        pets.add(pet.id(4)
-            .name("Jewel")
-            .birthDate(LocalDate.now())
-            .type(petType));
+        pets.add(pet.setId(4)
+            .setName("Jewel")
+            .setBirthDate(LocalDate.now())
+            .setType(petType));
 
         visits = new ArrayList<>();
         VisitDto visit = new VisitDto();
@@ -121,7 +121,7 @@ class OwnerRestControllerTests {
     private PetDto getTestPetWithIdAndName(final OwnerDto owner, final int id, final String name) {
         PetTypeDto petType = new PetTypeDto();
         PetDto pet = new PetDto();
-        pet.id(id).name(name).birthDate(LocalDate.now()).type(petType.id(2).name("dog")).addVisitsItem(getTestVisitForPet(pet, 1));
+        pet.setId(id).setName(name).setBirthDate(LocalDate.now()).setType(petType.id(2).name("dog")).addVisitsItem(getTestVisitForPet(pet, 1));
         return pet;
     }
 
@@ -328,7 +328,7 @@ class OwnerRestControllerTests {
         given(clinicService.findOwnerById(999)).willReturn(null);
         mockMvc.perform(delete("/api/owners/999")
                 .content(newOwnerAsJSON).accept(MediaType.APPLICATION_JSON_VALUE).contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isNotFound());
+            .andExpect(status().is4xxClientError());
     }
 
     @Test

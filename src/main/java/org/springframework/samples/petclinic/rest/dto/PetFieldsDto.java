@@ -2,23 +2,18 @@ package org.springframework.samples.petclinic.rest.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * Editable fields of a pet.
  */
 
 @Schema(name = "PetFields", description = "Editable fields of a pet.")
-@JsonTypeName("PetFields")
-
 public class PetFieldsDto {
 
   private String name;
@@ -28,12 +23,7 @@ public class PetFieldsDto {
 
   private PetTypeDto type;
 
-  public PetFieldsDto name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
+    /**
    * The name of the pet.
    * @return name
    */
@@ -44,16 +34,7 @@ public class PetFieldsDto {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public PetFieldsDto birthDate(LocalDate birthDate) {
-    this.birthDate = birthDate;
-    return this;
-  }
-
-  /**
+    /**
    * The date of birth of the pet.
    * @return birthDate
    */
@@ -64,16 +45,7 @@ public class PetFieldsDto {
     return birthDate;
   }
 
-  public void setBirthDate(LocalDate birthDate) {
-    this.birthDate = birthDate;
-  }
-
-  public PetFieldsDto type(PetTypeDto type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
+    /**
    * Get type
    * @return type
    */
@@ -84,11 +56,7 @@ public class PetFieldsDto {
     return type;
   }
 
-  public void setType(PetTypeDto type) {
-    this.type = type;
-  }
-
-  @Override
+    @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

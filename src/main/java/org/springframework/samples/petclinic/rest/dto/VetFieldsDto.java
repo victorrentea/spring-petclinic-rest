@@ -10,9 +10,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * Editable fields of a veterinarian.
  */
@@ -29,12 +26,7 @@ public class VetFieldsDto {
   @Valid
   private List<@Valid SpecialtyDto> specialties = new ArrayList<>();
 
-  public VetFieldsDto firstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
-
-  /**
+    /**
    * The first name of the vet.
    * @return firstName
    */
@@ -45,16 +37,7 @@ public class VetFieldsDto {
     return firstName;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public VetFieldsDto lastName(String lastName) {
-    this.lastName = lastName;
-    return this;
-  }
-
-  /**
+    /**
    * The last name of the vet.
    * @return lastName
    */
@@ -65,24 +48,7 @@ public class VetFieldsDto {
     return lastName;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public VetFieldsDto specialties(List<@Valid SpecialtyDto> specialties) {
-    this.specialties = specialties;
-    return this;
-  }
-
-  public VetFieldsDto addSpecialtiesItem(SpecialtyDto specialtiesItem) {
-    if (this.specialties == null) {
-      this.specialties = new ArrayList<>();
-    }
-    this.specialties.add(specialtiesItem);
-    return this;
-  }
-
-  /**
+    /**
    * The specialties of the vet.
    * @return specialties
    */
@@ -93,11 +59,7 @@ public class VetFieldsDto {
     return specialties;
   }
 
-  public void setSpecialties(List<@Valid SpecialtyDto> specialties) {
-    this.specialties = specialties;
-  }
-
-  @Override
+    @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

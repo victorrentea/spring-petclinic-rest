@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * Fields of specialty of vets.
  */
@@ -22,12 +19,7 @@ public class SpecialtyDto {
 
   private String name;
 
-  public SpecialtyDto id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
+    /**
    * The ID of the specialty.
    * minimum: 0
    * @return id
@@ -43,12 +35,7 @@ public class SpecialtyDto {
     this.id = id;
   }
 
-  public SpecialtyDto name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
+    /**
    * The name of the specialty.
    * @return name
    */

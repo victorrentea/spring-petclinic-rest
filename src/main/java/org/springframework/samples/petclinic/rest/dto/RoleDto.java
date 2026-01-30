@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * A role.
  */
@@ -20,12 +17,7 @@ public class RoleDto {
 
   private String name;
 
-  public RoleDto name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
+    /**
    * The role's name
    * @return name
    */

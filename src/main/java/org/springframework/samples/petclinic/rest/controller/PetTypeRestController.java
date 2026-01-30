@@ -39,7 +39,7 @@ public class PetTypeRestController {
     }
 
     @PreAuthorize("hasAnyRole(@roles.OWNER_ADMIN, @roles.VET_ADMIN)")
-    @GetMapping(value = "/{petTypeId}", produces = "application/json")
+    @GetMapping(value = "/{petTypeId}")
     public ResponseEntity<PetTypeDto> getPetType(@PathVariable("petTypeId") Integer petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
         if (petType == null) {
@@ -49,7 +49,7 @@ public class PetTypeRestController {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<PetTypeDto> addPetType(@RequestBody PetTypeFieldsDto petTypeFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
         PetType type = petTypeMapper.toPetType(petTypeFieldsDto);
@@ -59,7 +59,7 @@ public class PetTypeRestController {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @PutMapping(value = "/{petTypeId}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/{petTypeId}")
     public ResponseEntity<PetTypeDto> updatePetType(@PathVariable("petTypeId") Integer petTypeId, @RequestBody PetTypeDto petTypeDto) {
         PetType currentPetType = clinicService.findPetTypeById(petTypeId);
         if (currentPetType == null) {
@@ -72,7 +72,7 @@ public class PetTypeRestController {
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Transactional
-    @DeleteMapping(value = "/{petTypeId}", produces = "application/json")
+    @DeleteMapping(value = "/{petTypeId}")
     public ResponseEntity<PetTypeDto> deletePetType(@PathVariable("petTypeId") Integer petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
         if (petType == null) {

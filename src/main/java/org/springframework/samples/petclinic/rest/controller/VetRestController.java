@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.mapper.VetMapper;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.rest.dto.VetDto;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,17 +23,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/vets")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole(@roles.VET_ADMIN)")
 public class VetRestController {
 
     private final ClinicService clinicService;
     private final VetMapper vetMapper;
     private final SpecialtyMapper specialtyMapper;
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Operation(operationId = "listVets", summary = "List vets")
-    @GetMapping(value = "/vets", produces = "application/json")
+    @GetMapping
     public ResponseEntity<List<VetDto>> listVets() {
         List<VetDto> vets = new ArrayList<>(vetMapper.toVetDtos(clinicService.findAllVets()));
         if (vets.isEmpty()) {
@@ -41,9 +41,7 @@ public class VetRestController {
         return new ResponseEntity<>(vets, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Operation(operationId = "getVet", summary = "Get a vet by ID")
-    @GetMapping(value = "/vets/{vetId}", produces = "application/json")
+    @GetMapping("{vetId}")
     public ResponseEntity<VetDto> getVet(@PathVariable Integer vetId)  {
         Vet vet = clinicService.findVetById(vetId);
         if (vet == null) {
@@ -52,24 +50,22 @@ public class VetRestController {
         return new ResponseEntity<>(vetMapper.toVetDto(vet), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Operation(operationId = "addVet", summary = "Create a vet")
-    @PostMapping(value = "/vets", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<VetDto> addVet(@RequestBody VetDto vetDto) {
-        HttpHeaders headers = new HttpHeaders();
+
+    @PostMapping
+    public ResponseEntity<Void> addVet(@RequestBody @Validated VetDto vetDto) {
         Vet vet = vetMapper.toVet(vetDto);
         if(vet.getNrOfSpecialties() > 0){
             List<Specialty> vetSpecialities = clinicService.findSpecialtiesByNameIn(vet.getSpecialties().stream().map(Specialty::getName).collect(Collectors.toSet()));
             vet.setSpecialties(vetSpecialities);
         }
         clinicService.saveVet(vet);
-        headers.setLocation(UriComponentsBuilder.newInstance().path("/api/vets/{id}").buildAndExpand(vet.getId()).toUri());
-        return new ResponseEntity<>(vetMapper.toVetDto(vet), headers, HttpStatus.CREATED);
+        return ResponseEntity.created(UriComponentsBuilder.fromPath("/api/vets/{id}")
+                        .buildAndExpand(vet.getId()).toUri())
+                .build();
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Operation(operationId = "updateVet", summary = "Update a vet by ID")
-    @PutMapping(value = "/vets/{vetId}", consumes = "application/json", produces = "application/json")
+
+    @PutMapping("{vetId}")
     public ResponseEntity<VetDto> updateVet(@PathVariable Integer vetId, @RequestBody VetDto vetDto)  {
         Vet currentVet = clinicService.findVetById(vetId);
         if (currentVet == null) {
@@ -89,10 +85,9 @@ public class VetRestController {
         return new ResponseEntity<>(vetMapper.toVetDto(currentVet), HttpStatus.NO_CONTENT);
     }
 
-    @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Operation(operationId = "deleteVet", summary = "Delete a vet by ID")
+
     @Transactional
-    @DeleteMapping(value = "/vets/{vetId}", produces = "application/json")
+    @DeleteMapping("{vetId}")
     public ResponseEntity<VetDto> deleteVet(@PathVariable Integer vetId) {
         Vet vet = clinicService.findVetById(vetId);
         if (vet == null) {

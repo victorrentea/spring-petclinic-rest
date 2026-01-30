@@ -61,27 +61,27 @@ class PetRestControllerTests {
         pets = new ArrayList<>();
 
         OwnerDto owner = new OwnerDto();
-        owner.id(1).firstName("Eduardo")
-            .lastName("Rodriquez")
-            .address("2693 Commerce St.")
-            .city("McFarland")
-            .telephone("6085558763");
+        owner.setId(1).setFirstName("Eduardo")
+            .setLastName("Rodriquez")
+            .setAddress("2693 Commerce St.")
+            .setCity("McFarland")
+            .setTelephone("6085558763");
 
         PetTypeDto petType = new PetTypeDto();
         petType.id(2)
             .name("dog");
 
         PetDto pet = new PetDto();
-        pets.add(pet.id(3)
-            .name("Rosy")
-            .birthDate(LocalDate.now())
-            .type(petType));
+        pets.add(pet.setId(3)
+            .setName("Rosy")
+            .setBirthDate(LocalDate.now())
+            .setType(petType));
 
         pet = new PetDto();
-        pets.add(pet.id(4)
-            .name("Jewel")
-            .birthDate(LocalDate.now())
-            .type(petType));
+        pets.add(pet.setId(4)
+            .setName("Jewel")
+            .setBirthDate(LocalDate.now())
+            .setType(petType));
     }
 
     @Test

@@ -10,9 +10,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * A booking for a vet visit.
  */
@@ -92,12 +89,7 @@ public class VisitDto {
     this.id = id;
   }
 
-  public VisitDto petId(Integer petId) {
-    this.petId = petId;
-    return this;
-  }
-
-  /**
+    /**
    * The ID of the pet.
    * minimum: 0
    * @return petId

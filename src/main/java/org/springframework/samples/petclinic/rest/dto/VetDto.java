@@ -10,9 +10,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * A veterinarian.
  */
@@ -31,12 +28,7 @@ public class VetDto {
 
   private Integer id;
 
-  public VetDto firstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
-
-  /**
+    /**
    * The first name of the vet.
    * @return firstName
    */
@@ -51,12 +43,7 @@ public class VetDto {
     this.firstName = firstName;
   }
 
-  public VetDto lastName(String lastName) {
-    this.lastName = lastName;
-    return this;
-  }
-
-  /**
+    /**
    * The last name of the vet.
    * @return lastName
    */
@@ -71,20 +58,7 @@ public class VetDto {
     this.lastName = lastName;
   }
 
-  public VetDto specialties(List<@Valid SpecialtyDto> specialties) {
-    this.specialties = specialties;
-    return this;
-  }
-
-  public VetDto addSpecialtiesItem(SpecialtyDto specialtiesItem) {
-    if (this.specialties == null) {
-      this.specialties = new ArrayList<>();
-    }
-    this.specialties.add(specialtiesItem);
-    return this;
-  }
-
-  /**
+    /**
    * The specialties of the vet.
    * @return specialties
    */
@@ -99,12 +73,7 @@ public class VetDto {
     this.specialties = specialties;
   }
 
-  public VetDto id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
+    /**
    * The ID of the vet.
    * minimum: 0
    * @return id

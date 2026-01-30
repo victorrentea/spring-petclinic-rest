@@ -10,9 +10,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-
-import jakarta.annotation.Generated;
-
 /**
  * An user.
  */
@@ -30,12 +27,7 @@ public class UserDto {
   @Valid
   private List<@Valid RoleDto> roles = new ArrayList<>();
 
-  public UserDto username(String username) {
-    this.username = username;
-    return this;
-  }
-
-  /**
+    /**
    * The username
    * @return username
    */
@@ -50,12 +42,7 @@ public class UserDto {
     this.username = username;
   }
 
-  public UserDto password(@Nullable String password) {
-    this.password = password;
-    return this;
-  }
-
-  /**
+    /**
    * The password
    * @return password
    */
@@ -70,12 +57,7 @@ public class UserDto {
     this.password = password;
   }
 
-  public UserDto enabled(@Nullable Boolean enabled) {
-    this.enabled = enabled;
-    return this;
-  }
-
-  /**
+    /**
    * Indicates if the user is enabled
    * @return enabled
    */
@@ -90,20 +72,7 @@ public class UserDto {
     this.enabled = enabled;
   }
 
-  public UserDto roles(List<@Valid RoleDto> roles) {
-    this.roles = roles;
-    return this;
-  }
-
-  public UserDto addRolesItem(RoleDto rolesItem) {
-    if (this.roles == null) {
-      this.roles = new ArrayList<>();
-    }
-    this.roles.add(rolesItem);
-    return this;
-  }
-
-  /**
+    /**
    * The roles of an user
    * @return roles
    */

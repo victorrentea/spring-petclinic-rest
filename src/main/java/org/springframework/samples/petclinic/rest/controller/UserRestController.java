@@ -24,7 +24,7 @@ public class UserRestController {
 
     @PreAuthorize( "hasRole(@roles.ADMIN)" )
     @Operation(operationId = "addUser", summary = "Create a user")
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         HttpHeaders headers = new HttpHeaders();
         User user = userMapper.toUser(userDto);
