@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.api.dto;
+package org.springframework.samples.petclinic.rest.dto;
 
 import java.net.URI;
 import java.util.Objects;

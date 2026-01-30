@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.api.dto;
+package org.springframework.samples.petclinic.rest.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,62 +10,41 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
 
 /**
- * Fields of specialty of vets.
+ * A pet type.
  */
 
-@Schema(name = "Specialty", description = "Fields of specialty of vets.")
-@JsonTypeName("Specialty")
+@Schema(name = "PetType", description = "A pet type.")
+@JsonTypeName("PetType")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
-public class SpecialtyDto {
-
-  private Integer id;
+public class PetTypeDto {
 
   private String name;
 
-  public SpecialtyDto() {
+  private Integer id;
+
+  public PetTypeDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public SpecialtyDto(Integer id, String name) {
-    this.id = id;
+  public PetTypeDto(String name, Integer id) {
     this.name = name;
-  }
-
-  public SpecialtyDto id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * The ID of the specialty.
-   * minimum: 0
-   * @return id
-   */
-  @Min(value = 0)
-  @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the specialty.", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
     this.id = id;
   }
 
-  public SpecialtyDto name(String name) {
+  public PetTypeDto name(String name) {
     this.name = name;
     return this;
   }
 
   /**
-   * The name of the specialty.
+   * The name of the pet type.
    * @return name
    */
   @NotNull @Size(min = 1, max = 80)
-  @Schema(name = "name", example = "radiology", description = "The name of the specialty.", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "name", example = "cat", description = "The name of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -73,6 +52,27 @@ public class SpecialtyDto {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public PetTypeDto id(Integer id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * The ID of the pet type.
+   * minimum: 0
+   * @return id
+   */
+  @NotNull @Min(value = 0)
+  @Schema(name = "id", example = "1", description = "The ID of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("id")
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   @Override
@@ -83,22 +83,22 @@ public class SpecialtyDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SpecialtyDto specialty = (SpecialtyDto) o;
-    return Objects.equals(this.id, specialty.id) &&
-        Objects.equals(this.name, specialty.name);
+    PetTypeDto petType = (PetTypeDto) o;
+    return Objects.equals(this.name, petType.name) &&
+        Objects.equals(this.id, petType.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(name, id);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SpecialtyDto {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class PetTypeDto {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }

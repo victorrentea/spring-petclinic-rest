@@ -6,13 +6,13 @@
 package org.springframework.samples.petclinic.rest.api.api;
 
 import org.springframework.lang.Nullable;
-import org.springframework.samples.petclinic.rest.api.dto.OwnerDto;
-import org.springframework.samples.petclinic.rest.api.dto.OwnerFieldsDto;
-import org.springframework.samples.petclinic.rest.api.dto.PetDto;
-import org.springframework.samples.petclinic.rest.api.dto.PetFieldsDto;
-import org.springframework.samples.petclinic.rest.api.dto.ProblemDetailDto;
-import org.springframework.samples.petclinic.rest.api.dto.VisitDto;
-import org.springframework.samples.petclinic.rest.api.dto.VisitFieldsDto;
+import org.springframework.samples.petclinic.rest.dto.OwnerDto;
+import org.springframework.samples.petclinic.rest.dto.OwnerFieldsDto;
+import org.springframework.samples.petclinic.rest.dto.PetDto;
+import org.springframework.samples.petclinic.rest.dto.PetFieldsDto;
+import org.springframework.samples.petclinic.rest.dto.ProblemDetailDto;
+import org.springframework.samples.petclinic.rest.dto.VisitDto;
+import org.springframework.samples.petclinic.rest.dto.VisitFieldsDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

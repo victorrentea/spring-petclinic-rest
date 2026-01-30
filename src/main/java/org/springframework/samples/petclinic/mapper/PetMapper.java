@@ -4,9 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.rest.api.dto.PetDto;
-import org.springframework.samples.petclinic.rest.api.dto.PetFieldsDto;
-import org.springframework.samples.petclinic.rest.api.dto.PetTypeDto;
+import org.springframework.samples.petclinic.rest.dto.PetDto;
+import org.springframework.samples.petclinic.rest.dto.PetFieldsDto;
+import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
 
 import java.util.List;
 

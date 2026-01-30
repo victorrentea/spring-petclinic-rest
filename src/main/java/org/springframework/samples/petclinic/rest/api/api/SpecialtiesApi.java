@@ -5,8 +5,8 @@
  */
 package org.springframework.samples.petclinic.rest.api.api;
 
-import org.springframework.samples.petclinic.rest.api.dto.ProblemDetailDto;
-import org.springframework.samples.petclinic.rest.api.dto.SpecialtyDto;
+import org.springframework.samples.petclinic.rest.dto.ProblemDetailDto;
+import org.springframework.samples.petclinic.rest.dto.SpecialtyDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.api.dto;
+package org.springframework.samples.petclinic.rest.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,37 +14,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
 
 /**
- * A booking for a vet visit.
+ * Editable fields of a vet visit.
  */
 
-@Schema(name = "Visit", description = "A booking for a vet visit.")
-@JsonTypeName("Visit")
+@Schema(name = "VisitFields", description = "Editable fields of a vet visit.")
+@JsonTypeName("VisitFields")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
-public class VisitDto {
+public class VisitFieldsDto {
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private @Nullable LocalDate date;
 
   private String description;
 
-  private Integer id;
-
-  private Integer petId;
-
-  public VisitDto() {
+  public VisitFieldsDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public VisitDto(String description, Integer id, Integer petId) {
+  public VisitFieldsDto(String description) {
     this.description = description;
-    this.id = id;
-    this.petId = petId;
   }
 
-  public VisitDto date(@Nullable LocalDate date) {
+  public VisitFieldsDto date(@Nullable LocalDate date) {
     this.date = date;
     return this;
   }
@@ -64,7 +58,7 @@ public class VisitDto {
     this.date = date;
   }
 
-  public VisitDto description(String description) {
+  public VisitFieldsDto description(String description) {
     this.description = description;
     return this;
   }
@@ -84,48 +78,6 @@ public class VisitDto {
     this.description = description;
   }
 
-  public VisitDto id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * The ID of the visit.
-   * minimum: 0
-   * @return id
-   */
-  @Min(value = 0)
-  @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the visit.", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public VisitDto petId(Integer petId) {
-    this.petId = petId;
-    return this;
-  }
-
-  /**
-   * The ID of the pet.
-   * minimum: 0
-   * @return petId
-   */
-  @NotNull @Min(value = 0)
-  @Schema(name = "petId", example = "1", description = "The ID of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("petId")
-  public Integer getPetId() {
-    return petId;
-  }
-
-  public void setPetId(Integer petId) {
-    this.petId = petId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -134,26 +86,22 @@ public class VisitDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    VisitDto visit = (VisitDto) o;
-    return Objects.equals(this.date, visit.date) &&
-        Objects.equals(this.description, visit.description) &&
-        Objects.equals(this.id, visit.id) &&
-        Objects.equals(this.petId, visit.petId);
+    VisitFieldsDto visitFields = (VisitFieldsDto) o;
+    return Objects.equals(this.date, visitFields.date) &&
+        Objects.equals(this.description, visitFields.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(date, description, id, petId);
+    return Objects.hash(date, description);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class VisitDto {\n");
+    sb.append("class VisitFieldsDto {\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    petId: ").append(toIndentedString(petId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

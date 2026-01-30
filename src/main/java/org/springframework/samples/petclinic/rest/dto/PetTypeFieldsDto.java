@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.api.dto;
+package org.springframework.samples.petclinic.rest.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,31 +10,28 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
 
 /**
- * A pet type.
+ * Editable fields of a pet type.
  */
 
-@Schema(name = "PetType", description = "A pet type.")
-@JsonTypeName("PetType")
+@Schema(name = "PetTypeFields", description = "Editable fields of a pet type.")
+@JsonTypeName("PetTypeFields")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
-public class PetTypeDto {
+public class PetTypeFieldsDto {
 
   private String name;
 
-  private Integer id;
-
-  public PetTypeDto() {
+  public PetTypeFieldsDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public PetTypeDto(String name, Integer id) {
+  public PetTypeFieldsDto(String name) {
     this.name = name;
-    this.id = id;
   }
 
-  public PetTypeDto name(String name) {
+  public PetTypeFieldsDto name(String name) {
     this.name = name;
     return this;
   }
@@ -54,27 +51,6 @@ public class PetTypeDto {
     this.name = name;
   }
 
-  public PetTypeDto id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * The ID of the pet type.
-   * minimum: 0
-   * @return id
-   */
-  @NotNull @Min(value = 0)
-  @Schema(name = "id", example = "1", description = "The ID of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -83,22 +59,20 @@ public class PetTypeDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PetTypeDto petType = (PetTypeDto) o;
-    return Objects.equals(this.name, petType.name) &&
-        Objects.equals(this.id, petType.id);
+    PetTypeFieldsDto petTypeFields = (PetTypeFieldsDto) o;
+    return Objects.equals(this.name, petTypeFields.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, id);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PetTypeDto {\n");
+    sb.append("class PetTypeFieldsDto {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }

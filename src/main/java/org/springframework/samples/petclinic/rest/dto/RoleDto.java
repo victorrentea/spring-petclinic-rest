@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.api.dto;
+package org.springframework.samples.petclinic.rest.dto;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,38 +10,38 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
 
 /**
- * Editable fields of a pet type.
+ * A role.
  */
 
-@Schema(name = "PetTypeFields", description = "Editable fields of a pet type.")
-@JsonTypeName("PetTypeFields")
+@Schema(name = "Role", description = "A role.")
+@JsonTypeName("Role")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-01-30T03:06:39.394949+02:00[Europe/Bucharest]", comments = "Generator version: 7.18.0")
-public class PetTypeFieldsDto {
+public class RoleDto {
 
   private String name;
 
-  public PetTypeFieldsDto() {
+  public RoleDto() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public PetTypeFieldsDto(String name) {
+  public RoleDto(String name) {
     this.name = name;
   }
 
-  public PetTypeFieldsDto name(String name) {
+  public RoleDto name(String name) {
     this.name = name;
     return this;
   }
 
   /**
-   * The name of the pet type.
+   * The role's name
    * @return name
    */
   @NotNull @Size(min = 1, max = 80)
-  @Schema(name = "name", example = "cat", description = "The name of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "name", example = "admin", description = "The role's name", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -59,8 +59,8 @@ public class PetTypeFieldsDto {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PetTypeFieldsDto petTypeFields = (PetTypeFieldsDto) o;
-    return Objects.equals(this.name, petTypeFields.name);
+    RoleDto role = (RoleDto) o;
+    return Objects.equals(this.name, role.name);
   }
 
   @Override
@@ -71,7 +71,7 @@ public class PetTypeFieldsDto {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PetTypeFieldsDto {\n");
+    sb.append("class RoleDto {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
