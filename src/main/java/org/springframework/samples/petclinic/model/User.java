@@ -11,13 +11,10 @@ import java.util.Set;
 public class User {
 
     @Id
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "enabled")
     private Boolean enabled;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)

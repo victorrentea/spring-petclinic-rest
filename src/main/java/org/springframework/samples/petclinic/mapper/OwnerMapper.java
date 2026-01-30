@@ -9,9 +9,6 @@ import org.springframework.samples.petclinic.rest.dto.OwnerFieldsDto;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Maps Owner & OwnerDto using Mapstruct
- */
 @Mapper(uses = PetMapper.class)
 public interface OwnerMapper {
 
