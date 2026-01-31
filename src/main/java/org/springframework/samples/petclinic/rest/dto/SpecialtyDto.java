@@ -9,11 +9,11 @@ import lombok.Data;
 public class SpecialtyDto {
 
     @Min(0)
-    @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the specialty.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the specialty.", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer id;
 
     @NotNull
     @Size(min = 1, max = 80)
-    @Schema(name = "name", example = "radiology", description = "The name of the specialty.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "radiology", description = "The name of the specialty.")
     private String name;
 }

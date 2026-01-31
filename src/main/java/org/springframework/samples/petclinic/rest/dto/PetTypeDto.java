@@ -10,11 +10,11 @@ public class PetTypeDto {
 
     @NotNull
     @Size(min = 1, max = 80)
-    @Schema(name = "name", example = "cat", description = "The name of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "cat", description = "The name of the pet type.")
     private String name;
 
     @NotNull
     @Min(0)
-    @Schema(name = "id", example = "1", description = "The ID of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "1", description = "The ID of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer id;
 }

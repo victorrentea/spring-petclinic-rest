@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class PetTypeFieldsDto {
     @NotNull @Size(min = 1, max = 80)
-    @Schema(name = "name", example = "cat", description = "The name of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "cat", description = "The name of the pet type.")
     private String name;
 }

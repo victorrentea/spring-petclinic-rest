@@ -18,7 +18,7 @@ import java.util.List;
 public class PetDto {
     @NotBlank
     @Size(max = 30)
-    @Schema(name = "name", example = "Leo", description = "The name of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "Leo", description = "The name of the pet.")
     private String name;
 
     @NotNull
@@ -31,15 +31,15 @@ public class PetDto {
     private PetTypeDto type;
 
     @Min(0)
-    @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer id;
 
     @Min(0)
-    @Schema(name = "ownerId", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the pet's owner.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the pet's owner.")
     private @Nullable Integer ownerId;
 
     @Valid
-    @Schema(name = "visits", accessMode = Schema.AccessMode.READ_ONLY, description = "Vet visit bookings for this pet.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Vet visit bookings for this pet.", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<VisitDto> visits = new ArrayList<>();
 
     public PetDto addVisitsItem(VisitDto visitsItem) {

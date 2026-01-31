@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 @Data
 public class ValidationMessageDto {
 
-    @Schema(name = "message", accessMode = Schema.AccessMode.READ_ONLY, example = "[Path '/lastName'] Instance type (null) does not match any allowed primitive type (allowed: ['string'])", description = "The validation message.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "[Path '/lastName'] Instance type (null) does not match any allowed primitive type (allowed: ['string'])", description = "The validation message.")
     private String message;
 
     private Map<String, Object> additionalProperties;
