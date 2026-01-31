@@ -39,7 +39,7 @@ public class VetRestController {
     }
 
     @GetMapping("{vetId}")
-    public ResponseEntity<VetDto> getVet(@PathVariable Integer vetId)  {
+    public ResponseEntity<VetDto> getVet(@PathVariable int vetId)  {
         Vet vet = clinicService.findVetById(vetId);
         if (vet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,7 +63,7 @@ public class VetRestController {
 
 
     @PutMapping("{vetId}")
-    public ResponseEntity<VetDto> updateVet(@PathVariable Integer vetId, @RequestBody VetDto vetDto)  {
+    public ResponseEntity<VetDto> updateVet(@PathVariable int vetId, @RequestBody VetDto vetDto)  {
         Vet currentVet = clinicService.findVetById(vetId);
         if (currentVet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -85,7 +85,7 @@ public class VetRestController {
 
     @Transactional
     @DeleteMapping("{vetId}")
-    public ResponseEntity<VetDto> deleteVet(@PathVariable Integer vetId) {
+    public ResponseEntity<VetDto> deleteVet(@PathVariable int vetId) {
         Vet vet = clinicService.findVetById(vetId);
         if (vet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -33,9 +33,6 @@ public class VisitRestController {
     @GetMapping("{visitId}")
     public VisitDto getVisit(@PathVariable int visitId) {
         Visit visit = clinicService.findVisitById(visitId);
-        if (visit == null) {
-            throw new NoSuchElementException();
-        }
         return visitMapper.toVisitDto(visit);
     }
 
@@ -60,9 +57,6 @@ public class VisitRestController {
     @DeleteMapping("{visitId}")
     public void deleteVisit(@PathVariable int visitId) {
         Visit visit = clinicService.findVisitById(visitId);
-        if (visit == null) {
-            throw new NoSuchElementException();
-        }
         clinicService.deleteVisit(visit);
     }
 }

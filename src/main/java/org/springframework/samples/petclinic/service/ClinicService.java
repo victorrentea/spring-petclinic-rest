@@ -33,7 +33,7 @@ public class ClinicService {
     }
 
     public Visit findVisitById(int visitId) {
-        return visitRepository.findById(visitId);
+        return visitRepository.findById(visitId).orElseThrow();
     }
 
     public List<Visit> findAllVisits() {
@@ -85,7 +85,7 @@ public class ClinicService {
     }
 
     public Specialty findSpecialtyById(int specialtyId) {
-        return specialtyRepository.findById(specialtyId);
+        return specialtyRepository.findById(specialtyId).orElseThrow();
     }
 
     public List<Specialty> findAllSpecialties() {

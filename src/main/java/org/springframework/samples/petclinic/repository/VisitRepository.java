@@ -4,12 +4,13 @@ import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Visit;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface VisitRepository extends Repository<Visit, Integer> {
 
-    Visit findById(int id);
+    Optional<Visit> findById(int id);
 
-    void save(Visit visit);
+    Visit save(Visit visit);
 
     List<Visit> findAll();
 

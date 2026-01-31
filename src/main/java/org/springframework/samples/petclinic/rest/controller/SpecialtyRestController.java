@@ -21,9 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @PreAuthorize("hasRole(@roles.VET_ADMIN)")
 public class SpecialtyRestController {
-
     private final ClinicService clinicService;
-
     private final SpecialtyMapper specialtyMapper;
 
     @GetMapping("/specialties")
@@ -37,11 +35,8 @@ public class SpecialtyRestController {
     }
 
     @GetMapping("/specialties/{specialtyId}")
-    public ResponseEntity<SpecialtyDto> getSpecialty(@PathVariable Integer specialtyId) {
+    public ResponseEntity<SpecialtyDto> getSpecialty(@PathVariable int specialtyId) {
         Specialty specialty = clinicService.findSpecialtyById(specialtyId);
-        if (specialty == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(specialty), HttpStatus.OK);
     }
 
@@ -55,11 +50,8 @@ public class SpecialtyRestController {
     }
 
     @PutMapping("/specialties/{specialtyId}")
-    public ResponseEntity<SpecialtyDto> updateSpecialty(@PathVariable Integer specialtyId, @RequestBody @Validated SpecialtyDto specialtyDto) {
+    public ResponseEntity<SpecialtyDto> updateSpecialty(@PathVariable int specialtyId, @RequestBody @Validated SpecialtyDto specialtyDto) {
         Specialty currentSpecialty = clinicService.findSpecialtyById(specialtyId);
-        if (currentSpecialty == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         currentSpecialty.setName(specialtyDto.getName());
         clinicService.saveSpecialty(currentSpecialty);
         return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(currentSpecialty), HttpStatus.NO_CONTENT);
@@ -67,13 +59,8 @@ public class SpecialtyRestController {
 
     @Transactional
     @DeleteMapping("/specialties/{specialtyId}")
-    public ResponseEntity<SpecialtyDto> deleteSpecialty(@PathVariable Integer specialtyId) {
+    public void deleteSpecialty(@PathVariable int specialtyId) {
         Specialty specialty = clinicService.findSpecialtyById(specialtyId);
-        if (specialty == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         clinicService.deleteSpecialty(specialty);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }

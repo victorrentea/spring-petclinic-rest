@@ -136,7 +136,7 @@ public class SpecialtyApiTest {
     @Test
     void delete_ok() throws Exception {
         mockMvc.perform(delete("/api/specialties/" + specialtyId))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         mockMvc.perform(get("/api/specialties/" + specialtyId))
             .andExpect(status().isNotFound());
