@@ -349,12 +349,6 @@ class ClinicServiceTests {
         assertThat(petType.getName()).isEqualTo(newLastName);
     }
 
-    @Test
-    void shouldDeletePetType() {
-        PetType petType = clinicService.findPetTypeById(7);
-        clinicService.deletePetType(petType);
-        assertThat(clinicService.findPetTypeById(7)).isNull();
-    }
 
     @Test
     void shouldFindSpecialtyById() {

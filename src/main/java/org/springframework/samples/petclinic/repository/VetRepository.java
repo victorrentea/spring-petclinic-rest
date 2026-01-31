@@ -5,11 +5,12 @@ import org.springframework.samples.petclinic.model.Vet;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface VetRepository extends Repository<Vet, Integer> {
     List<Vet> findAll();
 
-	Vet findById(int id);
+	Optional<Vet> findById(int id);
 
 	void save(Vet vet);
 

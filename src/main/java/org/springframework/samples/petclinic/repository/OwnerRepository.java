@@ -5,12 +5,13 @@ import org.springframework.data.repository.Repository;
 import org.springframework.samples.petclinic.model.Owner;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OwnerRepository extends Repository<Owner, Integer> {
 
     List<Owner> findByLastNameIgnoreCaseStartingWith(String lastName);
 
-    Owner findById(int id);
+    Optional<Owner> findById(int id);
 
     Owner save(Owner owner);
 

@@ -45,7 +45,7 @@ public class ClinicService {
     }
 
     public Vet findVetById(int id) {
-        return vetRepository.findById(id);
+        return vetRepository.findById(id).orElseThrow();
     }
 
     public List<Vet> findAllVets() {
@@ -69,7 +69,7 @@ public class ClinicService {
     }
 
     public PetType findPetTypeById(int petTypeId) {
-        return petTypeRepository.findById(petTypeId);
+        return petTypeRepository.findById(petTypeId).orElseThrow();
     }
 
     public List<PetType> findAllPetTypes() {
@@ -105,7 +105,7 @@ public class ClinicService {
     }
 
     public Owner findOwnerById(int id) {
-        return ownerRepository.findById(id);
+        return ownerRepository.findById(id).orElseThrow();
     }
 
     public Pet findPetById(int id) {

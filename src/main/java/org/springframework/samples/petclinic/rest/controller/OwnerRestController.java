@@ -60,9 +60,6 @@ public class OwnerRestController {
     @GetMapping("/{ownerId}")
     public ResponseEntity<OwnerDto> getOwner(@PathVariable int ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
-        if (owner == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(ownerMapper.toOwnerDto(owner), HttpStatus.OK);
     }
 
@@ -82,9 +79,6 @@ public class OwnerRestController {
     @PutMapping("/{ownerId}")
     public ResponseEntity<OwnerDto> updateOwner(@PathVariable int ownerId, @RequestBody @Validated OwnerFieldsDto ownerFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
-        if (currentOwner == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         currentOwner.setAddress(ownerFieldsDto.getAddress());
         currentOwner.setCity(ownerFieldsDto.getCity());
         currentOwner.setFirstName(ownerFieldsDto.getFirstName());
@@ -98,9 +92,6 @@ public class OwnerRestController {
     @DeleteMapping("/{ownerId}")
     public ResponseEntity<OwnerDto> deleteOwner(@PathVariable int ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
-        if (owner == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         clinicService.deleteOwner(owner);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -125,15 +116,13 @@ public class OwnerRestController {
     @PutMapping("{ownerId}/pets/{petId}")
     public ResponseEntity<Void> updateOwnersPet(@PathVariable int ownerId, @PathVariable int petId, @RequestBody PetFieldsDto petFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
-        if (currentOwner != null) {
-            Pet currentPet = clinicService.findPetById(petId);
-            if (currentPet != null) {
-                currentPet.setBirthDate(petFieldsDto.getBirthDate());
-                currentPet.setName(petFieldsDto.getName());
-                currentPet.setType(petMapper.toPetType(petFieldsDto.getType()));
-                clinicService.savePet(currentPet);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
+        Pet currentPet = clinicService.findPetById(petId);
+        if (currentPet != null) {
+            currentPet.setBirthDate(petFieldsDto.getBirthDate());
+            currentPet.setName(petFieldsDto.getName());
+            currentPet.setType(petMapper.toPetType(petFieldsDto.getType()));
+            clinicService.savePet(currentPet);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -157,11 +146,9 @@ public class OwnerRestController {
     @GetMapping("{ownerId}/pets/{petId}")
     public ResponseEntity<PetDto> getOwnersPet(@PathVariable int ownerId, @PathVariable int petId) {
         Owner owner = clinicService.findOwnerById(ownerId);
-        if (owner != null) {
-            Pet pet = owner.getPet(petId);
-            if (pet != null) {
-                return new ResponseEntity<>(petMapper.toPetDto(pet), HttpStatus.OK);
-            }
+        Pet pet = owner.getPet(petId);
+        if (pet != null) {
+            return new ResponseEntity<>(petMapper.toPetDto(pet), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
