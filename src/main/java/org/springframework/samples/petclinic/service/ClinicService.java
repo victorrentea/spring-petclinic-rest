@@ -1,24 +1,16 @@
 package org.springframework.samples.petclinic.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.samples.petclinic.model.*;
 import org.springframework.samples.petclinic.repository.*;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
 public class ClinicService {
     private final PetRepository petRepository;
-    private final VetRepository vetRepository;
     private final OwnerRepository ownerRepository;
     private final VisitRepository visitRepository;
     private final SpecialtyRepository specialtyRepository;
@@ -42,22 +34,6 @@ public class ClinicService {
 
     public void deleteVisit(Visit visit) {
         visitRepository.delete(visit);
-    }
-
-    public Vet findVetById(int id) {
-        return vetRepository.findById(id).orElseThrow();
-    }
-
-    public List<Vet> findAllVets() {
-        return vetRepository.findAll();
-    }
-
-    public void saveVet(Vet vet) {
-        vetRepository.save(vet);
-    }
-
-    public void deleteVet(Vet vet) {
-        vetRepository.delete(vet);
     }
 
     public List<Owner> findAllOwners() {
@@ -121,10 +97,6 @@ public class ClinicService {
         visitRepository.save(visit);
     }
 
-    public List<Vet> findVets() {
-        return vetRepository.findAll();
-    }
-
     public void saveOwner(Owner owner) {
         ownerRepository.save(owner);
     }
@@ -135,10 +107,6 @@ public class ClinicService {
 
     public List<Visit> findVisitsByPetId(int petId) {
         return visitRepository.findByPetId(petId);
-    }
-
-    public List<Specialty> findSpecialtiesByNameIn(Set<String> names) {
-        return specialtyRepository.findSpecialtiesByNameIn(names);
     }
 
 }

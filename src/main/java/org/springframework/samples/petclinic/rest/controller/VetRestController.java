@@ -7,6 +7,8 @@ import org.springframework.samples.petclinic.mapper.SpecialtyMapper;
 import org.springframework.samples.petclinic.mapper.VetMapper;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.repository.SpecialtyRepository;
+import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.rest.dto.VetDto;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,54 +30,56 @@ public class VetRestController {
     private final ClinicService clinicService;
     private final VetMapper vetMapper;
     private final SpecialtyMapper specialtyMapper;
+    private final VetRepository vetRepository;
+    private final SpecialtyRepository specialtyRepository;
 
     @GetMapping
     public List<VetDto> listVets() {
-        List<Vet> allVets = clinicService.findAllVets();
+        List<Vet> allVets = vetRepository.findAll();
         return vetMapper.toVetDtos(allVets);
     }
 
     @GetMapping("{vetId}")
     public VetDto getVet(@PathVariable int vetId)  {
-        Vet vet = clinicService.findVetById(vetId);
+        Vet vet = vetRepository.findById(vetId).orElseThrow();
         return vetMapper.toVetDto(vet);
     }
-
 
     @PostMapping
     public ResponseEntity<Void> addVet(@RequestBody @Validated VetDto vetDto) {
         Vet vet = vetMapper.toVet(vetDto);
-        if(vet.getNrOfSpecialties() > 0){
-            List<Specialty> vetSpecialities = clinicService.findSpecialtiesByNameIn(vet.getSpecialties().stream().map(Specialty::getName).collect(Collectors.toSet()));
-            vet.setSpecialties(vetSpecialities);
-        }
-        clinicService.saveVet(vet);
-        return ResponseEntity.created(UriComponentsBuilder.fromPath("/api/vets/{id}")
-                        .buildAndExpand(vet.getId()).toUri())
-                .build();
+        updateSpecialties(vet);
+        URI createdVetUri = UriComponentsBuilder.fromPath("/api/vets/{id}")
+            .buildAndExpand(vet.getId()).toUri();
+        return ResponseEntity.created(createdVetUri).build();
     }
 
 
     @PutMapping("{vetId}")
     public void updateVet(@PathVariable int vetId, @RequestBody VetDto vetDto)  {
-        Vet currentVet = clinicService.findVetById(vetId);
+        Vet currentVet = vetRepository.findById(vetId).orElseThrow();
         currentVet.setFirstName(vetDto.getFirstName());
         currentVet.setLastName(vetDto.getLastName());
         currentVet.clearSpecialties();
         for (Specialty spec : specialtyMapper.toSpecialty(vetDto.getSpecialties())) {
             currentVet.addSpecialty(spec);
         }
+        updateSpecialties(currentVet);
+    }
+
+    private void updateSpecialties(Vet currentVet) {
         if(currentVet.getNrOfSpecialties() > 0){
-            List<Specialty> vetSpecialities = clinicService.findSpecialtiesByNameIn(currentVet.getSpecialties().stream().map(Specialty::getName).collect(Collectors.toSet()));
+            Set<String> names = currentVet.getSpecialties().stream().map(Specialty::getName).collect(Collectors.toSet());
+            List<Specialty> vetSpecialities = specialtyRepository.findSpecialtiesByNameIn(names);
             currentVet.setSpecialties(vetSpecialities);
         }
-        clinicService.saveVet(currentVet);
+        vetRepository.save(currentVet);
     }
 
     @Transactional
     @DeleteMapping("{vetId}")
     public void deleteVet(@PathVariable int vetId) {
-        Vet vet = clinicService.findVetById(vetId);
-        clinicService.deleteVet(vet);
+        Vet vet = vetRepository.findById(vetId).orElseThrow();
+        vetRepository.delete(vet);
     }
 }

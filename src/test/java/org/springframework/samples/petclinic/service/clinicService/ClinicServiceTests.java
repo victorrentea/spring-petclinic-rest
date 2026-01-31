@@ -128,16 +128,6 @@ class ClinicServiceTests {
         assertThat(pet7.getName()).isEqualTo(newName);
     }
 
-    @Test
-    void shouldFindVets() {
-        List<Vet> vets = clinicService.findVets();
-
-        Vet vet = EntityUtils.getById(vets, Vet.class, 3);
-        assertThat(vet.getLastName()).isEqualTo("Douglas");
-        assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
-        assertThat(vet.getSpecialties().stream().map(Specialty::getName))
-            .containsExactlyInAnyOrder("dentistry", "surgery");
-    }
 
     @Test
     void shouldAddNewVisitForPet() {
@@ -240,51 +230,6 @@ class ClinicServiceTests {
         assertThat(visit).isNull();
     }
 
-    @Test
-    void shouldFindVetDyId() {
-        Vet vet = clinicService.findVetById(1);
-        assertThat(vet.getFirstName()).isEqualTo("James");
-        assertThat(vet.getLastName()).isEqualTo("Carter");
-    }
-
-    @Test
-    void shouldInsertVet() {
-        List<Vet> vets = clinicService.findAllVets();
-        int found = vets.size();
-
-        Vet vet = new Vet();
-        vet.setFirstName("John");
-        vet.setLastName("Dow");
-
-        clinicService.saveVet(vet);
-        assertThat(vet.getId().longValue()).isNotEqualTo(0);
-
-        vets = clinicService.findAllVets();
-        assertThat(vets.size()).isEqualTo(found + 1);
-    }
-
-    @Test
-    void shouldUpdateVet() {
-        Vet vet = clinicService.findVetById(1);
-        String oldLastName = vet.getLastName();
-        String newLastName = oldLastName + "X";
-        vet.setLastName(newLastName);
-        clinicService.saveVet(vet);
-        vet = clinicService.findVetById(1);
-        assertThat(vet.getLastName()).isEqualTo(newLastName);
-    }
-
-    @Test
-    void shouldDeleteVet() {
-        Vet vet = clinicService.findVetById(1);
-        clinicService.deleteVet(vet);
-        try {
-            vet = clinicService.findVetById(1);
-        } catch (Exception e) {
-            vet = null;
-        }
-        assertThat(vet).isNull();
-    }
 
     @Test
     void shouldFindAllOwners() {
@@ -406,35 +351,5 @@ class ClinicServiceTests {
             specialty = null;
         }
         assertThat(specialty).isNull();
-    }
-
-    @Test
-    void shouldFindSpecialtiesByNameIn() {
-        Specialty specialty1 = new Specialty();
-        specialty1.setName("radiology");
-        specialty1.setId(1);
-        Specialty specialty2 = new Specialty();
-        specialty2.setName("surgery");
-        specialty2.setId(2);
-        Specialty specialty3 = new Specialty();
-        specialty3.setName("dentistry");
-        specialty3.setId(3);
-        List<Specialty> expectedSpecialties = List.of(specialty1, specialty2, specialty3);
-        Set<String> specialtyNames = expectedSpecialties.stream()
-            .map(Specialty::getName)
-            .collect(Collectors.toSet());
-        List<Specialty> actualSpecialties = clinicService.findSpecialtiesByNameIn(specialtyNames);
-        assertThat(actualSpecialties).isNotNull();
-        assertThat(actualSpecialties.size()).isEqualTo(expectedSpecialties.size());
-        for (Specialty expected : expectedSpecialties) {
-            assertThat(actualSpecialties.stream()
-                .anyMatch(
-                    actual -> actual.getName().equals(expected.getName())
-                        && actual.getId().equals(expected.getId()))).isTrue();
-        }
-    }
-
-    void clearCache() {
-        entityManager.clear();
     }
 }
