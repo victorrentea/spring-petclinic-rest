@@ -123,6 +123,17 @@ public class SpecialtyApiTest {
     }
 
     @Test
+    void update_invalid() throws Exception {
+        SpecialtyDto existing = callGet(specialtyId);
+        existing.setName(null); // invalid - null name
+
+        mockMvc.perform(put("/api/specialties/" + specialtyId)
+                .content(mapper.writeValueAsString(existing))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().is4xxClientError());
+    }
+
+    @Test
     void delete_ok() throws Exception {
         mockMvc.perform(delete("/api/specialties/" + specialtyId))
             .andExpect(status().isNoContent());

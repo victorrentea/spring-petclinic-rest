@@ -55,7 +55,7 @@ public class SpecialtyRestController {
     }
 
     @PutMapping("/specialties/{specialtyId}")
-    public ResponseEntity<SpecialtyDto> updateSpecialty(@PathVariable Integer specialtyId, @RequestBody SpecialtyDto specialtyDto) {
+    public ResponseEntity<SpecialtyDto> updateSpecialty(@PathVariable Integer specialtyId, @RequestBody @Validated SpecialtyDto specialtyDto) {
         Specialty currentSpecialty = clinicService.findSpecialtyById(specialtyId);
         if (currentSpecialty == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
