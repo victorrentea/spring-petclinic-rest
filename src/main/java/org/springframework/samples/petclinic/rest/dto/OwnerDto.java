@@ -30,8 +30,8 @@ public class OwnerDto {
     @Pattern(regexp = "^[\\p{L}]+([ '-][\\p{L}]+){0,2}\\.?$")
     @Size(min = 1, max = 30)
     @Schema(name = "lastName", example = "Franklin", description = "The last name of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
-
     private String lastName;
+
     @NotNull
     @Size(min = 1, max = 255)
     @Schema(name = "address", example = "110 W. Liberty St.", description = "The postal address of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -47,7 +47,6 @@ public class OwnerDto {
     @Size(min = 1, max = 20)
     @Schema(name = "telephone", example = "6085551023", description = "The telephone number of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
     private String telephone;
-
 
     @Valid
     @Schema(name = "pets", accessMode = Schema.AccessMode.READ_ONLY, description = "The pets owned by this individual including any booked vet visits.", requiredMode = Schema.RequiredMode.REQUIRED)
