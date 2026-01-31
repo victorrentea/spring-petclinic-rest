@@ -68,8 +68,10 @@ public class Owner {
         return null;
     }
 
-    public Pet getPetById(int petId) {
-        return pets.stream().filter(p -> p.getId().equals(petId)).findFirst().orElse(null);
+    public Optional<Pet> getPetById(int petId) {
+        return pets.stream()
+            .filter(p -> p.getId().equals(petId))
+            .findFirst();
     }
 
     @Override

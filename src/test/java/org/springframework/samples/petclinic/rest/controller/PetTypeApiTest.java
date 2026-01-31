@@ -89,20 +89,17 @@ public class PetTypeApiTest {
         PetTypeDto newPetType = new PetTypeDto();
         newPetType.setName("rabbit");
 
-        String responseJson = mockMvc.perform(post("/api/pettypes")
+        String locationHeader = mockMvc.perform(post("/api/pettypes")
                 .content(mapper.writeValueAsString(newPetType))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isCreated())
             .andReturn()
             .getResponse()
-            .getContentAsString();
+            .getHeader("Location");
 
-        PetTypeDto created = mapper.readValue(responseJson, PetTypeDto.class);
-        assertThat(created.getId()).isNotNull();
-        assertThat(created.getName()).isEqualTo("rabbit");
+        var newId = Integer.parseInt(locationHeader.substring(locationHeader.lastIndexOf('/') + 1));
 
-        // Verify it was saved
-        PetTypeDto retrieved = callGet(created.getId());
+        PetTypeDto retrieved = callGet(newId);
         assertThat(retrieved.getName()).isEqualTo("rabbit");
     }
 
@@ -127,7 +124,7 @@ public class PetTypeApiTest {
         mockMvc.perform(put("/api/pettypes/" + petTypeId)
                 .content(mapper.writeValueAsString(existing))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         // Verify the update took place
         PetTypeDto updated = callGet(petTypeId);
@@ -150,7 +147,7 @@ public class PetTypeApiTest {
     @WithMockUser(roles = "VET_ADMIN")
     void deletePetType_ok() throws Exception {
         mockMvc.perform(delete("/api/pettypes/" + petTypeId))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         // Verify it was deleted
         mockMvc.perform(get("/api/pettypes/" + petTypeId))

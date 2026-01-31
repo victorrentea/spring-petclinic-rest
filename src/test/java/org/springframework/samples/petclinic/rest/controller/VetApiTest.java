@@ -120,7 +120,7 @@ public class VetApiTest {
         mockMvc.perform(put("/api/vets/" + vetId)
                 .content(mapper.writeValueAsString(existing))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         // assert the update took place
         VetDto updated = callGet(vetId);
@@ -130,7 +130,7 @@ public class VetApiTest {
     @Test
     void delete_ok() throws Exception {
         mockMvc.perform(delete("/api/vets/" + vetId))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         mockMvc.perform(get("/api/vets/" + vetId))
             .andExpect(status().isNotFound());

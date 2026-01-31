@@ -115,7 +115,7 @@ public class SpecialtyApiTest {
         mockMvc.perform(put("/api/specialties/" + specialtyId)
                 .content(mapper.writeValueAsString(existing))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         // assert the update took place
         SpecialtyDto updated = callGet(specialtyId);

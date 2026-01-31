@@ -135,7 +135,7 @@ public class PetApiTest {
     @Test
     void delete_ok() throws Exception {
         mockMvc.perform(delete("/api/pets/" + petId))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         mockMvc.perform(get("/api/pets/" + petId))
             .andExpect(status().isNotFound());

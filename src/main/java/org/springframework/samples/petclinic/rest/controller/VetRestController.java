@@ -2,7 +2,6 @@ package org.springframework.samples.petclinic.rest.controller;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.mapper.SpecialtyMapper;
 import org.springframework.samples.petclinic.mapper.VetMapper;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,12 +28,9 @@ public class VetRestController {
     private final SpecialtyMapper specialtyMapper;
 
     @GetMapping
-    public ResponseEntity<List<VetDto>> listVets() {
-        List<VetDto> vets = new ArrayList<>(vetMapper.toVetDtos(clinicService.findAllVets()));
-        if (vets.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(vets);
+    public List<VetDto> listVets() {
+        List<Vet> allVets = clinicService.findAllVets();
+        return vetMapper.toVetDtos(allVets);
     }
 
     @GetMapping("{vetId}")
@@ -60,7 +55,7 @@ public class VetRestController {
 
 
     @PutMapping("{vetId}")
-    public ResponseEntity<VetDto> updateVet(@PathVariable int vetId, @RequestBody VetDto vetDto)  {
+    public void updateVet(@PathVariable int vetId, @RequestBody VetDto vetDto)  {
         Vet currentVet = clinicService.findVetById(vetId);
         currentVet.setFirstName(vetDto.getFirstName());
         currentVet.setLastName(vetDto.getLastName());
@@ -73,15 +68,12 @@ public class VetRestController {
             currentVet.setSpecialties(vetSpecialities);
         }
         clinicService.saveVet(currentVet);
-        return new ResponseEntity<>(vetMapper.toVetDto(currentVet), HttpStatus.NO_CONTENT);
     }
-
 
     @Transactional
     @DeleteMapping("{vetId}")
-    public ResponseEntity<VetDto> deleteVet(@PathVariable int vetId) {
+    public void deleteVet(@PathVariable int vetId) {
         Vet vet = clinicService.findVetById(vetId);
         clinicService.deleteVet(vet);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

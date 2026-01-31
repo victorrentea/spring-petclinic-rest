@@ -2,7 +2,6 @@ package org.springframework.samples.petclinic.rest.controller;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.mapper.SpecialtyMapper;
 import org.springframework.samples.petclinic.model.Specialty;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,13 +23,9 @@ public class SpecialtyRestController {
     private final SpecialtyMapper specialtyMapper;
 
     @GetMapping("/specialties")
-    public ResponseEntity<List<SpecialtyDto>> listSpecialties() {
-        List<SpecialtyDto> specialties = new ArrayList<>();
-        specialties.addAll(specialtyMapper.toSpecialtyDtos(clinicService.findAllSpecialties()));
-        if (specialties.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(specialties);
+    public List<SpecialtyDto> listSpecialties() {
+        List<Specialty> allSpecialties = clinicService.findAllSpecialties();
+        return specialtyMapper.toSpecialtyDtos(allSpecialties);
     }
 
     @GetMapping("/specialties/{specialtyId}")
@@ -50,11 +44,10 @@ public class SpecialtyRestController {
     }
 
     @PutMapping("/specialties/{specialtyId}")
-    public ResponseEntity<SpecialtyDto> updateSpecialty(@PathVariable int specialtyId, @RequestBody @Validated SpecialtyDto specialtyDto) {
+    public void updateSpecialty(@PathVariable int specialtyId, @RequestBody @Validated SpecialtyDto specialtyDto) {
         Specialty currentSpecialty = clinicService.findSpecialtyById(specialtyId);
         currentSpecialty.setName(specialtyDto.getName());
         clinicService.saveSpecialty(currentSpecialty);
-        return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(currentSpecialty), HttpStatus.NO_CONTENT);
     }
 
     @Transactional

@@ -109,8 +109,7 @@ public class ClinicService {
     }
 
     public Pet findPetById(int id) {
-        Optional<Pet> po = petRepository.findById(id);
-        return po.orElseThrow();
+        return petRepository.findById(id).orElseThrow();
     }
 
     public void savePet(Pet pet) {
