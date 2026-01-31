@@ -141,13 +141,4 @@ public class ClinicService {
         return specialtyRepository.findSpecialtiesByNameIn(names);
     }
 
-    private <T> T findEntityById(Supplier<T> supplier) {
-        try {
-            return supplier.get();
-        } catch (ObjectRetrievalFailureException | EmptyResultDataAccessException e) {
-            // Just ignore not found exceptions for Jdbc/Jpa realization
-            return null;
-        }
-    }
-
 }

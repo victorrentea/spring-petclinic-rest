@@ -56,4 +56,19 @@ public class UserApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void create_noRoles_triggers_server_error() throws Exception {
+        // Send roles as null so the service sees user.getRoles() == null and throws
+        UserDto newUser = new UserDto();
+        newUser.setUsername("norolesuser");
+        newUser.setPassword("password123");
+        newUser.setEnabled(true);
+        newUser.setRoles(null);
+
+        mockMvc.perform(post("/api/users")
+                .content(mapper.writeValueAsString(newUser))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().is5xxServerError());
+    }
 }

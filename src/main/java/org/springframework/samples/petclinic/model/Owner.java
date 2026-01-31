@@ -56,18 +56,6 @@ public class Owner {
         pet.setOwner(this);
     }
 
-    public Pet getPetByName(String name) {
-        name = name.toLowerCase();
-        for (Pet pet : pets) {
-            String compName = pet.getName();
-            compName = compName.toLowerCase();
-            if (compName.equals(name)) {
-                return pet;
-            }
-        }
-        return null;
-    }
-
     public Optional<Pet> getPetById(int petId) {
         return pets.stream()
             .filter(p -> p.getId().equals(petId))
@@ -85,32 +73,5 @@ public class Owner {
             .append("city", city)
             .append("telephone", telephone)
             .toString();
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Owner setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public Owner setLastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public Owner setId(Integer id) {
-        this.id = id;
-        return this;
     }
 }
