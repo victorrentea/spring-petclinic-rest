@@ -15,6 +15,6 @@ public class PetTypeDto {
 
     @NotNull
     @Min(0)
-    @Schema(example = "1", description = "The ID of the pet type.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "1", description = "The ID of the pet type.")
     private Integer id;
 }
