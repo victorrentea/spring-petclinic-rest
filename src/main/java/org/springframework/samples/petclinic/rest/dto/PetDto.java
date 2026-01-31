@@ -23,13 +23,11 @@ public class PetDto {
 
     @NotNull
     @Valid
-    @Schema(name = "birthDate", example = "2010-09-07", description = "The date of birth of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Schema(example = "2010-09-07")
     private LocalDate birthDate;
 
     @NotNull
     @Valid
-    @Schema(name = "type", requiredMode = Schema.RequiredMode.REQUIRED)
     private PetTypeDto type;
 
     @Min(0)
