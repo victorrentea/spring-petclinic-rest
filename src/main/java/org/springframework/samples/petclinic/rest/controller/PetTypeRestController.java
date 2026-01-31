@@ -36,13 +36,13 @@ public class PetTypeRestController {
         if (petTypes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(petTypeMapper.toPetTypeDtos(petTypes), HttpStatus.OK);
+        return ResponseEntity.ok(petTypeMapper.toPetTypeDtos(petTypes));
     }
 
     @GetMapping("/{petTypeId}")
-    public ResponseEntity<PetTypeDto> getPetType(@PathVariable int petTypeId) {
+    public PetTypeDto getPetType(@PathVariable int petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
-        return new ResponseEntity<>(petTypeMapper.toPetTypeDto(petType), HttpStatus.OK);
+        return petTypeMapper.toPetTypeDto(petType);
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
