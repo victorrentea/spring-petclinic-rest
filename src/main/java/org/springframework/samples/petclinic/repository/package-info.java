@@ -1,2 +1,2 @@
-//@org.springframework.lang.NonNullApi
+@org.springframework.lang.NonNullApi
 package org.springframework.samples.petclinic.repository;
