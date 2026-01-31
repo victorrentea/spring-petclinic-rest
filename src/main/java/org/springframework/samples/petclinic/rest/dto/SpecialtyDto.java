@@ -5,8 +5,6 @@ import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-@Schema(name = "Specialty", description = "Fields of specialty of vets.")
-@JsonTypeName("Specialty")
 @Data
 public class SpecialtyDto {
 

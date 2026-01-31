@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Schema(name = "ProblemDetail", description = "The schema for all error responses.")
-@JsonTypeName("ProblemDetail")
 @Data
 public class ProblemDetailDto {
 

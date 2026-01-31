@@ -8,8 +8,6 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
-@Schema(name = "ValidationMessage", description = "Messages describing a validation error.")
-@JsonTypeName("ValidationMessage")
 @Data
 public class ValidationMessageDto {
 

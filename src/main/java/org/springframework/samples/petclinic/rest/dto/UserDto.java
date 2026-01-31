@@ -11,10 +11,6 @@ import org.springframework.lang.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * An user.
- */
-
 @Data
 public class UserDto {
 

@@ -7,7 +7,6 @@ import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-@Schema(name = "PetFields", description = "Editable fields of a pet.")
 @Data
 public class PetFieldsDto {
 

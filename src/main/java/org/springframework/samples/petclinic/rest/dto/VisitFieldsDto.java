@@ -9,8 +9,6 @@ import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-@Schema(name = "VisitFields", description = "Editable fields of a vet visit.")
-@JsonTypeName("VisitFields")
 @Data
 public class VisitFieldsDto {
 
