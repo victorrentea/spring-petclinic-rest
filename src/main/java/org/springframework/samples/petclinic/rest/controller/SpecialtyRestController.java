@@ -31,13 +31,13 @@ public class SpecialtyRestController {
         if (specialties.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(specialties, HttpStatus.OK);
+        return ResponseEntity.ok(specialties);
     }
 
     @GetMapping("/specialties/{specialtyId}")
-    public ResponseEntity<SpecialtyDto> getSpecialty(@PathVariable int specialtyId) {
+    public SpecialtyDto getSpecialty(@PathVariable int specialtyId) {
         Specialty specialty = clinicService.findSpecialtyById(specialtyId);
-        return new ResponseEntity<>(specialtyMapper.toSpecialtyDto(specialty), HttpStatus.OK);
+        return specialtyMapper.toSpecialtyDto(specialty);
     }
 
     @PostMapping("/specialties")

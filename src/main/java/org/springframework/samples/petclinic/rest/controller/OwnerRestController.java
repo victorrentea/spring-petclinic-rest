@@ -53,14 +53,14 @@ public class OwnerRestController {
         if (owners.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(ownerMapper.toOwnerDtoCollection(owners), HttpStatus.OK);
+        return ResponseEntity.ok(ownerMapper.toOwnerDtoCollection(owners));
     }
 
     @Operation(operationId = "getOwner", summary = "Get an owner by ID")
     @GetMapping("/{ownerId}")
-    public ResponseEntity<OwnerDto> getOwner(@PathVariable int ownerId) {
+    public OwnerDto getOwner(@PathVariable int ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
-        return new ResponseEntity<>(ownerMapper.toOwnerDto(owner), HttpStatus.OK);
+        return ownerMapper.toOwnerDto(owner);
     }
 
     @Operation(operationId = "addOwner", summary = "Create an owner")
@@ -148,7 +148,7 @@ public class OwnerRestController {
         Owner owner = clinicService.findOwnerById(ownerId);
         Pet pet = owner.getPetById(petId);
         if (pet != null) {
-            return new ResponseEntity<>(petMapper.toPetDto(pet), HttpStatus.OK);
+            return ResponseEntity.ok(petMapper.toPetDto(pet));
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

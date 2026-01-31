@@ -38,7 +38,7 @@ public class PetRestController {
         if (pets.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(pets, HttpStatus.OK);
+        return ResponseEntity.ok(pets);
     }
 
     @PutMapping("/{petId}")

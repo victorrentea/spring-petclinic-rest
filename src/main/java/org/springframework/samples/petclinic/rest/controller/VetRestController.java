@@ -35,13 +35,13 @@ public class VetRestController {
         if (vets.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(vets, HttpStatus.OK);
+        return ResponseEntity.ok(vets);
     }
 
     @GetMapping("{vetId}")
-    public ResponseEntity<VetDto> getVet(@PathVariable int vetId)  {
+    public VetDto getVet(@PathVariable int vetId)  {
         Vet vet = clinicService.findVetById(vetId);
-        return new ResponseEntity<>(vetMapper.toVetDto(vet), HttpStatus.OK);
+        return vetMapper.toVetDto(vet);
     }
 
 
