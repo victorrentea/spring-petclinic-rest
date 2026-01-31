@@ -17,13 +17,16 @@ import java.util.*;
 @Getter
 @Setter
 public class Owner {
-    @NotEmpty
-    protected String firstName;
-    @NotEmpty
-    protected String lastName;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+
+    @NotEmpty
+    protected String firstName;
+
+    @NotEmpty
+    protected String lastName;
+
     @NotEmpty
     private String address;
 
@@ -36,21 +39,10 @@ public class Owner {
     private String telephone;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
-    private Set<Pet> pets;
-
-    protected Set<Pet> getPetsInternal() {
-        if (pets == null) {
-            this.pets = new HashSet<>();
-        }
-        return pets;
-    }
-
-    protected void setPetsInternal(Set<Pet> pets) {
-        this.pets = pets;
-    }
+    private Set<Pet> pets = new HashSet<>();
 
     public List<Pet> getPets() {
-        List<Pet> sortedPets = new ArrayList<>(getPetsInternal());
+        List<Pet> sortedPets = new ArrayList<>(pets);
         PropertyComparator.sort(sortedPets, new MutableSortDefinition("name", true, true));
         return Collections.unmodifiableList(sortedPets);
     }
@@ -60,13 +52,13 @@ public class Owner {
     }
 
     public void addPet(Pet pet) {
-        getPetsInternal().add(pet);
+        pets.add(pet);
         pet.setOwner(this);
     }
 
-    public Pet getPet(String name) {
+    public Pet getPetByName(String name) {
         name = name.toLowerCase();
-        for (Pet pet : getPetsInternal()) {
+        for (Pet pet : pets) {
             String compName = pet.getName();
             compName = compName.toLowerCase();
             if (compName.equals(name)) {
@@ -76,17 +68,17 @@ public class Owner {
         return null;
     }
 
-    public Pet getPet(Integer petId) {
-        return getPetsInternal().stream().filter(p -> p.getId().equals(petId)).findFirst().orElse(null);
+    public Pet getPetById(int petId) {
+        return pets.stream().filter(p -> p.getId().equals(petId)).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return new ToStringCreator(this)
 
-            .append("id", getId())
-            .append("lastName", getLastName())
-            .append("firstName", getFirstName())
+            .append("id", id)
+            .append("lastName", lastName)
+            .append("firstName", firstName)
             .append("address", address)
             .append("city", city)
             .append("telephone", telephone)
@@ -94,15 +86,15 @@ public class Owner {
     }
 
     public String getFirstName() {
-        return this.firstName;
+        return firstName;
     }
 
     public String getLastName() {
-        return this.lastName;
+        return lastName;
     }
 
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public Owner setFirstName(String firstName) {

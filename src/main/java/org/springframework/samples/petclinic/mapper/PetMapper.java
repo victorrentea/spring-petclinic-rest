@@ -14,6 +14,7 @@ import java.util.List;
 public interface PetMapper {
 
     @Mapping(source = "owner.id", target = "ownerId")
+    @Mapping(source = "visitsSortedByDate", target = "visits")
     PetDto toPetDto(Pet pet);
 
     List<PetDto> toPetsDto(List<Pet> pets);

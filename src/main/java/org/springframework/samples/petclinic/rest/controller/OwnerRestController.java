@@ -146,7 +146,7 @@ public class OwnerRestController {
     @GetMapping("{ownerId}/pets/{petId}")
     public ResponseEntity<PetDto> getOwnersPet(@PathVariable int ownerId, @PathVariable int petId) {
         Owner owner = clinicService.findOwnerById(ownerId);
-        Pet pet = owner.getPet(petId);
+        Pet pet = owner.getPetById(petId);
         if (pet != null) {
             return new ResponseEntity<>(petMapper.toPetDto(pet), HttpStatus.OK);
         }

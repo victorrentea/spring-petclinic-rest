@@ -57,7 +57,7 @@ class ClinicServiceTests {
         owner.setTelephone("4444444444");
         clinicService.saveOwner(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
-        assertThat(owner.getPet("null value")).isNull();
+        assertThat(owner.getPetByName("null value")).isNull();
         owners = clinicService.findOwnerByLastName("Schultz");
         assertThat(owners.size()).isEqualTo(found + 1);
     }

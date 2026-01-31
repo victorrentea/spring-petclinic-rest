@@ -19,6 +19,7 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+
     @NotEmpty
     private String name;
 
@@ -36,14 +37,10 @@ public class Pet {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits = new HashSet<>();
 
-    public List<Visit> getVisits() {
+    public List<Visit> getVisitsSortedByDate() {
         List<Visit> sortedVisits = new ArrayList<>(visits);
         PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
         return Collections.unmodifiableList(sortedVisits);
-    }
-
-    public void setVisits(List<Visit> visits) {
-        this.visits = new HashSet<>(visits);
     }
 
     public void addVisit(Visit visit) {
