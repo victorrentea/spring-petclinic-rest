@@ -15,6 +15,7 @@ public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+
     @Column(name = "visit_date", columnDefinition = "DATE")
     private LocalDate date = LocalDate.now();
 

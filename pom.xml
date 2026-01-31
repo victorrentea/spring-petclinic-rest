@@ -244,12 +244,6 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${maven.jacoco-plugin.version}</version>
                 <configuration>
-                    <excludes>
-                        <!-- Generated code -->
-                        <exclude>**/org/springframework/samples/petclinic/rest/dto/**</exclude>
-                        <exclude>**/org/springframework/samples/petclinic/rest/api/**</exclude>
-                    </excludes>
-                    <!-- report output directory -->
                     <outputDirectory>${jacoco.report.dir}</outputDirectory>
                 </configuration>
                 <executions>
