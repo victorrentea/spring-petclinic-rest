@@ -14,6 +14,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+
     @ManyToOne
     @JoinColumn(name = "username")
     @JsonIgnore

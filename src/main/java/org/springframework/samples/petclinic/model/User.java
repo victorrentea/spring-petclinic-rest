@@ -24,6 +24,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+
     @JsonIgnore
     public void addRole(String roleName) {
         if(roles == null) {
