@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.rest.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.transaction.Transactional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,7 @@ public class SpecialtyApiTest {
 
         assertThat(specialties)
             .extracting(SpecialtyDto::getId, SpecialtyDto::getName)
-            .contains(org.assertj.core.api.Assertions.tuple(specialtyId, "radiology"));
+            .contains(Assertions.tuple(specialtyId, "radiology"));
     }
 
     @Test

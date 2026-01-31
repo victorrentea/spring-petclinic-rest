@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.rest.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.transaction.Transactional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,7 @@ public class VetApiTest {
 
         assertThat(vets)
             .extracting(VetDto::getId, VetDto::getFirstName, VetDto::getLastName)
-            .contains(org.assertj.core.api.Assertions.tuple(vetId, "James", "Carter"));
+            .contains(Assertions.tuple(vetId, "James", "Carter"));
     }
 
     @Test

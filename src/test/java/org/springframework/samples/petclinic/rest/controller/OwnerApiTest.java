@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.transaction.Transactional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class OwnerApiTest {
         pet.setType(petType);
         pet = petRepository.save(pet);
         petId = pet.getId();
-        
+
         // Add pet to owner's collection for bidirectional relationship
         owner.addPet(pet);
     }
@@ -120,7 +121,7 @@ public class OwnerApiTest {
 
         assertThat(owners)
             .extracting(OwnerDto::getId, OwnerDto::getFirstName, OwnerDto::getLastName)
-            .contains(org.assertj.core.api.Assertions.tuple(ownerId, "George", "Franklin"));
+            .contains(Assertions.tuple(ownerId, "George", "Franklin"));
     }
 
     @Test
@@ -141,8 +142,8 @@ public class OwnerApiTest {
 
         assertThat(owners)
             .extracting(OwnerDto::getId, OwnerDto::getLastName)
-            .contains(org.assertj.core.api.Assertions.tuple(owner2Id, "Davis"))
-            .doesNotContain(org.assertj.core.api.Assertions.tuple(ownerId, "Franklin"));
+            .contains(Assertions.tuple(owner2Id, "Davis"))
+            .doesNotContain(Assertions.tuple(ownerId, "Franklin"));
     }
 
     @Test

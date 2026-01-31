@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.transaction.Transactional;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +109,7 @@ public class VisitApiTest {
 
         assertThat(visits)
             .extracting(VisitDto::getId, VisitDto::getDescription)
-            .contains(org.assertj.core.api.Assertions.tuple(visitId, "rabies shot"));
+            .contains(Assertions.tuple(visitId, "rabies shot"));
     }
 
     @Test
