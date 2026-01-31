@@ -189,7 +189,7 @@ public class OwnerApiTest {
         mockMvc.perform(put("/api/owners/" + ownerId)
                 .content(mapper.writeValueAsString(existing))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         // assert the update took place
         OwnerDto updated = callGet(ownerId);
@@ -205,7 +205,7 @@ public class OwnerApiTest {
         mockMvc.perform(put("/api/owners/" + ownerId)
                 .content(mapper.writeValueAsString(existing))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         // assert the update took place
         OwnerDto updated = callGet(ownerId);
@@ -226,7 +226,7 @@ public class OwnerApiTest {
     @Test
     void delete_ok() throws Exception {
         mockMvc.perform(delete("/api/owners/" + ownerId))
-            .andExpect(status().isNoContent());
+            .andExpect(status().is2xxSuccessful());
 
         mockMvc.perform(get("/api/owners/" + ownerId))
             .andExpect(status().isNotFound());

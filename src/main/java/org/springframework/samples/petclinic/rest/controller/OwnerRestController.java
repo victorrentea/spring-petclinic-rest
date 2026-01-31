@@ -3,7 +3,6 @@ package org.springframework.samples.petclinic.rest.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.mapper.OwnerMapper;
 import org.springframework.samples.petclinic.mapper.PetMapper;
@@ -73,7 +72,7 @@ public class OwnerRestController {
 
     @Operation(operationId = "updateOwner", summary = "Update an owner")
     @PutMapping("/{ownerId}")
-    public ResponseEntity<OwnerDto> updateOwner(@PathVariable int ownerId, @RequestBody @Validated OwnerFieldsDto ownerFieldsDto) {
+    public void updateOwner(@PathVariable int ownerId, @RequestBody @Validated OwnerFieldsDto ownerFieldsDto) {
         Owner currentOwner = clinicService.findOwnerById(ownerId);
         currentOwner.setAddress(ownerFieldsDto.getAddress());
         currentOwner.setCity(ownerFieldsDto.getCity());
@@ -81,15 +80,13 @@ public class OwnerRestController {
         currentOwner.setLastName(ownerFieldsDto.getLastName());
         currentOwner.setTelephone(ownerFieldsDto.getTelephone());
         clinicService.saveOwner(currentOwner);
-        return new ResponseEntity<>(ownerMapper.toOwnerDto(currentOwner), HttpStatus.NO_CONTENT);
     }
 
     @Operation(operationId = "deleteOwner", summary = "Delete an owner by ID")
     @DeleteMapping("/{ownerId}")
-    public ResponseEntity<OwnerDto> deleteOwner(@PathVariable int ownerId) {
+    public void deleteOwner(@PathVariable int ownerId) {
         Owner owner = clinicService.findOwnerById(ownerId);
         clinicService.deleteOwner(owner);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(operationId = "addPetToOwner", summary = "Add a pet to an owner")
