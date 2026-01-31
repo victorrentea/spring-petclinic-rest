@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.rest.dto;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,79 +7,20 @@ import org.springframework.lang.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-/**
- * Editable fields of a vet visit.
- */
+import lombok.Data;
 
 @Schema(name = "VisitFields", description = "Editable fields of a vet visit.")
 @JsonTypeName("VisitFields")
-
+@Data
 public class VisitFieldsDto {
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  private @Nullable LocalDate date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Valid
+    @Schema(name = "date", example = "2013-01-01", description = "The date of the visit.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    private @Nullable LocalDate date;
 
-  private String description;
-
-    /**
-   * The date of the visit.
-   * @return date
-   */
-  @Valid
-  @Schema(name = "date", example = "2013-01-01", description = "The date of the visit.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("date")
-  public @Nullable LocalDate getDate() {
-    return date;
-  }
-
-    /**
-   * The description for the visit.
-   * @return description
-   */
-  @NotNull @Size(min = 1, max = 255)
-  @Schema(name = "description", example = "rabies shot", description = "The description for the visit.", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("description")
-  public String getDescription() {
-    return description;
-  }
-
-    @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    VisitFieldsDto visitFields = (VisitFieldsDto) o;
-    return Objects.equals(this.date, visitFields.date) &&
-        Objects.equals(this.description, visitFields.description);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(date, description);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class VisitFieldsDto {\n");
-    sb.append("    date: ").append(toIndentedString(date)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Schema(name = "description", example = "rabies shot", description = "The description for the visit.", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String description;
 }
