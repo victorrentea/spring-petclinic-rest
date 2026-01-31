@@ -2,8 +2,8 @@ package org.springframework.samples.petclinic;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,25 +26,26 @@ public class MyOpenAPIDidNotChangeTest {
   @Autowired
   MockMvc mockMvc;
 
-  @Value("classpath:/my-existing-openapi.json")
+  @Value("classpath:/my_openapi.yaml")
   Resource contractFile;
 
   @Test
   void my_contract_did_not_change() throws Exception {
-    String contractExtractedFromCode = mockMvc.perform(get("/v3/api-docs"))
+    String contractExtractedFromCode = mockMvc.perform(get("/v3/api-docs.yaml"))
         .andReturn().getResponse().getContentAsString();
 
     String contractSavedOnGit = contractFile.getContentAsString(defaultCharset())
         .replace(":8080", "");
 
-    assertThat(prettifyJson(contractExtractedFromCode))
-        .isEqualTo(prettifyJson(contractSavedOnGit));
+    assertThat(prettifyYaml(contractExtractedFromCode))
+        .isEqualTo(prettifyYaml(contractSavedOnGit));
   }
 
-  private String prettifyJson(String rawJson) throws JsonProcessingException {
-    if (StringUtils.isBlank(rawJson)) return rawJson;
-    ObjectMapper jackson = new ObjectMapper();
-    return jackson.writerWithDefaultPrettyPrinter().writeValueAsString(
-            jackson.readValue(rawJson, Map.class));
+  private String prettifyYaml(String rawYaml) throws JsonProcessingException {
+    if (StringUtils.isBlank(rawYaml)) return rawYaml;
+    // parse YAML into a Map and re-serialize as YAML to normalize formatting and ordering
+    ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
+    Map<?,?> map = yamlMapper.readValue(rawYaml, Map.class);
+    return yamlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
   }
 }
