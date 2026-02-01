@@ -10,7 +10,7 @@ public class RoleDto {
 
     @NotNull
     @Size(min = 1, max = 80)
-    @Schema(name = "name", example = "admin", description = "The role's name", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "admin", description = "The role's name")
     private String name;
 
 }

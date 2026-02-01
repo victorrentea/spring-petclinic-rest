@@ -12,17 +12,17 @@ public class PetFieldsDto {
 
     @NotNull
     @Size(max = 30)
-    @Schema(name = "name", example = "Leo", description = "The name of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "Leo", description = "The name of the pet.")
     private String name;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
     @Valid
-    @Schema(name = "birthDate", example = "2010-09-07", description = "The date of birth of the pet.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "2010-09-07", description = "The date of birth of the pet.")
     private LocalDate birthDate;
 
     @NotNull
     @Valid
-    @Schema(name = "type", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema
     private PetTypeDto type;
 }

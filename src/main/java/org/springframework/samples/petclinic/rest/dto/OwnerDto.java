@@ -17,39 +17,39 @@ import java.util.List;
 public class OwnerDto {
     @Min(0)
     @Nullable
-    @Schema(name = "id", accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the pet owner.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, example = "1", description = "The ID of the pet owner.")
     private Integer id;
 
     @NotNull
     @Pattern(regexp = "^[\\p{L}]+([ '-][\\p{L}]+){0,2}$")
     @Size(min = 1, max = 30)
-    @Schema(name = "firstName", example = "George", description = "The first name of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "George", description = "The first name of the pet owner.")
     private String firstName;
 
     @NotNull
     @Pattern(regexp = "^[\\p{L}]+([ '-][\\p{L}]+){0,2}\\.?$")
     @Size(min = 1, max = 30)
-    @Schema(name = "lastName", example = "Franklin", description = "The last name of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "Franklin", description = "The last name of the pet owner.")
     private String lastName;
 
     @NotNull
     @Size(min = 1, max = 255)
-    @Schema(name = "address", example = "110 W. Liberty St.", description = "The postal address of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "110 W. Liberty St.", description = "The postal address of the pet owner.")
     private String address;
 
     @NotNull
     @Size(min = 1, max = 80)
-    @Schema(name = "city", example = "Madison", description = "The city of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "Madison", description = "The city of the pet owner.")
     private String city;
 
     @NotNull
     @Pattern(regexp = "^[0-9]*$")
     @Size(min = 1, max = 20)
-    @Schema(name = "telephone", example = "6085551023", description = "The telephone number of the pet owner.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "6085551023", description = "The telephone number of the pet owner.")
     private String telephone;
 
     @Valid
-    @Schema(name = "pets", accessMode = Schema.AccessMode.READ_ONLY, description = "The pets owned by this individual including any booked vet visits.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "The pets owned by this individual including any booked vet visits.", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<PetDto> pets = new ArrayList<>();
 
     public OwnerDto addPetsItem(PetDto petsItem) {

@@ -14,11 +14,11 @@ public class VisitFieldsDto {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Valid
-    @Schema(name = "date", example = "2013-01-01", description = "The date of the visit.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(example = "2013-01-01", description = "The date of the visit.")
     private @Nullable LocalDate date;
 
     @NotNull
     @Size(min = 1, max = 255)
-    @Schema(name = "description", example = "rabies shot", description = "The description for the visit.", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "rabies shot", description = "The description for the visit.")
     private String description;
 }

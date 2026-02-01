@@ -16,18 +16,18 @@ public class UserDto {
 
     @NotNull
     @Size(min = 1, max = 80)
-    @Schema(name = "username", example = "john.doe", description = "The username", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "john.doe", description = "The username")
     private String username;
 
     @Size(min = 1, max = 80)
-    @Schema(name = "password", example = "1234abc", description = "The password", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(example = "1234abc", description = "The password")
     private @Nullable String password;
 
-    @Schema(name = "enabled", example = "true", description = "Indicates if the user is enabled", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(example = "true", description = "Indicates if the user is enabled")
     private @Nullable Boolean enabled;
 
     @Valid
-    @Schema(name = "roles", description = "The roles of an user", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "The roles of an user")
     private List<@Valid RoleDto> roles = new ArrayList<>();
 }
 
