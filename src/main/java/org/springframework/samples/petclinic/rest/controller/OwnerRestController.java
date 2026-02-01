@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.rest.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.mapper.OwnerMapper;
@@ -9,7 +10,9 @@ import org.springframework.samples.petclinic.mapper.PetMapper;
 import org.springframework.samples.petclinic.mapper.VisitMapper;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.repository.PetTypeRepository;
 import org.springframework.samples.petclinic.rest.dto.OwnerDto;
 import org.springframework.samples.petclinic.rest.dto.OwnerFieldsDto;
 import org.springframework.samples.petclinic.rest.dto.PetDto;
@@ -38,6 +41,7 @@ public class OwnerRestController {
     private final PetMapper petMapper;
 
     private final VisitMapper visitMapper;
+    private final PetTypeRepository petTypeRepository;
 
     @Operation(operationId = "listOwners", summary = "List owners")
     @GetMapping(produces = "application/json")
@@ -90,10 +94,10 @@ public class OwnerRestController {
 
     @Operation(operationId = "addPetToOwner", summary = "Add a pet to an owner")
     @PostMapping("{ownerId}/pets")
+    @Transactional
     public ResponseEntity<Void> addPetToOwner(@PathVariable int ownerId, @RequestBody @Validated PetFieldsDto petFieldsDto) {
         Pet pet = petMapper.toPet(petFieldsDto);
         pet.setOwner(new Owner().setId(ownerId));
-        pet.getType().setName(null);
         clinicService.savePet(pet);
         UriComponents createdUri = UriComponentsBuilder.newInstance().path("/api/pets/{id}")
             .buildAndExpand(pet.getId());

@@ -15,7 +15,7 @@ public class TestData {
 
     public static Pet aPet() {
         return new Pet()
-            .setId(1)
+//            .setId(1)
             .setName("Leo")
             .setBirthDate(PetApiTest.BIRTH_DATE);
     }

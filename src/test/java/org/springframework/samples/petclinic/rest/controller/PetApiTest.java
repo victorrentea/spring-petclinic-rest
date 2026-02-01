@@ -15,6 +15,7 @@ import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.PetTypeRepository;
 import org.springframework.samples.petclinic.rest.dto.PetDto;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,13 +46,15 @@ public class PetApiTest {
     @Autowired
     OwnerRepository ownerRepository;
     int petId;
+    @Autowired
+    private PetTypeRepository petTypeRepository;
 
     @BeforeEach
     final void before() {
         Owner owner = ownerRepository.save(TestData.anOwner());
         petId = petRepository.save(TestData.aPet()
             .setOwner(owner)
-            .setType(new PetType().setName("cat"))
+            .setType(petTypeRepository.save(new PetType().setName("cat")))
         ).getId();
     }
 

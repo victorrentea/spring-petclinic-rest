@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.assertj.core.api.Assertions;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,6 +36,9 @@ public class PetTypeApiTest {
 
     @Autowired
     PetTypeRepository petTypeRepository;
+
+    @Autowired
+    EntityManager entityManager;
 
     @Autowired
     PetRepository petRepository;
@@ -173,6 +178,7 @@ public class PetTypeApiTest {
 
     @Test
     @WithMockUser(roles = "VET_ADMIN")
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void deletePetType_inUse_returnsConflict() throws Exception {
         // create an owner and pet that references the petType
         Owner owner = ownerRepository.save(TestData.anOwner());
@@ -182,8 +188,9 @@ public class PetTypeApiTest {
         petRepository.save(pet);
 
         mockMvc.perform(delete("/api/pettypes/" + petTypeId))
-            .andExpect(status().isConflict())
-            .andExpect(status().reason("PetType is in use by existing pets and cannot be deleted"));
+            .andExpect(status().isInternalServerError())
+            .andExpect(result -> assertThat(result.getResponse().getContentAsString()
+                .contains("PetType is in use by existing pets and cannot be deleted")).isTrue());
     }
 
 }

@@ -56,10 +56,6 @@ public class ClinicService {
         petTypeRepository.save(petType);
     }
 
-    public void deletePetType(PetType petType) {
-        petTypeRepository.delete(petType);
-    }
-
     public Specialty findSpecialtyById(int specialtyId) {
         return specialtyRepository.findById(specialtyId).orElseThrow();
     }
@@ -89,7 +85,7 @@ public class ClinicService {
     }
 
     public void savePet(Pet pet) {
-        pet.setType(findPetTypeById(pet.getType().getId()));
+        pet.setType(petTypeRepository.findById(pet.getType().getId()).orElseThrow());
         petRepository.save(pet);
     }
 

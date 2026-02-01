@@ -21,4 +21,5 @@ public interface PetRepository extends Repository<Pet, Integer> {
 
     void delete(Pet pet);
 
+    void flush();
 }

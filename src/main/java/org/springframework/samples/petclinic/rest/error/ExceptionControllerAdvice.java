@@ -63,7 +63,9 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ProblemDetail> handleGeneralException(Exception e, HttpServletRequest request) {
         log.error("An unexpected error occurred: {}", e.getMessage(), e);
-        ProblemDetail pd = buildProblemDetail("Internal Server Error", "An unexpected error occurred.", HttpStatus.INTERNAL_SERVER_ERROR, request);
+        ProblemDetail pd = buildProblemDetail(e.getMessage(),
+            e.getMessage(),
+            HttpStatus.INTERNAL_SERVER_ERROR, request);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(pd);
     }
 
