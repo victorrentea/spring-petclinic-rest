@@ -8,9 +8,6 @@ info:
 servers:
 - url: http://localhost
   description: Generated server url
-tags:
-- name: owner
-  description: Endpoints related to owners.
 paths:
   /api/visits/{visitId}:
     get:
@@ -25,6 +22,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -55,6 +64,18 @@ paths:
               $ref: "#/components/schemas/VisitFieldsDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -75,6 +96,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -96,6 +129,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -126,6 +171,18 @@ paths:
               $ref: "#/components/schemas/VetDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -146,6 +203,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -167,6 +236,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -197,6 +278,18 @@ paths:
               $ref: "#/components/schemas/SpecialtyDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -217,6 +310,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -238,6 +343,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -268,6 +385,18 @@ paths:
               $ref: "#/components/schemas/PetTypeDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -288,6 +417,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -309,6 +450,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -339,6 +492,18 @@ paths:
               $ref: "#/components/schemas/PetDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -359,6 +524,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -370,7 +547,7 @@ paths:
   /api/owners/{ownerId}:
     get:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Get an owner by ID
       operationId: getOwner
       parameters:
@@ -381,6 +558,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -395,7 +584,7 @@ paths:
                 $ref: "#/components/schemas/OwnerDto"
     put:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Update an owner
       operationId: updateOwner
       parameters:
@@ -412,6 +601,18 @@ paths:
               $ref: "#/components/schemas/OwnerFieldsDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -422,7 +623,7 @@ paths:
           description: OK
     delete:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Delete an owner by ID
       operationId: deleteOwner
       parameters:
@@ -433,6 +634,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -444,7 +657,7 @@ paths:
   /api/owners/{ownerId}/pets/{petId}:
     get:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Get a pet belonging to an owner
       operationId: getOwnersPet
       parameters:
@@ -461,6 +674,18 @@ paths:
           type: integer
           format: int32
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -475,7 +700,7 @@ paths:
                 $ref: "#/components/schemas/PetDto"
     put:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Update an owner's pet
       operationId: updateOwnersPet
       parameters:
@@ -498,6 +723,18 @@ paths:
               $ref: "#/components/schemas/PetFieldsDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -512,6 +749,18 @@ paths:
       - visit-rest-controller
       operationId: listVisits
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -537,6 +786,18 @@ paths:
               $ref: "#/components/schemas/VisitDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -551,6 +812,18 @@ paths:
       - vet-rest-controller
       operationId: listVets
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -576,6 +849,18 @@ paths:
               $ref: "#/components/schemas/VetDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -596,6 +881,18 @@ paths:
               $ref: "#/components/schemas/UserDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -614,6 +911,18 @@ paths:
       - specialty-rest-controller
       operationId: listSpecialties
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -639,6 +948,18 @@ paths:
               $ref: "#/components/schemas/SpecialtyDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -653,6 +974,18 @@ paths:
       - pet-type-rest-controller
       operationId: listPetTypes
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -678,6 +1011,18 @@ paths:
               $ref: "#/components/schemas/PetTypeFieldsDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -689,7 +1034,7 @@ paths:
   /api/owners:
     get:
       tags:
-      - owner
+      - owner-rest-controller
       summary: List owners
       operationId: listOwners
       parameters:
@@ -699,6 +1044,18 @@ paths:
         schema:
           type: string
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -715,7 +1072,7 @@ paths:
                   $ref: "#/components/schemas/OwnerDto"
     post:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Create an owner
       operationId: addOwner
       requestBody:
@@ -725,6 +1082,18 @@ paths:
               $ref: "#/components/schemas/OwnerFieldsDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -736,7 +1105,7 @@ paths:
   /api/owners/{ownerId}/pets:
     post:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Add a pet to an owner
       operationId: addPetToOwner
       parameters:
@@ -753,6 +1122,18 @@ paths:
               $ref: "#/components/schemas/PetFieldsDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -764,7 +1145,7 @@ paths:
   /api/owners/{ownerId}/pets/{petId}/visits:
     post:
       tags:
-      - owner
+      - owner-rest-controller
       summary: Add a visit for an owner's pet
       operationId: addVisitToOwner
       parameters:
@@ -787,6 +1168,18 @@ paths:
               $ref: "#/components/schemas/VisitFieldsDto"
         required: true
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -801,6 +1194,18 @@ paths:
       - pet-rest-controller
       operationId: listPets
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -821,6 +1226,18 @@ paths:
       - root-rest-controller
       operationId: redirectToSwagger
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -834,6 +1251,18 @@ paths:
       - root-rest-controller
       operationId: redirectToSwagger_2
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -847,6 +1276,18 @@ paths:
       - root-rest-controller
       operationId: redirectToSwagger_1
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -860,6 +1301,18 @@ paths:
       - root-rest-controller
       operationId: redirectToSwagger_3
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -873,6 +1326,18 @@ paths:
       - root-rest-controller
       operationId: redirectToSwagger_6
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -886,6 +1351,18 @@ paths:
       - root-rest-controller
       operationId: redirectToSwagger_5
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -899,6 +1376,18 @@ paths:
       - root-rest-controller
       operationId: redirectToSwagger_4
       responses:
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
         "404":
           description: Not Found
           content:
@@ -909,6 +1398,25 @@ paths:
           description: OK
 components:
   schemas:
+    ProblemDetail:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
+        properties:
+          type: object
+          additionalProperties: {}
     VisitFieldsDto:
       type: object
       properties:
