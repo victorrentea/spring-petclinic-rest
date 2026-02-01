@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.rest.controller;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -61,14 +62,13 @@ public class PetTypeRestController {
     }
 
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
-    @Transactional
     @DeleteMapping("/{petTypeId}")
     public ResponseEntity<Void> deletePetType(@PathVariable int petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
         try {
             clinicService.deletePetType(petType);
             return ResponseEntity.noContent().build();
-        } catch (DataIntegrityViolationException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException("PetType is in use by existing pets and cannot be deleted", ex);
         }
     }
