@@ -21,5 +21,4 @@ public interface OwnerMapper {
 
     List<OwnerDto> toOwnerDtoCollection(List<Owner> ownerCollection);
 
-    List<Owner> toOwners(List<OwnerDto> ownerDtos);
 }

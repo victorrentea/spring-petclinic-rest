@@ -1,9 +1,10 @@
 package org.springframework.samples.petclinic.rest.controller;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.samples.petclinic.mapper.PetTypeMapper;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
@@ -12,6 +13,7 @@ import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -61,9 +63,14 @@ public class PetTypeRestController {
     @PreAuthorize("hasRole(@roles.VET_ADMIN)")
     @Transactional
     @DeleteMapping("/{petTypeId}")
-    public void deletePetType(@PathVariable int petTypeId) {
+    public ResponseEntity<Void> deletePetType(@PathVariable int petTypeId) {
         PetType petType = clinicService.findPetTypeById(petTypeId);
-        clinicService.deletePetType(petType);
+        try {
+            clinicService.deletePetType(petType);
+            return ResponseEntity.noContent().build();
+        } catch (DataIntegrityViolationException ex) {
+            throw new RuntimeException("PetType is in use by existing pets and cannot be deleted", ex);
+        }
     }
 
 }

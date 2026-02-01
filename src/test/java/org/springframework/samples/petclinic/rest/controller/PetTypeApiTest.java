@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.repository.OwnerRepository;
+import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.PetTypeRepository;
 import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -30,6 +34,12 @@ public class PetTypeApiTest {
 
     @Autowired
     PetTypeRepository petTypeRepository;
+
+    @Autowired
+    PetRepository petRepository;
+
+    @Autowired
+    OwnerRepository ownerRepository;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -160,4 +170,20 @@ public class PetTypeApiTest {
         mockMvc.perform(delete("/api/pettypes/99999"))
             .andExpect(status().isNotFound());
     }
+
+    @Test
+    @WithMockUser(roles = "VET_ADMIN")
+    void deletePetType_inUse_returnsConflict() throws Exception {
+        // create an owner and pet that references the petType
+        Owner owner = ownerRepository.save(TestData.anOwner());
+        Pet pet = TestData.aPet()
+            .setOwner(owner)
+            .setType(petTypeRepository.findById(petTypeId).orElseThrow());
+        petRepository.save(pet);
+
+        mockMvc.perform(delete("/api/pettypes/" + petTypeId))
+            .andExpect(status().isConflict())
+            .andExpect(status().reason("PetType is in use by existing pets and cannot be deleted"));
+    }
+
 }

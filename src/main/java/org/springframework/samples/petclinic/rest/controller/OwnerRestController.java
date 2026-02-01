@@ -29,7 +29,6 @@ import java.util.List;
 @RequestMapping("/api/owners")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
-@Tag(name = "owner", description = "Endpoints related to owners.")
 public class OwnerRestController {
 
     private final ClinicService clinicService;

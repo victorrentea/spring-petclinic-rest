@@ -17,6 +17,7 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.NoSuchElementException;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 /**
@@ -53,10 +54,10 @@ public class ExceptionControllerAdvice {
      * @return A {@link ResponseEntity} containing the error information and a 500 Internal Server Error status
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ProblemDetail> handleGeneralException(Exception e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        ProblemDetail detail = detailBuild(e, status, request.getRequestURL());
-        return ResponseEntity.status(status).body(detail);
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ProblemDetail handleGeneralException(Exception e, HttpServletRequest request) {
+        log.error("An unexpected error occurred: {}", e.getMessage(), e);
+        return detailBuild(e, INTERNAL_SERVER_ERROR, request.getRequestURL());
     }
 
     /**
