@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.support.MutableSortDefinition;
@@ -24,6 +25,7 @@ public class Pet {
     private String name;
 
     @Column(name = "birth_date", columnDefinition = "DATE")
+    @PastOrPresent(message = "{pet.birthDate.notInFuture}")
     private LocalDate birthDate;
 
     @ManyToOne

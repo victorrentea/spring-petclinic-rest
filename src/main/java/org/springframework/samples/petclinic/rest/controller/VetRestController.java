@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole(@roles.VET_ADMIN)")
 public class VetRestController {
 
-    private final ClinicService clinicService;
     private final VetMapper vetMapper;
     private final SpecialtyMapper specialtyMapper;
     private final VetRepository vetRepository;

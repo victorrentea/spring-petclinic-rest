@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +24,7 @@ public class PetDto {
 
     @NotNull
     @Valid
+    @PastOrPresent(message = "{pet.birthDate.notInFuture}")
     @Schema(example = "2010-09-07")
     private LocalDate birthDate;
 

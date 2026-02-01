@@ -15,10 +15,22 @@ public final class ValidationErrorFieldExtractor {
         if (bindingResult == null) return result;
         for (FieldError fe : bindingResult.getFieldErrors()) {
             String field = humanizePath(fe.getField());
-            String message = fe.getDefaultMessage() == null ? "" : fe.getDefaultMessage();
+            String message = fe.getDefaultMessage() == null ? "" : fe.getDefaultMessage().trim();
             Object rejected = fe.getRejectedValue();
             String val = rejected == null ? "null" : rejected.toString();
-            result.add(field + " " + message + " (value: " + val + ")");
+
+            String combined;
+            String msgLower = message.toLowerCase();
+            String fieldLower = field.toLowerCase();
+            if (!fieldLower.isEmpty() && msgLower.startsWith(fieldLower)) {
+                combined = capitalizeFirst(message);
+            } else if (message.isEmpty()) {
+                combined = field;
+            } else {
+                combined = field + " " + message;
+            }
+
+            result.add(combined + " (value: " + val + ")");
         }
         return result;
     }
@@ -27,6 +39,15 @@ public final class ValidationErrorFieldExtractor {
         if (path == null || path.isEmpty()) return "Value";
         String single = path.replaceAll("([a-z])([A-Z])", "$1 $2");
         single = single.replace('.', ' ').trim();
-        return Character.toUpperCase(single.charAt(0)) + (single.length() > 1 ? single.substring(1) : "");
+        if (single.isEmpty()) return "Value";
+        String[] parts = single.split("\\s+");
+        for (int i = 0; i < parts.length; i++) parts[i] = parts[i].toLowerCase();
+        parts[0] = Character.toUpperCase(parts[0].charAt(0)) + (parts[0].length() > 1 ? parts[0].substring(1) : "");
+        return String.join(" ", parts);
+    }
+
+    private static String capitalizeFirst(String s) {
+        if (s == null || s.isEmpty()) return s;
+        return Character.toUpperCase(s.charAt(0)) + (s.length() > 1 ? s.substring(1) : "");
     }
 }
