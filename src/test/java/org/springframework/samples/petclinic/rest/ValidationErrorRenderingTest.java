@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.controller;
+package org.springframework.samples.petclinic.rest;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;

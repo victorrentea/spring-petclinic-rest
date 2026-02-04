@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.config;
+package org.springframework.samples.petclinic;
 
 
 import io.swagger.v3.oas.models.Components;

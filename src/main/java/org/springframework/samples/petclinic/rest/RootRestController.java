@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.controller;
+package org.springframework.samples.petclinic.rest;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;

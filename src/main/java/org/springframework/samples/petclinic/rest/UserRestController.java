@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.rest.controller;
+package org.springframework.samples.petclinic.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
