@@ -181,4 +181,24 @@ public class VisitApiTest {
         mockMvc.perform(delete("/api/visits/9999"))
             .andExpect(status().isNotFound());
     }
+
+    @Test
+    void findVisitsByPetId() {
+        // Add a second visit for the same pet
+        Visit visit2 = new Visit();
+        visit2.setPet(petRepository.findById(petId).orElseThrow());
+        visit2.setDate(LocalDate.now().minusDays(1));
+        visit2.setDescription("checkup");
+        visitRepository.save(visit2);
+
+        // Test repository method findByPetId
+        var visits = visitRepository.findByPetId(petId);
+
+        assertThat(visits).hasSize(2);
+        assertThat(visits).allSatisfy(visit -> {
+            assertThat(visit.getPet()).isNotNull();
+            assertThat(visit.getPet().getId()).isEqualTo(petId);
+            assertThat(visit.getDate()).isNotNull();
+        });
+    }
 }

@@ -4,8 +4,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.samples.petclinic.mapper.PetMapper;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.PetTypeRepository;
 import org.springframework.samples.petclinic.rest.dto.PetDto;
-import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,25 +19,24 @@ import java.util.List;
 @PreAuthorize("hasRole(@roles.OWNER_ADMIN)")
 public class PetRestController {
 
-    private final ClinicService clinicService;
-
+    private final PetRepository petRepository;
     private final PetMapper petMapper;
 
     @GetMapping("/{petId}")
     public PetDto getPet(@PathVariable int petId) {
-        return petMapper.toPetDto(clinicService.findPetById(petId));
+        return petMapper.toPetDto(petRepository.findById(petId).orElseThrow());
     }
 
     @GetMapping(produces = "application/json")
     public List<PetDto> listPets() {
-        List<Pet> allPets = clinicService.findAllPets();
+        List<Pet> allPets = petRepository.findAll();
         return petMapper.toPetsDto(allPets);
     }
 
     @PutMapping("/{petId}")
     @Transactional
     public void updatePet(@PathVariable int petId, @Validated @RequestBody PetDto petDto) {
-        Pet currentPet = clinicService.findPetById(petId);
+        Pet currentPet = petRepository.findById(petId).orElseThrow();
         currentPet
             .setBirthDate(petDto.getBirthDate())
             .setName(petDto.getName())
@@ -45,8 +45,8 @@ public class PetRestController {
 
     @DeleteMapping("/{petId}")
     public void deletePet(@PathVariable int petId) {
-        Pet pet = clinicService.findPetById(petId);
-        clinicService.deletePet(pet);
+        Pet pet = petRepository.findById(petId).orElseThrow();
+        petRepository.delete(pet);
     }
 
 }

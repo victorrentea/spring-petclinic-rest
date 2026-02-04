@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.samples.petclinic.model.*;
-import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.samples.petclinic.repository.OwnerRepository;
+import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.PetTypeRepository;
+import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.samples.petclinic.repository.SpecialtyRepository;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +29,27 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class ClinicServiceTests {
 
     @Autowired
-    ClinicService clinicService;
+    OwnerRepository ownerRepository;
+    @Autowired
+    PetRepository petRepository;
+    @Autowired
+    VisitRepository visitRepository;
+    @Autowired
+    PetTypeRepository petTypeRepository;
+    @Autowired
+    SpecialtyRepository specialtyRepository;
     @Autowired
     EntityManager entityManager;
 
     @Test
     void shouldFindOwnersByLastName() {
-        assertThat(clinicService.findOwnerByLastName("Davis").size()).isEqualTo(2);
-        assertThat(clinicService.findOwnerByLastName("Daviss")).isEmpty();
+        assertThat(ownerRepository.findByLastNameIgnoreCaseStartingWith("Davis").size()).isEqualTo(2);
+        assertThat(ownerRepository.findByLastNameIgnoreCaseStartingWith("Daviss")).isEmpty();
     }
 
     @Test
     void shouldFindSingleOwnerWithPet() {
-        Owner owner = clinicService.findOwnerById(1);
+        Owner owner = ownerRepository.findById(1).orElseThrow();
         assertThat(owner.getLastName()).startsWith("Franklin");
         assertThat(owner.getPets().size()).isEqualTo(1);
         assertThat(owner.getPets().get(0).getType()).isNotNull();
@@ -46,7 +58,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertOwner() {
-        List<Owner> owners = clinicService.findOwnerByLastName("Schultz");
+        List<Owner> owners = ownerRepository.findByLastNameIgnoreCaseStartingWith("Schultz");
         int found = owners.size();
 
         Owner owner = new Owner();
@@ -55,61 +67,51 @@ class ClinicServiceTests {
         owner.setAddress("4, Evans Street");
         owner.setCity("Wollongong");
         owner.setTelephone("4444444444");
-        clinicService.saveOwner(owner);
+        ownerRepository.save(owner);
         assertThat(owner.getId().longValue()).isNotEqualTo(0);
-        owners = clinicService.findOwnerByLastName("Schultz");
+        owners = ownerRepository.findByLastNameIgnoreCaseStartingWith("Schultz");
         assertThat(owners.size()).isEqualTo(found + 1);
     }
 
     @Test
     void shouldUpdateOwner() {
-        Owner owner = clinicService.findOwnerById(1);
+        Owner owner = ownerRepository.findById(1).orElseThrow();
         String oldLastName = owner.getLastName();
         String newLastName = oldLastName + "X";
 
         owner.setLastName(newLastName);
-        clinicService.saveOwner(owner);
+        ownerRepository.save(owner);
 
         // retrieving new name from database
-        owner = clinicService.findOwnerById(1);
+        owner = ownerRepository.findById(1).orElseThrow();
         assertThat(owner.getLastName()).isEqualTo(newLastName);
     }
 
     @Test
     void shouldFindPetWithCorrectId() {
-        Pet pet7 = clinicService.findPetById(7);
+        Pet pet7 = petRepository.findById(7).orElseThrow();
         assertThat(pet7.getName()).startsWith("Samantha");
         assertThat(pet7.getOwner().getFirstName()).isEqualTo("Jean");
 
     }
 
-//    @Test
-//    void shouldFindAllPetTypes() {
-//        List<PetType> petTypes = this.clinicService.findPetTypes();
-//
-//        PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
-//        assertThat(petType1.getName()).isEqualTo("cat");
-//        PetType petType4 = EntityUtils.getById(petTypes, PetType.class, 4);
-//        assertThat(petType4.getName()).isEqualTo("snake");
-//    }
-
     @Test
     void shouldInsertPetIntoDatabaseAndGenerateId() {
-        Owner owner6 = clinicService.findOwnerById(6);
+        Owner owner6 = ownerRepository.findById(6).orElseThrow();
         int found = owner6.getPets().size();
 
         Pet pet = new Pet();
         pet.setName("bowser");
-        List<PetType> types = clinicService.findPetTypes();
+        List<PetType> types = petTypeRepository.findAll();
         pet.setType(EntityUtils.getById(types, PetType.class, 2));
         pet.setBirthDate(LocalDate.now());
         owner6.addPet(pet);
         assertThat(owner6.getPets().size()).isEqualTo(found + 1);
 
-        clinicService.savePet(pet);
-        clinicService.saveOwner(owner6);
+        petRepository.save(pet);
+        ownerRepository.save(owner6);
 
-        owner6 = clinicService.findOwnerById(6);
+        owner6 = ownerRepository.findById(6).orElseThrow();
         assertThat(owner6.getPets().size()).isEqualTo(found + 1);
         // checks that id has been generated
         assertThat(pet.getId()).isNotNull();
@@ -117,36 +119,36 @@ class ClinicServiceTests {
 
     @Test
     void shouldUpdatePetName() throws Exception {
-        Pet pet7 = clinicService.findPetById(7);
+        Pet pet7 = petRepository.findById(7).orElseThrow();
         String oldName = pet7.getName();
 
         String newName = oldName + "X";
         pet7.setName(newName);
-        clinicService.savePet(pet7);
+        petRepository.save(pet7);
 
-        pet7 = clinicService.findPetById(7);
+        pet7 = petRepository.findById(7).orElseThrow();
         assertThat(pet7.getName()).isEqualTo(newName);
     }
 
 
     @Test
     void shouldAddNewVisitForPet() {
-        Pet pet7 = clinicService.findPetById(7);
+        Pet pet7 = petRepository.findById(7).orElseThrow();
         int found = pet7.getVisits().size();
         Visit visit = new Visit();
         pet7.addVisit(visit);
         visit.setDescription("test");
-        clinicService.saveVisit(visit);
-        clinicService.savePet(pet7);
+        visitRepository.save(visit);
+        petRepository.save(pet7);
 
-        pet7 = clinicService.findPetById(7);
+        pet7 = petRepository.findById(7).orElseThrow();
         assertThat(pet7.getVisits().size()).isEqualTo(found + 1);
         assertThat(visit.getId()).isNotNull();
     }
 
     @Test
     void shouldFindVisitsByPetId() throws Exception {
-        List<Visit> visits = clinicService.findVisitsByPetId(7);
+        List<Visit> visits = visitRepository.findByPetId(7);
         assertThat(visits.size()).isEqualTo(2);
         Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
         assertThat(visitArr[0].getPet()).isNotNull();
@@ -156,7 +158,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindAllPets() {
-        List<Pet> pets = clinicService.findAllPets();
+        List<Pet> pets = petRepository.findAll();
         Pet pet1 = EntityUtils.getById(pets, Pet.class, 1);
         assertThat(pet1.getName()).isEqualTo("Leo");
         Pet pet3 = EntityUtils.getById(pets, Pet.class, 3);
@@ -165,22 +167,22 @@ class ClinicServiceTests {
 
     @Test
     void shouldDeletePet() {
-        Pet pet = clinicService.findPetById(7);
-        clinicService.deletePet(pet);
-        assertThatThrownBy(() -> clinicService.findPetById(7))
+        Pet pet = petRepository.findById(7).orElseThrow();
+        petRepository.delete(pet);
+        assertThatThrownBy(() -> petRepository.findById(7).orElseThrow())
             .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     void shouldFindVisitDyId() {
-        Visit visit = clinicService.findVisitById(1);
+        Visit visit = visitRepository.findById(1).orElseThrow();
         assertThat(visit.getId()).isEqualTo(1);
         assertThat(visit.getPet().getName()).isEqualTo("Samantha");
     }
 
     @Test
     void shouldFindAllVisits() {
-        List<Visit> visits = clinicService.findAllVisits();
+        List<Visit> visits = visitRepository.findAll();
         Visit visit1 = EntityUtils.getById(visits, Visit.class, 1);
         assertThat(visit1.getPet().getName()).isEqualTo("Samantha");
         Visit visit3 = EntityUtils.getById(visits, Visit.class, 3);
@@ -189,10 +191,10 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertVisit() {
-        List<Visit> visits = clinicService.findAllVisits();
+        List<Visit> visits = visitRepository.findAll();
         int found = visits.size();
 
-        Pet pet = clinicService.findPetById(1);
+        Pet pet = petRepository.findById(1).orElseThrow();
 
         Visit visit = new Visit();
         visit.setPet(pet);
@@ -200,30 +202,30 @@ class ClinicServiceTests {
         visit.setDescription("new visit");
 
 
-        clinicService.saveVisit(visit);
+        visitRepository.save(visit);
         assertThat(visit.getId().longValue()).isNotEqualTo(0);
 
-        visits = clinicService.findAllVisits();
+        visits = visitRepository.findAll();
         assertThat(visits.size()).isEqualTo(found + 1);
     }
 
     @Test
     void shouldUpdateVisit() {
-        Visit visit = clinicService.findVisitById(1);
+        Visit visit = visitRepository.findById(1).orElseThrow();
         String oldDesc = visit.getDescription();
         String newDesc = oldDesc + "X";
         visit.setDescription(newDesc);
-        clinicService.saveVisit(visit);
-        visit = clinicService.findVisitById(1);
+        visitRepository.save(visit);
+        visit = visitRepository.findById(1).orElseThrow();
         assertThat(visit.getDescription()).isEqualTo(newDesc);
     }
 
     @Test
     void shouldDeleteVisit() {
-        Visit visit = clinicService.findVisitById(1);
-        clinicService.deleteVisit(visit);
+        Visit visit = visitRepository.findById(1).orElseThrow();
+        visitRepository.delete(visit);
         try {
-            visit = clinicService.findVisitById(1);
+            visit = visitRepository.findById(1).orElseThrow();
         } catch (Exception e) {
             visit = null;
         }
@@ -233,7 +235,7 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindAllOwners() {
-        List<Owner> owners = clinicService.findAllOwners();
+        List<Owner> owners = ownerRepository.findAll();
         Owner owner1 = EntityUtils.getById(owners, Owner.class, 1);
         assertThat(owner1.getFirstName()).isEqualTo("George");
         Owner owner3 = EntityUtils.getById(owners, Owner.class, 3);
@@ -242,10 +244,10 @@ class ClinicServiceTests {
 
     @Test
     void shouldDeleteOwner() {
-        Owner owner = clinicService.findOwnerById(1);
-        clinicService.deleteOwner(owner);
+        Owner owner = ownerRepository.findById(1).orElseThrow();
+        ownerRepository.delete(owner);
         try {
-            owner = clinicService.findOwnerById(1);
+            owner = ownerRepository.findById(1).orElseThrow();
         } catch (Exception e) {
             owner = null;
         }
@@ -254,13 +256,13 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindPetTypeById() {
-        PetType petType = clinicService.findPetTypeById(1);
+        PetType petType = petTypeRepository.findById(1).orElseThrow();
         assertThat(petType.getName()).isEqualTo("cat");
     }
 
     @Test
     void shouldFindAllPetTypes() {
-        List<PetType> petTypes = clinicService.findAllPetTypes();
+        List<PetType> petTypes = petTypeRepository.findAll();
         PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
         assertThat(petType1.getName()).isEqualTo("cat");
         PetType petType3 = EntityUtils.getById(petTypes, PetType.class, 3);
@@ -269,40 +271,40 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertPetType() {
-        List<PetType> petTypes = clinicService.findAllPetTypes();
+        List<PetType> petTypes = petTypeRepository.findAll();
         int found = petTypes.size();
 
         PetType petType = new PetType();
         petType.setName("tiger");
 
-        clinicService.savePetType(petType);
+        petTypeRepository.save(petType);
         assertThat(petType.getId().longValue()).isNotEqualTo(0);
 
-        petTypes = clinicService.findAllPetTypes();
+        petTypes = petTypeRepository.findAll();
         assertThat(petTypes.size()).isEqualTo(found + 1);
     }
 
     @Test
     void shouldUpdatePetType() {
-        PetType petType = clinicService.findPetTypeById(1);
+        PetType petType = petTypeRepository.findById(1).orElseThrow();
         String oldLastName = petType.getName();
         String newLastName = oldLastName + "X";
         petType.setName(newLastName);
-        clinicService.savePetType(petType);
-        petType = clinicService.findPetTypeById(1);
+        petTypeRepository.save(petType);
+        petType = petTypeRepository.findById(1).orElseThrow();
         assertThat(petType.getName()).isEqualTo(newLastName);
     }
 
 
     @Test
     void shouldFindSpecialtyById() {
-        Specialty specialty = clinicService.findSpecialtyById(1);
+        Specialty specialty = specialtyRepository.findById(1).orElseThrow();
         assertThat(specialty.getName()).isEqualTo("radiology");
     }
 
     @Test
     void shouldFindAllSpecialtys() {
-        List<Specialty> specialties = clinicService.findAllSpecialties();
+        List<Specialty> specialties = specialtyRepository.findAll();
         Specialty specialty1 = EntityUtils.getById(specialties, Specialty.class, 1);
         assertThat(specialty1.getName()).isEqualTo("radiology");
         Specialty specialty3 = EntityUtils.getById(specialties, Specialty.class, 3);
@@ -311,27 +313,27 @@ class ClinicServiceTests {
 
     @Test
     void shouldInsertSpecialty() {
-        List<Specialty> specialties = clinicService.findAllSpecialties();
+        List<Specialty> specialties = specialtyRepository.findAll();
         int found = specialties.size();
 
         Specialty specialty = new Specialty();
         specialty.setName("dermatologist");
 
-        clinicService.saveSpecialty(specialty);
+        specialtyRepository.save(specialty);
         assertThat(specialty.getId().longValue()).isNotEqualTo(0);
 
-        specialties = clinicService.findAllSpecialties();
+        specialties = specialtyRepository.findAll();
         assertThat(specialties.size()).isEqualTo(found + 1);
     }
 
     @Test
     void shouldUpdateSpecialty() {
-        Specialty specialty = clinicService.findSpecialtyById(1);
+        Specialty specialty = specialtyRepository.findById(1).orElseThrow();
         String oldLastName = specialty.getName();
         String newLastName = oldLastName + "X";
         specialty.setName(newLastName);
-        clinicService.saveSpecialty(specialty);
-        specialty = clinicService.findSpecialtyById(1);
+        specialtyRepository.save(specialty);
+        specialty = specialtyRepository.findById(1).orElseThrow();
         assertThat(specialty.getName()).isEqualTo(newLastName);
     }
 
@@ -339,14 +341,14 @@ class ClinicServiceTests {
     void shouldDeleteSpecialty() {
         Specialty specialty = new Specialty();
         specialty.setName("test");
-        clinicService.saveSpecialty(specialty);
+        specialtyRepository.save(specialty);
         Integer specialtyId = specialty.getId();
         assertThat(specialtyId).isNotNull();
-        specialty = clinicService.findSpecialtyById(specialtyId);
+        specialty = specialtyRepository.findById(specialtyId).orElseThrow();
         assertThat(specialty).isNotNull();
-        clinicService.deleteSpecialty(specialty);
+        specialtyRepository.delete(specialty);
         try {
-            specialty = clinicService.findSpecialtyById(specialtyId);
+            specialty = specialtyRepository.findById(specialtyId).orElseThrow();
         } catch (Exception e) {
             specialty = null;
         }

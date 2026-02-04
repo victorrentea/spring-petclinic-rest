@@ -339,4 +339,15 @@ public class OwnerApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isNotFound());
     }
+
+    @Test
+    void getOwner_includesPetsWithType() throws Exception {
+        // Verifies that owner response includes pets with their type name loaded (lazy-loading works)
+        OwnerDto responseDto = callGet(ownerId);
+
+        assertThat(responseDto.getPets()).hasSize(1);
+        assertThat(responseDto.getPets().get(0).getName()).isEqualTo("Rosy");
+        assertThat(responseDto.getPets().get(0).getType()).isNotNull();
+        assertThat(responseDto.getPets().get(0).getType().getName()).isEqualTo("dog");
+    }
 }
