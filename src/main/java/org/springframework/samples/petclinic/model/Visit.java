@@ -23,6 +23,7 @@ public class Visit {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "pet_id")
     private Pet pet;
 
 }
