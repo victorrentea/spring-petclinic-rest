@@ -8,7 +8,7 @@ import org.springframework.samples.petclinic.rest.dto.VisitFieldsDto;
 
 import java.util.List;
 
-@Mapper(uses = PetMapper.class)
+@Mapper(componentModel = "spring", uses = PetMapper.class)
 public interface VisitMapper {
     @Mapping(source = "petId", target = "pet.id")
     Visit toVisit(VisitDto visitDto);

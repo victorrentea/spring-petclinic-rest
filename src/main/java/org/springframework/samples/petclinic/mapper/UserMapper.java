@@ -9,7 +9,7 @@ import org.springframework.samples.petclinic.rest.dto.UserDto;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
     User toUser(UserDto userDto);

@@ -6,7 +6,7 @@ import org.springframework.samples.petclinic.rest.dto.SpecialtyDto;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface SpecialtyMapper {
     Specialty toSpecialty(SpecialtyDto specialtyDto);
 

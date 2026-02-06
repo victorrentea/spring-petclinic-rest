@@ -8,7 +8,7 @@ import org.springframework.samples.petclinic.rest.dto.OwnerFieldsDto;
 
 import java.util.List;
 
-@Mapper(uses = PetMapper.class)
+@Mapper(componentModel = "spring", uses = PetMapper.class)
 public interface OwnerMapper {
 
     OwnerDto toOwnerDto(Owner owner);

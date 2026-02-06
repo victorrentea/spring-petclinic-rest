@@ -8,7 +8,7 @@ import org.springframework.samples.petclinic.rest.dto.PetTypeFieldsDto;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface PetTypeMapper {
 
     @Mapping(target = "id", ignore = true)

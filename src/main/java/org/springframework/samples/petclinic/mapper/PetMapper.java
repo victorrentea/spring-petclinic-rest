@@ -10,7 +10,7 @@ import org.springframework.samples.petclinic.rest.dto.PetTypeDto;
 
 import java.util.List;
 
-@Mapper(uses = VisitMapper.class)
+@Mapper(componentModel = "spring", uses = VisitMapper.class)
 public interface PetMapper {
 
     @Mapping(source = "owner.id", target = "ownerId")

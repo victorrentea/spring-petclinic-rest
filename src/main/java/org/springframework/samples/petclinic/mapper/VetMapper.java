@@ -8,7 +8,7 @@ import org.springframework.samples.petclinic.rest.dto.VetFieldsDto;
 
 import java.util.List;
 
-@Mapper(uses = SpecialtyMapper.class)
+@Mapper(componentModel = "spring", uses = SpecialtyMapper.class)
 public interface VetMapper {
     Vet toVet(VetDto vetDto);
 
