@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WithMockUser(roles = "ADMIN")
 @Transactional
-public class UserApiTest {
+public class UserTest {
 
     @Autowired
     MockMvc mockMvc;

@@ -12,13 +12,13 @@ import lombok.Data;
 public class VetDto {
 
     @NotNull
-    @Pattern(regexp = "^[\\p{L}]+([ '-][\\p{L}]+){0,2}$")
+    @Pattern(regexp = "^\\p{L}+([ '-][\\p{L}]+){0,2")
     @Size(min = 1, max = 30)
     @Schema(example = "James", description = "The first name of the vet.")
     private String firstName;
 
     @NotNull
-    @Pattern(regexp = "^[\\p{L}]+([ '-][\\p{L}]+){0,2}\\.?$")
+    @Pattern(regexp = "^\\p{L}+([ '-][\\p{L}]+){0,2}\\.")
     @Size(min = 1, max = 30)
     @Schema(example = "Carter", description = "The last name of the vet.")
     private String lastName;

@@ -13,8 +13,6 @@ public interface OwnerMapper {
 
     OwnerDto toOwnerDto(Owner owner);
 
-    Owner toOwner(OwnerDto ownerDto);
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "pets", ignore = true)
     Owner toOwner(OwnerFieldsDto ownerDto);

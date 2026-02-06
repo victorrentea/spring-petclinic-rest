@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WithMockUser(roles = "OWNER_ADMIN")
 @Transactional
-public class VisitApiTest {
+public class VisitTest {
 
     @Autowired
     MockMvc mockMvc;

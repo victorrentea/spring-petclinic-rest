@@ -17,6 +17,6 @@ public class TestData {
         return new Pet()
 //            .setId(1)
             .setName("Leo")
-            .setBirthDate(PetApiTest.BIRTH_DATE);
+            .setBirthDate(PetTest.BIRTH_DATE);
     }
 }

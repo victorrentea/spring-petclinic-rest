@@ -12,18 +12,8 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "user", ignore = true)
-    Role toRole(RoleDto roleDto);
-
-    RoleDto toRoleDto(Role role);
-
-    List<RoleDto> toRoleDtos(List<Role> roles);
-
     User toUser(UserDto userDto);
 
     UserDto toUserDto(User user);
-
-    List<Role> toRoles(List<RoleDto> roleDtos);
 
 }

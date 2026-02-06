@@ -44,11 +44,4 @@ public class PetDto {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Vet visit bookings for this pet.", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<VisitDto> visits = new ArrayList<>();
 
-    public PetDto addVisitsItem(VisitDto visitsItem) {
-        if (this.visits == null) {
-            this.visits = new ArrayList<>();
-        }
-        this.visits.add(visitsItem);
-        return this;
-    }
 }

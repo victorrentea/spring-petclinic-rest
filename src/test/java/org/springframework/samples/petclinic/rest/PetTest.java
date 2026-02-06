@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WithMockUser(roles = "OWNER_ADMIN")
 @Transactional
-public class PetApiTest {
+public class PetTest {
     public static final LocalDate BIRTH_DATE = LocalDate.of(2010, 10, 10);
     @Autowired
     MockMvc mockMvc;

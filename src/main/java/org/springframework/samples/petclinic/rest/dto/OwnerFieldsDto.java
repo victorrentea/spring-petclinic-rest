@@ -10,13 +10,13 @@ import lombok.Data;
 public class OwnerFieldsDto {
 
     @NotNull
-    @Pattern(regexp = "^[\\p{L}]+([ '-][\\p{L}]+){0,2}$")
+    @Pattern(regexp = "^\\p{L}+([ '-]\\p{L}+){0,2}$")
     @Size(min = 1, max = 30)
     @Schema(example = "George", description = "The first name of the pet owner.")
     private String firstName;
 
     @NotNull
-    @Pattern(regexp = "^[\\p{L}]+([ '-][\\p{L}]+){0,2}\\.?$")
+    @Pattern(regexp = "^\\p{L}+([ '-]\\p{L}+){0,2}\\.?$")
     @Size(min = 1, max = 30)
     @Schema(example = "Franklin", description = "The last name of the pet owner.")
     private String lastName;

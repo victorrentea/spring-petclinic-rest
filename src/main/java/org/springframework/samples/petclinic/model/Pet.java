@@ -16,7 +16,6 @@ import java.util.*;
 @Getter
 @Setter
 public class Pet {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;

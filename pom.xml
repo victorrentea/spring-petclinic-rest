@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+        <version>3.5.10</version>
         <relativePath/> <!-- lookup parent from Maven repository -->
     </parent>
 
@@ -20,17 +20,9 @@
         <!-- Third-party libraries -->
         <mapstruct.version>1.6.3</mapstruct.version>
 
-        <docker.image.prefix>springcommunity</docker.image.prefix>
-
         <!-- SonarQube configuration -->
         <sonar.organization>spring-petclinic-rest</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-
-        <!-- JaCoCo coverage properties -->
-        <jacoco.report.dir>${project.build.directory}/site/jacoco</jacoco.report.dir>
-        <jacoco.enforce>false</jacoco.enforce>
-        <jacoco.line.coverage.minimum>0.85</jacoco.line.coverage.minimum>
-
     </properties>
 
     <dependencies>
@@ -46,7 +38,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -82,6 +73,22 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- Test libs -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -93,22 +100,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <!-- Lombok for constructor generation (@RequiredArgsConstructor) -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -116,40 +107,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <annotationProcessorPaths>
-                                <path>
-                                    <groupId>org.projectlombok</groupId>
-                                    <artifactId>lombok</artifactId>
-                                </path>
-                                <path>
-                                    <groupId>org.mapstruct</groupId>
-                                    <artifactId>mapstruct-processor</artifactId>
-                                    <version>${mapstruct.version}</version>
-                                </path>
-                            </annotationProcessorPaths>
-                            <compilerArgs>
-                                <compilerArg>
-                                    -Amapstruct.suppressGeneratorTimestamp=true
-                                </compilerArg>
-                                <compilerArg>
-                                    -Amapstruct.suppressGeneratorVersionInfoComment=true
-                                </compilerArg>
-                                <compilerArg>
-                                    -Amapstruct.defaultComponentModel=spring
-                                </compilerArg>
-                            </compilerArgs>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
