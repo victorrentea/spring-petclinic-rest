@@ -25,7 +25,10 @@ public class Vet {
     protected String lastName;
 
     @ManyToMany
-    @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"), inverseJoinColumns = @JoinColumn(name = "specialty_id"))
+    @JoinTable(name = "vet_specialties",
+        joinColumns = @JoinColumn(name = "vet_id"),
+        inverseJoinColumns = @JoinColumn(name = "specialty_id"),
+        uniqueConstraints = @UniqueConstraint(columnNames = {"specialty_id", "vet_id"}))
     private List<Specialty> specialties = new ArrayList<>();
 
 
